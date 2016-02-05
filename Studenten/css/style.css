@@ -21,9 +21,6 @@ iframe{
 	position: fixed;
 }
 
-tr:hover{
-	background-color: #EEEEEE;
-}
 .small{
 	cursor:pointer;
 }
@@ -58,6 +55,7 @@ Primary use:	CV/Resume, Portfolio, Perosnal Website
         11.1.  CLIENTS LOGO
     12. CONTACT
     13. INTEREST
+	14. LOGIN PAGE
 */
 /*
 |----------------------------------------------------------------------------
@@ -100,9 +98,10 @@ Primary use:	CV/Resume, Portfolio, Perosnal Website
 | FORMATING
 |---------------------------------------------------------------------------- 
 */
-.row {
-  margin-bottom: 0px;
+.margin {
+    margin: 0 !important;
 }
+
 .btn {
   display: inline-block;
   margin: 0.3em;
@@ -244,7 +243,7 @@ h1 {
 |---------------------------------------------------------------------------- 
 */
 #header-bottom {
-  background-color: #2196f3;
+  background-color: #0F7ED6;
   padding-top: 50px;
   z-index: 9999;
 }
@@ -761,14 +760,14 @@ nav ul li:hover:before {
   color: #8a8a8b;
 }
 .quates .thumbnail p:before {
-  content: "ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ ";
+  content: "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ ";
   font-size: 30px;
   line-height: 0;
   display: inline-block;
   margin: 0 0 0 4px;
 }
 .quates .thumbnail p:after {
-  content: "ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â";
+  content: "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â";
   font-size: 30px;
   line-height: 0;
   display: inline-block;
@@ -1080,4 +1079,25 @@ textarea.materialize-textarea:focus:not([readonly]) {
   .cbp-rfgrid li {
     width: 100%;
   }
+}
+/*----------------------------------------
+    Login Page
+------------------------------------------*/
+
+.login-form {
+  width: 280px;  
+}
+.login-form-text{
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+}
+.profile-image-login{
+  width: 100px;
+  height: 100px !important;
+}
+
+.login-text {
+  margin-top: -6px;
+  margin-left: -6px !important;
 }
