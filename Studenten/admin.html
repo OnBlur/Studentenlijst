@@ -13,216 +13,283 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="css/style.css">
 		
-		<title>Studenten Lijst</title>
+		<title>Admin Pagina</title>
 	</head>
-<body>
-	<header id="header-top">
-		<div id="header-bottom" class="z-depth-1">
+	<body>
+		<header id="header-top">
+			<div id="header-bottom" class="z-depth-1">
+				<div class="container">
+				</div>
+			</div>
+		</header>
+		<section id="table" class="section">
 			<div class="container">
-			</div>
-		</div>
-	</header>
-	<section id="about" class="section">
-		<div class="container">
-			<div class="row z-depth-1 hoverable">
-				<div class="intro col m12 s12">
-					<div class="input-field col m6">
-						<input id="search" type="text" class="validate">
-						<label for="search">Zoeken</label>
-					</div>
-					<div class="input-field right col m6">
-						<i href="#modal2" class="small right mdi-action-delete modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Verwijderen"></i>
-						<i class="small right mdi-editor-mode-edit tooltipped" data-position="bottom" data-delay="50" data-tooltip="Aanpassen"></i></a>
-					</div>
-					<div id="modal2" class="modal">
-						<div class="modal-content">
-							<h4>Verwijderen</h4>
-							<p>Weet je zeker dat je deze velden wilt Verwijderenen?</p>
+				<div class="row z-depth-1 hoverable">
+					<div class="intro col s12 m12">
+						<div class="input-field col m6">
+							<input id="search" type="text" class="validate">
+							<label for="search">Zoeken</label>
 						</div>
-						<div class="modal-footer">
-							<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Nee</a>
-							<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Ja</a>
+						<div class="input-field right col m6">
+							<i href="#modal2" class="small right mdi-action-delete modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Verwijderen"></i>
+							<i class="small right mdi-editor-mode-edit tooltipped" data-position="bottom" data-delay="50" data-tooltip="Aanpassen"></i></a>
 						</div>
-					</div>
-				</div>
-				<div class="intro col s12 m12">
-					<div class="col m12 s12">
-						<table id="myTable" class="tablesorter bordered centered responsive-table">
-							<thead>
-							  <tr>
-								<th data-field="name"><input type="checkbox" class="filled-in" id="filled-in-box"><label for="filled-in-box"></label></th>
-								<th data-field="name">Voornaam</th>
-								<th data-field="lastname">Achternaam</th>
-								<th data-field="name">Username</th>
-								<th data-field="name">E-mail</th>
-								<th data-field="rights">Rechten</th>
-								<th data-field="status">Status</th>
-							  </tr>
-							</thead>
+						<div class="col m12 s12">
+							<table id="usersTable" class="tablesorter bordered striped centered responsive-table">
+								<thead>
+								  <tr>
+									<th data-field="name"><input type="checkbox" class="filled-in" id="filled-in-box"><label for="filled-in-box"></label></th>
+									<th data-field="name">Voornaam</th>
+									<th data-field="lastname">Achternaam</th>
+									<th data-field="name">Username</th>
+									<th data-field="name">E-mail</th>
+									<th data-field="rights">Rechten</th>
+									<th data-field="status">Status</th>
+								  </tr>
+								</thead>
 
-							<tbody>
-							  <tr>
-								<td><input type="checkbox" class="filled-in" id="filled-in-box1"><label for="filled-in-box1"></label></td>
-								<td>Misha</td>
-								<td>Lashkov</td>
-								<td>lash1500</td>
-								<td><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></td>
-								<td>Admin</td>
-								<td>
-									<div class="switch">
-										<label>
-											Off
-											<input type="checkbox" checked="checked">
-											<span class="lever"></span> On
-										</label>
-									</div>
-								</td>
-							  </tr>
-							  <tr>
-								<td><input type="checkbox" class="filled-in" id="filled-in-box2"><label for="filled-in-box2"></label></td>
-								<td>Bob</td>
-								<td>de Boer</td>
-								<td>boer1500</td>
-								<td><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></td>
-								<td>Leraar</td>
-								<td>
-									<div class="switch">
-										<label>
-											Off
-											<input type="checkbox">
-											<span class="lever"></span> On
-										</label>
-									</div>
-								</td>
-							  </tr>
-							  <tr>
-								<td><input type="checkbox" class="filled-in" id="filled-in-box3"><label for="filled-in-box3"></label></td>
-								<td>Henk</td>
-								<td>Sloot</td>
-								<td>sloo1500</td>
-								<td><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></td>
-								<td>Leraar</td>
-								<td>
-									<div class="switch">
-										<label>
-											Off
-											<input type="checkbox" checked="checked">
-											<span class="lever"></span> On
-										</label>
-									</div>
-								</td>
-							  </tr>
-							  <tr>
-								<td><input type="checkbox" class="filled-in" id="filled-in-box4"><label for="filled-in-box4"></label></td>
-								<td>Willem</td>
-								<td>Oost</td>
-								<td>oost1500</td>
-								<td><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></td>
-								<td>Leraar</td>
-								<td>
-									<div class="switch">
-										<label>
-											Off
-											<input type="checkbox" checked="checked">
-											<span class="lever"></span> On
-										</label>
-									</div>
-								</td>
-							  </tr>
-							</tbody>
-						</table>
+								<tbody>
+								  <tr>
+									<td><input type="checkbox" class="filled-in" id="filled-in-box1"><label for="filled-in-box1"></label></td>
+									<td>Misha</td>
+									<td>Lashkov</td>
+									<td>lash1500</td>
+									<td><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></td>
+									<td>Admin</td>
+									<td>
+										<div class="switch">
+											<label>
+												Off
+												<input type="checkbox" checked="checked">
+												<span class="lever"></span> On
+											</label>
+										</div>
+									</td>
+								  </tr>
+								  <tr>
+									<td><input type="checkbox" class="filled-in" id="filled-in-box2"><label for="filled-in-box2"></label></td>
+									<td>Bob</td>
+									<td>de Boer</td>
+									<td>boer1500</td>
+									<td><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></td>
+									<td>User</td>
+									<td>
+										<div class="switch">
+											<label>
+												Off
+												<input type="checkbox">
+												<span class="lever"></span> On
+											</label>
+										</div>
+									</td>
+								  </tr>
+								  <tr>
+									<td><input type="checkbox" class="filled-in" id="filled-in-box3"><label for="filled-in-box3"></label></td>
+									<td>Henk</td>
+									<td>Sloot</td>
+									<td>sloo1500</td>
+									<td><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></td>
+									<td>User</td>
+									<td>
+										<div class="switch">
+											<label>
+												Off
+												<input type="checkbox" checked="checked">
+												<span class="lever"></span> On
+											</label>
+										</div>
+									</td>
+								  </tr>
+								  <tr>
+									<td><input type="checkbox" class="filled-in" id="filled-in-box4"><label for="filled-in-box4"></label></td>
+									<td>Willem</td>
+									<td>Oost</td>
+									<td>oost1500</td>
+									<td><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></td>
+									<td>User</td>
+									<td>
+										<div class="switch">
+											<label>
+												Off
+												<input type="checkbox" checked="checked">
+												<span class="lever"></span> On
+											</label>
+										</div>
+									</td>
+								  </tr>
+								</tbody>
+							</table>
+							<div class="col m12 s12">
+								<ul class="pagination">
+									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
+									<li class="waves-effect active"><a href="#!">1</a></li>
+									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="intro col m12 s12">
-					<ul class="pagination right">
-						<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
-						<li class="active"><a href="#!">1</a></li>
-						<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
-					</ul>
-				</div>
 			</div>
-			<div class="fixed-action-btn">
-				<a class="btn-floating btn-large red modal-trigger" href="#modal1">
-					<i class="right mdi-content-add activator"></i></a>
-				</a>
-				<ul>
-					<li><a class="btn-floating red" href="studenten.html" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-face-unlock tooltipped" data-position="left" data-delay="50" data-tooltip="Studenten"></i></a>
-					</li>
-					<li><a class="btn-floating yellow darken-1" href="admin.html" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-face-unlock tooltipped" data-position="left" data-delay="50" data-tooltip="admin"></i></a>
-					</li>
-					<li><a class="btn-floating green" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-editor-publish"></i></a>
-					</li>
-					<li><a class="btn-floating blue" href="../Studenten/" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-exit-to-app tooltipped" data-position="left" data-delay="50" data-tooltip="Log uit"></i></a>
-					</li>
-				</ul>
-			</div>
-			<div id="modal1" class="modal modal-fixed-footer">
-				<div class="modal-content">
-				  <h4>Toevoegen</h4>
-					<div class="row">
-						<form class="col s12">
-							<div class="row margin">
-							  <div class="input-field col s6">
-								<input id="first_name" type="text" class="validate">
-								<label for="first_name">Voornaam</label>
-							  </div>
-							  <div class="input-field col s6">
-								<input id="last_name" type="text" class="validate">
-								<label for="last_name">Achternaam</label>
-							  </div>
+		</section>
+		<section id="chart" class="section">
+			<div class="container">
+				<div class="row z-depth-1 hoverable">
+					<div class="intro col s12 m12">
+						<div class="input-field col m6">
+							<input id="search" type="text" class="validate">
+							<label for="search">Zoeken</label>
+						</div>
+						<div class="input-field right col m6">
+							<i href="#modal2" class="small right mdi-action-delete modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Verwijderen"></i>
+						</div>
+						<div class="col m12 s12">
+							<table id="logTable" class="tablesorter bordered striped centered responsive-table">
+								<thead>
+								  <tr>
+									<th data-field="checkbox"><input type="checkbox" class="filled-in" id="filled-in-box"><label for="filled-in-box"></label></th>
+									<th data-field="action">Action</th>
+									<th data-field="target">Target</th>
+									<th data-field="username">User</th>
+									<th data-field="time">Time</th>
+								  </tr>
+								</thead>
+
+								<tbody>
+								  <tr>
+									<td><input type="checkbox" class="filled-in" id="filled-in-box1"><label for="filled-in-box1"></label></td>
+									<td>Edit student</td>
+									<td>Haico Noord</td>
+									<td>boer1500</td>
+									<td>2014-12-19 20:47:55</td>
+								  </tr>
+								  <tr>
+									<td><input type="checkbox" class="filled-in" id="filled-in-box2"><label for="filled-in-box2"></label></td>
+									<td>Edit student</td>
+									<td>Willem Oost</td>
+									<td>boer1500</td>
+									<td>2014-12-19 20:44:32</td>
+								  </tr>
+								  <tr>
+									<td><input type="checkbox" class="filled-in" id="filled-in-box3"><label for="filled-in-box3"></label></td>
+									<td>Add student</td>
+									<td>Natalia Grasmijer</td>
+									<td>sloo1500</td>
+									<td>2014-12-19 20:39:41</td>
+								  </tr>
+								  <tr>
+									<td><input type="checkbox" class="filled-in" id="filled-in-box4"><label for="filled-in-box4"></label></td>
+									<td>Delete student</td>
+									<td>Danny Kelin</td>
+									<td>oost1500</td>
+									<td>2014-12-19 20:37:09</td>
+								  </tr>
+								</tbody>
+							</table>
+							<div class="col m12 s12">
+								<ul class="pagination">
+									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
+									<li class="waves-effect active"><a href="#!">1</a></li>
+									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
+								</ul>
 							</div>
-							<div class="row margin">
-							  <div class="input-field col s6">
-								<input id="username" type="text" class="validate">
-								<label for="username">Username</label>
-							  </div>
-							  <div class="input-field col s6">
-								<input id="password" type="text" class="validate">
-								<label for="password">Wachtwoord</label>
-							  </div>
-							</div>
-							<div class="row margin">
-							  <div class="input-field col s12">
-								<input id="email" type="email" class="validate">
-								<label for="email">E-mail</label>
-							  </div>
-							</div>
-							<div class="row margin">
-								<div class="input-field col s12">
-									<select>
-										<option value="" disabled>Kies een rol</option>
-										<option value="1">Leraar</option>
-										<option value="2">Admin</option>
-									</select>
-									<label>Rechten</label>
-								</div>
-							</div>
-							<div class="row margin">
-							  <div class="input-field col s12">
-								<div class="switch">
-									<label>
-										<a>Status account: </a> Off
-										<input type="checkbox" checked="checked">
-										<span class="lever"></span> On
-									</label>
-								</div>
-							  </div>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
-					<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Add</a>
+			</div>
+		</section>
+		<!-- plus button en de bovenliggende -->
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large red modal-trigger" href="#modal1">
+				<i class="right mdi-content-add activator"></i></a>
+			</a>
+			<ul>
+				<li><a class="btn-floating red" href="studenten.html" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-face-unlock tooltipped" data-position="left" data-tooltip="Studenten"></i></a>
+				</li>
+				<li><a class="btn-floating yellow darken-1" href="admin.html" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-settings tooltipped" data-position="left" data-tooltip="admin"></i></a>
+				</li>
+				<li><a class="btn-floating green" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-editor-publish"></i></a>
+				</li>
+				<li><a class="btn-floating blue" href="../Studenten/" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-exit-to-app tooltipped" data-position="left" data-tooltip="Log uit"></i></a>
+				</li>
+			</ul>
+		</div>
+		<!-- Toevoegen van gebruikers dialog -->
+		<div id="modal1" class="modal center">
+			<div class="modal-content">
+			  <h4>Gebruiker toevoegen</h4>
+				<div class="row">
+					<form class="col s12">
+						<div class="row margin">
+						  <div class="input-field col s6">
+							<input id="first_name" type="text" class="validate">
+							<label for="first_name">Voornaam</label>
+						  </div>
+						  <div class="input-field col s6">
+							<input id="last_name" type="text" class="validate">
+							<label for="last_name">Achternaam</label>
+						  </div>
+						</div>
+						<div class="row margin">
+						  <div class="input-field col s6">
+							<input id="username" type="text" class="validate">
+							<label for="username">Username</label>
+						  </div>
+						  <div class="input-field col s6">
+							<input id="password" type="text" class="validate">
+							<label for="password">Wachtwoord</label>
+						  </div>
+						</div>
+						<div class="row margin">
+						  <div class="input-field col s12">
+							<input id="email" type="email" class="validate">
+							<label for="email">E-mail</label>
+						  </div>
+						</div>
+						<div class="row margin">
+							<div class="input-field col s12">
+								<select>
+									<option value="" disabled>Kies een rol</option>
+									<option value="1">User</option>
+									<option value="2">Admin</option>
+								</select>
+								<label>Rechten</label>
+							</div>
+						</div>
+						<div class="row margin">
+						  <div class="input-field col s12">
+							<div class="switch">
+								<label>
+									<a>Status account: </a> Off
+									<input type="checkbox" checked="checked">
+									<span class="lever"></span> On
+								</label>
+							</div>
+						  </div>
+						</div>
+					</form>
 				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Add</a>
 			</div>
 		</div>
-	</section>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="js/materialize.min.js"></script>
-	<script src="js/init.js"></script>
-	<script src="js/sticky.min.js"></script>
-	<script src="js/validator.min.js"></script>
-	<script src="js/jquery.tablesorter.js"></script>
-</body>
+		<!-- Alert als je het geselecteerde tabel echt wilt verwijderen dialog -->
+		<div id="modal2" class="modal center">
+			<div class="modal-content">
+				<h4>Verwijderen</h4>
+				<p>Weet je zeker dat je deze velden wilt Verwijderenen?</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Nee</a>
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Ja</a>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="js/materialize.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/sticky.min.js"></script>
+		<script src="js/validator.min.js"></script>
+		<script src="js/jquery.tablesorter.js"></script>
+	</body>
 </html>

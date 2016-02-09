@@ -17,7 +17,9 @@
 	$('.dropdown-button').dropdown({hover: false});
     $('.button-collapse').sideNav({'edge': 'left'});
 	$('.materialboxed').materialbox();
-	$("#myTable").tablesorter(); 
+	$("#studentsTable").tablesorter();
+	$("#usersTable").tablesorter(); 
+	$("#logTable").tablesorter(); 
 	$('.modal-trigger').leanModal();
 	$('.datepicker').pickadate();
 	$('.tooltipped').tooltip({delay: 50});
