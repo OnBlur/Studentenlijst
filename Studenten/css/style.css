@@ -4,21 +4,8 @@ i {
 .section .table-of-contents{
 	position: fixed;
 }
-.more{
-	background: no-repeat url(../img/contacts-plus-514522c0850ba14f154beaa2a65142bf.png) 0 -741px;
-    height: 18px;
-    width: 18px;
-	opacity:.55;
-	cursor:pointer;
-}
-.more:hover{
-	opacity:1;
-}
 .small{
 	cursor:pointer;
-	opacity:.55;
-}
-.small{
 	opacity:.55;
 }
 .small:hover{
@@ -26,55 +13,39 @@ i {
 }
 .card-profile-image {
     cursor: pointer;
-    width: 50px;
+    width: 60px;
     margin-bottom: 0px;
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
 }
-.btn-floating i {
-    line-height: 0px;
-}
 .modal {
     width: 45%;
 	border-radius: 0px;
 }
-#modal3{
-	background-color:#EEE;
+address{
+	font-style: normal;
 }
-.information{
-	display: table;
-    table-layout: fixed;
-    width: 100%;
+#toast-container {
+    min-width: 8%;
+    bottom: 3%;
+    left: 1%;
+	top: inherit;
+    right: inherit;
 }
-.information-section{
-	display: table-row;
+.chip{
+	margin-left:5px;
+	border-radius: 0px;
 }
-.left-information{
-	color: #000000;
-	display: table-row;
-    -webkit-box-sizing: border-box;
-    /* box-sizing: border-box; */
-    display: table-cell;
-    overflow: hidden;
-    padding: 10px 4px;
-    text-overflow: ellipsis;
-    vertical-align: top;
-    white-space: nowrap;
+.user{
+	-webkit-border-top-left-radius: 25px;
+	-webkit-border-bottom-left-radius: 25px;
+	-moz-border-radius-topleft: 25px;
+	-moz-border-radius-bottomleft: 25px;
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
 }
-.rigth-information{
-	display: table-row;
-    color: #666;
-    width: 30%;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    display: table-cell;
-    overflow: hidden;
-    padding: 10px 4px;
-    text-overflow: ellipsis;
-    vertical-align: top;
-    white-space: nowrap;
-}
+
 /*------------------------------------------------------------------
 [Master Stylesheet]
 Project:	    Matarial CV/Resume Template 
@@ -87,7 +58,6 @@ Primary use:	CV/Resume, Portfolio, Perosnal Website
 | CSS INDEX
 |----------------------------------------------------------------------------
     1. STYLESHEET
-        1-1. COMPONENTS
         1-2. TYPOGRAPHY
         1.3. BODY
     2. HEADER TOP
@@ -107,43 +77,7 @@ Primary use:	CV/Resume, Portfolio, Perosnal Website
     12. CONTACT
     13. INTEREST
 	14. LOGIN PAGE
-*/
-/*
-|----------------------------------------------------------------------------
-| COMPONENTS
-|----------------------------------------------------------------------------*/
-/* wow animation */
-.a1 {
-  visibility: visible;
-  -webkit-animation-delay: 0.1s;
-  -moz-animation-delay: 0.1s;
-  animation-delay: 0.1s;
-}
-.a2 {
-  visibility: visible;
-  -webkit-animation-delay: 0.2s;
-  -moz-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-.a3 {
-  visibility: visible;
-  -webkit-animation-delay: 0.3s;
-  -moz-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-.a4 {
-  visibility: visible;
-  -webkit-animation-delay: 0.4s;
-  -moz-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-.a5 {
-  visibility: visible;
-  animation-delay: 0.5s;
-  -webkit-animation-delay: 0.5s;
-  animation-name: fadeIn;
-  -webkit-animation-name: fadeIn;
-}
+	15. MORE INFORMATION DIALOG
 /*
 |----------------------------------------------------------------------------
 | FORMATING
@@ -178,6 +112,9 @@ Primary use:	CV/Resume, Portfolio, Perosnal Website
   -moz-box-shodew: 0 5px 13px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
   -webkit-box-shodow: 0 5px 13px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
   -o-box-shodow: 0 5px 13px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+.btn-floating i {
+    line-height: 0px;
 }
 * {
   font-family: 'Roboto', sans-serif;
@@ -288,6 +225,13 @@ h1 {
 #header-top .top-contact span a {
   color: #000;
 }
+.header-top-logo{
+	color: #fff;
+    display: inline-block;
+    padding-top: 0px;
+    position: relative;
+    font-size: 20px;
+}
 /*
 |----------------------------------------------------------------------------
 | HEADER BOTTOM
@@ -295,7 +239,8 @@ h1 {
 */
 #header-bottom {
   background-color: #0F7ED6;
-  padding-top: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   z-index: 9999;
 }
 #header-bottom .row {
@@ -357,7 +302,7 @@ nav ul li:hover:before {
 |----------------------------------------------------------------------------
 */
 #table {
-  margin-top: -140px;
+  margin-top: -155px;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -425,6 +370,30 @@ nav ul li:hover:before {
 #table .intro-content .btn-success {
   background-color: #38de8a;
   border-color: inherit;
+}
+.image-table{
+	padding-top:5px;
+	padding-bottom:5px;
+}
+th.header { 
+    background-image: url(../img/table/bg.gif); 
+    cursor: pointer; 
+    font-weight: bold; 
+    background-repeat: no-repeat; 
+    background-position: right;
+} 
+th.headerSortUp { 
+    background-image: url(../img/table/asc.gif); 
+    background-color: #E3E3E3;
+} 
+th.headerSortDown { 
+	background-image: url(../img/table/desc.gif);
+    background-color: #E3E3E3;
+}
+@media screen and (max-width: 1500px) {
+	th.header {
+		padding-right: 20px;
+	} 
 }
 /*
 |----------------------------------------------------------------------------
@@ -500,37 +469,7 @@ nav ul li:hover:before {
   background-color: #38de8a;
   border-color: inherit;
 }
-/*
-|----------------------------------------------------------------------------
-| COMMENT
-|----------------------------------------------------------------------------
-*/
-.comment {
-  background-color: #fff;
-  margin-top: 20px;
-}
-.comment .comment-img {
-  padding: 10px;
-}
-.comment .comment-details {
-  padding: 10px;
-}
-.comment .comment-details h4 {
-  margin: 0px;
-}
-.comment .comment-details span {
-  font-size: 9pt;
-  line-height: 17pt;
-}
-.comment-form {
-  padding: 30px !important;
-  margin: 20px 0px;
-  background-color: #fff;
-  text-align: left;
-}
-.comment-form .btn {
-  text-align: center;
-}
+
 /*
 |----------------------------------------------------------------------------
 | CONTATCT FORM
@@ -627,11 +566,11 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .btn {
   margin-left: 10px;
   padding: 0px 30px;
-  background-color: #2196f3;
+  background-color: #ff4081;
 }
 .btn:hover,
 .btn:focus {
-  background-color: #2196f3;
+  background-color: #ff4081;
 }
 .email-success,
 .email-failed {
@@ -671,19 +610,70 @@ textarea.materialize-textarea:focus:not([readonly]) {
 ------------------------------------------*/
 
 .login-form {
-  width: 280px;  
+	width: 280px;  
 }
 .login-form-text{
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 0.8rem;
 }
 .profile-image-login{
-  width: 100px;
-  height: 100px !important;
+	/* width: 100px; */
+	height: 100px !important;
 }
 
 .login-text {
-  margin-top: -6px;
-  margin-left: -6px !important;
+	margin-top: -6px;
+	margin-left: -6px !important;
+}
+/*----------------------------------------
+    MORE INFORMATION DIALOG
+------------------------------------------*/
+.more{
+	background: no-repeat url(../img/table/table-plus.png) 0 -741px;
+    height: 18px;
+    width: 18px;
+	opacity:.55;
+	cursor:pointer;
+}
+.more:hover{
+	opacity:1;
+}
+.information{
+	display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+.information-section{
+	display: table-row;
+}
+.left-information{
+	color: #000000;
+	display: table-row;
+    -webkit-box-sizing: border-box;
+    /* box-sizing: border-box; */
+    display: table-cell;
+    overflow: hidden;
+    padding: 10px 4px;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.rigth-information{
+	display: table-row;
+    color: #666;
+    width: 35%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: table-cell;
+    overflow: hidden;
+    padding: 10px 4px;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+}
+@media screen and (max-width: 1410px) {
+	.meer-header, .meer-pers-info, .meer-studie-info {
+		width: 100% !important;
+	}
 }

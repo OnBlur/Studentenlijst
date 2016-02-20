@@ -7,7 +7,7 @@
 		<meta name="keywords" content="NHL, nhl hoogeschool, studentenlijst">
 		<meta name="author" content="">
 		
-		<link rel="shortcut icon" type="image/png" href="img/nhl.ico"/>
+		<link rel="shortcut icon" type="image/png" href="img/favicon.ico"/>
 		
 		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -19,6 +19,20 @@
 		<header id="header-top">
 			<div id="header-bottom" class="z-depth-1">
 				<div class="container">
+					<div class="row col s12 m12">
+						<div class="col m6 right">
+							<div class="chip hoverable right">
+								ADMIN
+							</div>
+							<div class="chip user hoverable right">
+								<img src="img/leerlingen/lash1500.jpg" alt="Contact Person">
+								michakiber1@gmail.com
+							</div>
+						</div>
+						<div class="col m6 left">
+							<a href="#"><span class="header-top-logo">Studentenoverzicht</span></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</header>
@@ -26,19 +40,14 @@
 			<div class="container">
 				<div class="row z-depth-1 hoverable">
 					<div class="intro col s12 m12">
-						<div class="input-field col m6">
+						<div class="input-field margin col m6">
 							<input id="search" type="text" class="validate">
 							<label for="search">Zoeken</label>
-						</div>
-						<div class="input-field right col m6">
-							<i href="#modal2" class="small right mdi-action-delete modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Verwijderen"></i>
-							<i class="small right mdi-editor-mode-edit tooltipped" data-position="bottom" data-delay="50" data-tooltip="Aanpassen"></i></a>
 						</div>
 						<div class="col m12 s12">
 							<table id="usersTable" class="tablesorter bordered striped centered responsive-table">
 								<thead>
 								  <tr>
-									<th data-field="name"><input type="checkbox" class="filled-in" id="filled-in-box"><label for="filled-in-box"></label></th>
 									<th data-field="name">Voornaam</th>
 									<th data-field="lastname">Achternaam</th>
 									<th data-field="name">Username</th>
@@ -50,7 +59,6 @@
 
 								<tbody>
 								  <tr>
-									<td><input type="checkbox" class="filled-in" id="filled-in-box1"><label for="filled-in-box1"></label></td>
 									<td>Misha</td>
 									<td>Lashkov</td>
 									<td>lash1500</td>
@@ -65,9 +73,9 @@
 											</label>
 										</div>
 									</td>
+									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td><input type="checkbox" class="filled-in" id="filled-in-box2"><label for="filled-in-box2"></label></td>
 									<td>Bob</td>
 									<td>de Boer</td>
 									<td>boer1500</td>
@@ -82,9 +90,9 @@
 											</label>
 										</div>
 									</td>
+									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td><input type="checkbox" class="filled-in" id="filled-in-box3"><label for="filled-in-box3"></label></td>
 									<td>Henk</td>
 									<td>Sloot</td>
 									<td>sloo1500</td>
@@ -99,9 +107,9 @@
 											</label>
 										</div>
 									</td>
+									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td><input type="checkbox" class="filled-in" id="filled-in-box4"><label for="filled-in-box4"></label></td>
 									<td>Willem</td>
 									<td>Oost</td>
 									<td>oost1500</td>
@@ -116,11 +124,12 @@
 											</label>
 										</div>
 									</td>
+									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								</tbody>
 							</table>
 							<div class="col m12 s12">
-								<ul class="pagination">
+								<ul class="pagination right">
 									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
 									<li class="waves-effect active"><a href="#!">1</a></li>
 									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
@@ -139,14 +148,10 @@
 							<input id="search" type="text" class="validate">
 							<label for="search">Zoeken</label>
 						</div>
-						<div class="input-field right col m6">
-							<i href="#modal2" class="small right mdi-action-delete modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Verwijderen"></i>
-						</div>
 						<div class="col m12 s12">
 							<table id="logTable" class="tablesorter bordered striped centered responsive-table">
 								<thead>
 								  <tr>
-									<th data-field="checkbox"><input type="checkbox" class="filled-in" id="filled-in-box"><label for="filled-in-box"></label></th>
 									<th data-field="action">Action</th>
 									<th data-field="target">Target</th>
 									<th data-field="username">User</th>
@@ -156,37 +161,37 @@
 
 								<tbody>
 								  <tr>
-									<td><input type="checkbox" class="filled-in" id="filled-in-box1"><label for="filled-in-box1"></label></td>
 									<td>Edit student</td>
 									<td>Haico Noord</td>
 									<td>boer1500</td>
 									<td>2014-12-19 20:47:55</td>
+									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td><input type="checkbox" class="filled-in" id="filled-in-box2"><label for="filled-in-box2"></label></td>
 									<td>Edit student</td>
 									<td>Willem Oost</td>
 									<td>boer1500</td>
 									<td>2014-12-19 20:44:32</td>
+									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td><input type="checkbox" class="filled-in" id="filled-in-box3"><label for="filled-in-box3"></label></td>
 									<td>Add student</td>
 									<td>Natalia Grasmijer</td>
 									<td>sloo1500</td>
 									<td>2014-12-19 20:39:41</td>
+									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td><input type="checkbox" class="filled-in" id="filled-in-box4"><label for="filled-in-box4"></label></td>
 									<td>Delete student</td>
 									<td>Danny Kelin</td>
 									<td>oost1500</td>
 									<td>2014-12-19 20:37:09</td>
+									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								</tbody>
 							</table>
 							<div class="col m12 s12">
-								<ul class="pagination">
+								<ul class="pagination right">
 									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
 									<li class="waves-effect active"><a href="#!">1</a></li>
 									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
@@ -197,9 +202,15 @@
 				</div>
 			</div>
 		</section>
+		<ul id="meer-dropdown" class="dropdown-content">
+			<li><a href="#modal-add" class="-text modal-trigger">Aanpassen</a>
+			</li>
+			<li><a href="#modal-delete" class="-text modal-trigger">Verwijderen</a>
+			</li>
+		</ul>
 		<!-- plus button en de bovenliggende -->
 		<div class="fixed-action-btn">
-			<a class="btn-floating btn-large red modal-trigger" href="#modal1">
+			<a class="btn-floating btn-large red modal-trigger" href="#modal-add">
 				<i class="right mdi-content-add activator"></i></a>
 			</a>
 			<ul>
@@ -214,11 +225,11 @@
 			</ul>
 		</div>
 		<!-- Toevoegen van gebruikers dialog -->
-		<div id="modal1" class="modal center">
+		<div id="modal-add" class="modal center">
 			<div class="modal-content">
 			  <h4>Gebruiker toevoegen</h4>
 				<div class="row">
-					<form class="col s12">
+					<form class="col s12" enctype="multipart/form-data">
 						<div class="row margin">
 						  <div class="input-field col s6">
 							<input id="first_name" type="text" class="validate">
@@ -275,14 +286,14 @@
 			</div>
 		</div>
 		<!-- Alert als je het geselecteerde tabel echt wilt verwijderen dialog -->
-		<div id="modal2" class="modal center">
+		<div id="modal-delete" class="modal center">
 			<div class="modal-content">
 				<h4>Verwijderen</h4>
 				<p>Weet je zeker dat je deze velden wilt Verwijderenen?</p>
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Nee</a>
-				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Ja</a>
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close" onclick="Materialize.toast('Gebruiker_Naam Verwijdert', 4000)">Ja</a>
 			</div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

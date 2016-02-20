@@ -7,7 +7,7 @@
 		<meta name="keywords" content="NHL, nhl hoogeschool, studentenlijst">
 		<meta name="author" content="">
 		
-		<link rel="shortcut icon" type="image/png" href="img/nhl.ico"/>
+		<link rel="shortcut icon" type="image/png" href="img/favicon.ico"/>
 		
 		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -19,6 +19,20 @@
 		<header id="header-top">
 			<div id="header-bottom" class="z-depth-1">
 				<div class="container">
+					<div class="row col s12 m12 ">
+						<div class="col m6 right">
+							<div class="chip hoverable right">
+								ADMIN
+							</div>
+							<div class="chip user hoverable right">
+								<img src="img/leerlingen/lash1500.jpg" alt="Contact Person">
+								michakiber1@gmail.com
+							</div>
+						</div>
+						<div class="col m6 left">
+							<a href="#"><span class="header-top-logo">Studentenoverzicht</span></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</header>
@@ -26,7 +40,7 @@
 			<div class="container">
 				<div class="row z-depth-1 hoverable">
 					<div class="intro col s12 m12">
-						<div class="input-field col m6">
+						<div class="input-field margin col m6">
 							<input id="search" type="text" class="validate">
 							<label for="search">Zoeken</label>
 						</div>
@@ -41,15 +55,14 @@
 									<th data-field="address">Adres</th>
 									<th data-field="phone">Tel. nummer</th>
 									<th data-field="email">E-mail</th>
-									<th data-field="icons"></th>
 								  </tr>
 								</thead>
 
 								<tbody>
 								  <tr>
-									<td>
+									<td class="image-table">
 										<figure class="card-profile-image">
-											<img src="img/user.jpg" alt="profile image" class="responsive-img materialboxed circle" data-caption="Mikhail Lashkov">
+											<img src="img/leerlingen/lash1500.jpg" alt="profile image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
 										</figure>
 									</td>
 									<td>Mikhail</td>
@@ -61,7 +74,7 @@
 									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td>
+									<td class="image-table">
 										<figure class="card-profile-image">
 											<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
 										</figure>
@@ -75,7 +88,7 @@
 									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td>
+									<td class="image-table">
 										<figure class="card-profile-image">
 											<img src="https://placehold.it/350x350" alt="student image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
 										</figure>
@@ -89,7 +102,7 @@
 									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td>
+									<td class="image-table">
 										<figure class="card-profile-image">
 											<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
 										</figure>
@@ -103,7 +116,7 @@
 									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td>
+									<td class="image-table">
 										<figure class="card-profile-image">
 											<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
 										</figure>
@@ -117,7 +130,7 @@
 									<td><div class="more" href="#" data-activates="meer-dropdown"></div></td>
 								  </tr>
 								  <tr>
-									<td>
+									<td class="image-table">
 										<figure class="card-profile-image">
 											<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
 										</figure>
@@ -133,7 +146,7 @@
 								</tbody>
 							</table>
 							<div class="col m12 s12">
-								<ul class="pagination">
+								<ul class="pagination right">
 									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
 									<li class="waves-effect active"><a href="#!">1</a></li>
 									<li class="waves-effect"><a href="#!">2</a></li>
@@ -177,43 +190,43 @@
 			<div class="modal-content">
 			  <h4>Leerling toevoegen</h4>
 				<div class="row">
-					<form class="col s12">
+					<form class="col s12" enctype="multipart/form-data">
 						<div class="row margin">
-						  <div class="input-field col s6">
+						  <div class="input-field margin col s5">
 							<input id="first_name" type="text" class="validate">
 							<label for="first_name">Voornaam</label>
 						  </div>
-						  <div class="input-field col s6">
+						  <div class="input-field margin col s5 right">
 							<input id="last_name" type="text" class="validate">
 							<label for="last_name">Achternaam</label>
 						  </div>
 						</div>
 						<div class="row margin">
-						  <div class="input-field col s12">
+						  <div class="input-field margin col s12">
 							<input id="address" type="text" class="validate">
 							<label for="address">Adres</label>
 						  </div>
 						</div>
 						<div class="row margin">
-						  <div class="input-field col s12">
+						  <div class="input-field margin col s12">
 							<input id="tel" type="tel" class="validate">
 							<label for="tel">Tel. nummer</label>
 						  </div>
 						</div>
 						<div class="row margin">
-						  <div class="input-field col s12">
+						  <div class="input-field margin col s12">
 							<input id="email" type="email" class="validate">
 							<label for="email">E-mail</label>
 						  </div>
 						</div>
 						<div class="row margin">
-							<div class="input-field col s12">
+							<div class="input-field margin col s12">
 								<input id="date" type="date" class="datepicker">
 								<label for="date">Geboorte datum</label>
 							</div>
 						</div>
 						<div class="row margin">
-							<div class="file-field input-field col s12">
+							<div class="file-field input-field margin col s12">
 								<input id="upload" type="text" class="file-path validate" />
 								<label for="upload">Foto locatie</label>
 								<div class="btn right">
@@ -238,22 +251,26 @@
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Nee</a>
-				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Ja</a>
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close" onclick="Materialize.toast('Leerling_Naam Verwijdert', 4000)">Ja</a>
 			</div>
 		</div>
 		<!-- Gebruiker al zijn gegevens dialog -->
 		<div id="modal-more" class="modal center">
 			<div class="modal-content">
 				<div class="row">
-					<form class="col s12">
-						<div class="col s3">
-							<i href="#" class="small mdi-hardware-keyboard-backspace left modal-action modal-close"></i>
-							<i href="#modal-delete" class="small right mdi-action-delete modal-trigger"></i>
-							<i href="#modal-add" class="small right mdi-editor-mode-edit modal-trigger"></i>
-							<img src="img/user.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
-							<h5 class="center">M. Lashkov</h5>
+					<form class="col s12" enctype="multipart/form-data">
+						<div class="meer-header col s4">
+							<div class="col s12">
+								<i href="#" class="small mdi-hardware-keyboard-backspace left modal-action modal-close"></i>
+								<i href="#modal-delete" class="small right mdi-action-delete modal-trigger"></i>
+								<i href="#modal-add" class="small right mdi-editor-mode-edit modal-trigger"></i>
+							</div>
+							<div class="col s12">
+								<img src="img/leerlingen/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
+								<h5 class="center">Mikhail Lashkov</h5>
+							</div>
 						</div>
-						<div class="col s9">
+						<div class="meer-pers-info col s8 right">
 							<div class="card-panel">
 								<h5 class="center">Personelijke informatie</h5>
 								<div class="information">
@@ -304,7 +321,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col s9 right">
+						<div class="meer-studie-info col s8 right">
 							<div class="card-panel">
 								<h5 class="center">Studie informatie</h5>
 								<div class="information">
