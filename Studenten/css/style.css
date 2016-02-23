@@ -11,18 +11,7 @@ i {
 .small:hover{
 	opacity:1;
 }
-.card-profile-image {
-    cursor: pointer;
-    width: 60px;
-    margin-bottom: 0px;
-    margin-top: 0px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.modal {
-    width: 45%;
-	border-radius: 0px;
-}
+
 address{
 	font-style: normal;
 }
@@ -44,6 +33,11 @@ address{
 	-moz-border-radius-bottomleft: 25px;
 	border-top-left-radius: 25px;
 	border-bottom-left-radius: 25px;
+}
+@media screen and (max-width: 520px) {
+	.search{
+		width:100%
+	}
 }
 
 /*------------------------------------------------------------------
@@ -184,26 +178,11 @@ body {
 }
 /*
 |----------------------------------------------------------------------------
-| TYPOGRAPHY
-|----------------------------------------------------------------------------
-*/
-p {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  font-size: 15px;
-  line-height: 10px;
-}
-h1 {
-  font-size: 40px;
-  line-height: 70px;
-}
-/*
-|----------------------------------------------------------------------------
 | HEADER TOP
 |----------------------------------------------------------------------------
 */
 #header-top {
-  min-height: 260px;
+  min-height: 300px;
   background: #0397e2;
 }
 #header-top .top-contact {
@@ -231,6 +210,31 @@ h1 {
     padding-top: 0px;
     position: relative;
     font-size: 20px;
+}
+.card-profile-image {
+    cursor: pointer;
+    width: 60px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.hoi{
+	float:right;
+}
+@media screen and (max-width: 600px) {
+	.header-top {
+		width: 100% !important;
+		text-align: center;
+	}
+	.header-top-user{
+		text-align: center;
+		width: 100%;
+		float:inherit !important;
+	}
+	.hoi{
+		float:inherit;
+	}
 }
 /*
 |----------------------------------------------------------------------------
@@ -672,8 +676,22 @@ textarea.materialize-textarea:focus:not([readonly]) {
     vertical-align: top;
     white-space: nowrap;
 }
+.meer-header{
+	position: fixed;
+	left: 10px;
+	top: 30px;
+}
 @media screen and (max-width: 1410px) {
-	.meer-header, .meer-pers-info, .meer-studie-info {
+	.meer-pers-info, .meer-studie-info {
 		width: 100% !important;
+	}
+	.meer-header{
+		position: inherit;
+		width: 100% !important;
+	}
+}
+@media screen and (max-width: 994px) {
+	#modal-more{
+		width: 90% !important;
 	}
 }

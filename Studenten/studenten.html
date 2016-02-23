@@ -19,18 +19,20 @@
 		<header id="header-top">
 			<div id="header-bottom" class="z-depth-1">
 				<div class="container">
-					<div class="row col s12 m12 ">
-						<div class="col m6 right">
-							<div class="chip hoverable right">
-								ADMIN
-							</div>
-							<div class="chip user hoverable right">
-								<img src="img/leerlingen/lash1500.jpg" alt="Contact Person">
-								michakiber1@gmail.com
-							</div>
-						</div>
-						<div class="col m6 left">
+					<div class="row col s12 m12">
+						<div class="col m5 header-top">
 							<a href="#"><span class="header-top-logo">Studentenoverzicht</span></a>
+						</div>
+						<div class="col m7 header-top-user">
+							<div class="hoi">
+								<div class="chip user hoverable">
+									<img src="img/leerlingen/lash1500.jpg" alt="Contact Person">
+									michakiber1@gmail.com
+								</div>
+								<div class="chip hoverable">
+									ADMIN
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -40,7 +42,7 @@
 			<div class="container">
 				<div class="row z-depth-1 hoverable">
 					<div class="intro col s12 m12">
-						<div class="input-field margin col m6">
+						<div class="search input-field margin col m6">
 							<input id="search" type="text" class="validate">
 							<label for="search">Zoeken</label>
 						</div>
@@ -76,7 +78,7 @@
 								  <tr>
 									<td class="image-table">
 										<figure class="card-profile-image">
-											<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
+											<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Test">
 										</figure>
 									</td>
 									<td>Bob</td>
@@ -147,13 +149,13 @@
 							</table>
 							<div class="col m12 s12">
 								<ul class="pagination right">
-									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
+									<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
 									<li class="waves-effect active"><a href="#!">1</a></li>
 									<li class="waves-effect"><a href="#!">2</a></li>
 									<li class="waves-effect"><a href="#!">3</a></li>
 									<li class="waves-effect"><a href="#!">4</a></li>
 									<li class="waves-effect"><a href="#!">5</a></li>
-									<li class="waves-effect"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
+									<li class="waves-effect"><a href="#!"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 								</ul>
 							</div>
 						</div>
@@ -172,52 +174,48 @@
 		<!-- plus button en de bovenliggende -->
 		<div class="fixed-action-btn">
 			<a class="btn-floating btn-large red modal-trigger" href="#modal-add">
-				<i class="right mdi-content-add activator"></i></a>
+				<i class="right material-icons activator">add</i></a>
 			</a>
 			<ul>
-				<li><a class="btn-floating red" href="studenten.html" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-face-unlock tooltipped" data-position="left" data-tooltip="Studenten"></i></a>
+				<li><a class="btn-floating red" href="studenten.html" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i></a>
 				</li>
-				<li><a class="btn-floating yellow darken-1" href="admin.html" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-settings tooltipped" data-position="left" data-tooltip="admin"></i></a>
+				<li><a class="btn-floating yellow darken-1" href="admin.html" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="admin">settings</i></a>
 				</li>
 				<li><a class="btn-floating green" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-editor-publish"></i></a>
 				</li>
-				<li><a class="btn-floating blue" href="../Studenten/" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large mdi-action-exit-to-app tooltipped" data-position="left" data-tooltip="Log uit"></i></a>
+				<li><a class="btn-floating blue" href="../Studenten/" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="Log uit">exit_to_app</i></a>
 				</li>
 			</ul>
 		</div>
-		<!-- Toevoegen van gebruikers dialog -->
-		<div id="modal-add" class="modal center">
+		<!-- Toevoegen van een leerling Dialog -->
+		<div id="modal-add" class="modal modal-fixed-footer">
 			<div class="modal-content">
-			  <h4>Leerling toevoegen</h4>
+				<h4 class="center">Leerling toevoegen</h4>
 				<div class="row">
 					<form class="col s12" enctype="multipart/form-data">
 						<div class="row margin">
-						  <div class="input-field margin col s5">
-							<input id="first_name" type="text" class="validate">
-							<label for="first_name">Voornaam</label>
-						  </div>
-						  <div class="input-field margin col s5 right">
-							<input id="last_name" type="text" class="validate">
-							<label for="last_name">Achternaam</label>
-						  </div>
+							<div class="input-field margin col s6">
+								<input id="first_name" type="text">
+								<label for="first_name">Naam</label>
+							</div>
+							<div class="input-field margin col s6">
+								<input id="voorvoegsels" type="text">
+								<label for="voorvoegsels">Voorvoegsels</label>
+							</div>
 						</div>
 						<div class="row margin">
-						  <div class="input-field margin col s12">
-							<input id="address" type="text" class="validate">
-							<label for="address">Adres</label>
-						  </div>
-						</div>
-						<div class="row margin">
-						  <div class="input-field margin col s12">
-							<input id="tel" type="tel" class="validate">
-							<label for="tel">Tel. nummer</label>
-						  </div>
-						</div>
-						<div class="row margin">
-						  <div class="input-field margin col s12">
-							<input id="email" type="email" class="validate">
-							<label for="email">E-mail</label>
-						  </div>
+							<div class="input-field margin col s6">
+								<input id="roepnaam" type="text">
+								<label for="roepnaam">Roepnaam</label>
+							</div>
+							<div class="input-field margin col s6">
+								<select>
+									<option value="" disabled>Kies een geslacht</option>
+									<option value="1">Man</option>
+									<option value="2">Vrouw</option>
+								</select>
+								<label>Geslacht</label>
+							</div>
 						</div>
 						<div class="row margin">
 							<div class="input-field margin col s12">
@@ -226,8 +224,38 @@
 							</div>
 						</div>
 						<div class="row margin">
+							<div class="input-field margin col s6">
+								<input id="address" type="text">
+								<label for="address">Adres</label>
+							</div>
+							<div class="input-field margin col s6">
+								<input id="land" type="text">
+								<label for="land">Land</label>
+							</div>
+						</div>
+						<div class="row margin">
+							<div class="input-field margin col s6">
+								<input id="telefoon" type="tel">
+								<label for="telefoon">Telefoon</label>
+							</div>
+							<div class="input-field margin col s6">
+								<input id="mobiel" type="tel">
+								<label for="mobiel">Mobiel</label>
+							</div>
+						</div>
+						<div class="row margin">
+						  <div class="input-field margin col s6">
+							<input id="email" type="email">
+							<label for="email">E-mail</label>
+						  </div>
+						  <div class="input-field margin col s6">
+							<input id="emailinstelling" type="text">
+							<label for="emailinstelling">emailinstelling</label>
+						  </div>
+						</div>
+						<div class="row margin">
 							<div class="file-field input-field margin col s12">
-								<input id="upload" type="text" class="file-path validate" />
+								<input disabled id="upload" type="text" class="file-path" />
 								<label for="upload">Foto locatie</label>
 								<div class="btn right">
 									<span>Foto toevoegen</span>
@@ -240,7 +268,7 @@
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
-				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Add</a>
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Next</a>
 			</div>
 		</div>
 		<!-- Alert als je het geselecteerde tabel echt wilt verwijderen dialog -->
@@ -255,17 +283,17 @@
 			</div>
 		</div>
 		<!-- Gebruiker al zijn gegevens dialog -->
-		<div id="modal-more" class="modal center">
+		<div id="modal-more" class="modal modal-fixed-footer">
 			<div class="modal-content">
 				<div class="row">
 					<form class="col s12" enctype="multipart/form-data">
 						<div class="meer-header col s4">
 							<div class="col s12">
-								<i href="#" class="small mdi-hardware-keyboard-backspace left modal-action modal-close"></i>
-								<i href="#modal-delete" class="small right mdi-action-delete modal-trigger"></i>
-								<i href="#modal-add" class="small right mdi-editor-mode-edit modal-trigger"></i>
+								<i href="#" class="small material-icons left modal-action modal-close">backspace</i>
+								<i href="#modal-delete" class="small material-icons right modal-trigger">delete</i>
+								<i href="#modal-add" class="small right material-icons modal-trigger">edit</i>
 							</div>
-							<div class="col s12">
+							<div class="col s12 center">
 								<img src="img/leerlingen/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
 								<h5 class="center">Mikhail Lashkov</h5>
 							</div>
@@ -390,6 +418,9 @@
 						</div>
 					</form>
 				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Back</a>
 			</div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
