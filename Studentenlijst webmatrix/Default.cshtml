@@ -1,0 +1,156 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+	<script src="~/Scripts/sticky.min.js"></script>
+	<script src="~/Scripts/validator.min.js"></script>
+	<script src="~/Scripts/jquery.tablesorter.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Home Page";
+
+    WebSecurity.RequireAuthenticatedUser();
+
+    var db = Database.Open("StarterSite") ;
+    var selectCommand = "SELECT * FROM Geschenken";
+    //var searchTerm = "";
+
+    var geschenk = "";
+    var prijs = "";
+    var koper = "";
+    var prioriteit = "";
+    var status = "";
+
+    // Search input
+    //if(!Request.QueryString["search"].IsEmpty() ) {
+    //    selectCommand = "SELECT * FROM Geschenken WHERE Geschenk OR Prijs OR Prioriteit OR Koper OR Status LIKE @0";
+    //    searchTerm = "%" + Request.QueryString["search"] + "%";
+    //}
+
+    // Add Geschenk in modal
+    if(IsPost){
+        if(Validation.IsValid()){
+            geschenk = Request.Form["geschenk"];
+            prijs = Request.Form["prijs"];
+            koper = Request.Form["koper"];
+            prioriteit = Request.Form["prioriteit"];
+            status = Request.Form["status"];
+
+            var insertCommand = "INSERT INTO Geschenken (geschenk, prijs, koper, prioriteit, status) VALUES(@0, @1, @2, @3, @4)";
+            db.Execute(insertCommand, geschenk, prijs, koper, prioriteit, status);
+
+            Response.Redirect("~/Default");
+        }
+    }
+
+    var selectedData = db.Query(selectCommand);
+    //var selectedData = db.Query(selectCommand, searchTerm);
+    // var grid = new WebGrid(source: selectedData, defaultSort: "Genre", rowsPerPage:3);
+}
+<section id="table" class="section">
+	<div class="container">
+		<div class="row z-depth-1 hoverable">
+			<div class="intro col s12 m12">
+                <!--
+                <form method="get">
+                    <div class="search input-field margin col m6">
+					    <input id="search" name="search" type="text" value="@Request.QueryString["search"]">
+					    <label for="search">Zoeken</label>
+                    </div>
+                    <div class="search input-field margin col m6">
+                        <button class="btn waves-effect waves-light right" type="submit" name="action">Search</button>
+                    </div>
+                </form>
+                -->
+				<div class="col m12 s12">
+                    <table id="studentsTable" class="tablesorter bordered striped centered responsive-table">
+                        @if(User.IsInRole("admin")){
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Geschenk</th>
+                                    <th>Prijs</th>
+                                    <th>Prioriteit</th>
+                                    <th>Koper</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var row in db.Query(selectCommand)){
+                                    <tr>
+                                        <td><a href="~/Account/EditGeschenk?id=@row.ID">Edit</a></td>
+                                        <td>@row.Geschenk</td>
+                                        <td>@row.Prijs</td>
+                                        <td>@row.Prioriteit</td>
+                                        <td>@row.Koper</td>
+                                        <td>@row.Status</td>
+                                        <td><a href="~/Account/DeleteGeschenk?id=@row.ID">Delete</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        }
+                        else{
+                            <thead>
+                                <tr>
+                                    <th>Geschenk</th>
+                                    <th>Prijs</th>
+                                    <th>Prioriteit</th>
+                                    <th>Koper</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach(var row in db.Query(selectCommand)){
+                                <tr>
+                                    <td>@row.Geschenk</td>
+                                    <td>@row.Prijs</td>
+                                    <td>@row.Prioriteit</td>
+                                    <td>@row.Koper</td>
+                                    <td>@row.Status</td>
+                                    <td>
+                                        @if(row.Status == "1") {
+                                            <a style="color:red" href="#">Gekocht!</a>
+                                        }
+                                        else{
+                                            <a href="~/Account/KoopGeschenk?id=@row.ID">Kopen!</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- plus button en de bovenliggende -->
+<div class="fixed-action-btn">
+    @if(User.IsInRole("admin")){
+        <a class="btn-floating btn-large red modal-trigger" href="#modal-add">
+		    <i class="right material-icons activator">add</i>
+	    </a>
+	    <ul>
+		    <li>
+                <form id="logoutForm" action="~/Account/Logout" method="post">
+                    @AntiForgery.GetHtml()
+                    <a class="btn-floating blue" href="javascript:document.getElementById('logoutForm').submit()" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                        <i class="large material-icons tooltipped" data-position="left" data-tooltip="Log uit">exit_to_app</i>
+                    </a>
+                </form>
+		    </li>
+	    </ul>
+    }
+    else{
+        <form id="logoutForm" action="~/Account/Logout" method="post">
+            @AntiForgery.GetHtml()
+            <a class="btn-floating btn-large red modal-trigger" href="javascript:document.getElementById('logoutForm').submit()">
+                <i class="right material-icons" data-position="left">exit_to_app</i>
+            </a>
+        </form>
+    }
+</div>

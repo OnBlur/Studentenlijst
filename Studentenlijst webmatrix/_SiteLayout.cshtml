@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta charset="UTF-8">
+		<meta name="description" content="Beheer jou geschenken.">
+		<meta name="keywords" content="NHL, nhl hoogeschool, studentenlijst">
+		<meta name="author" content="Mikhail Lashkov">
+
+        <title>@Page.Title - Login</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+        <link type="text/css" rel="stylesheet" href="~/Content/materialize.min.css"  media="screen,projection"/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="~/Content/style.css">
+    </head>
+    <body>
+        <header id="header-top">
+			<div id="header-bottom" class="z-depth-1">
+				<div class="container">
+					<div class="row col s12 m12">
+						<div class="col m5 header-top">
+							<a href="~/Default"><span class="header-top-logo">Hebberige Bruiden</span></a>
+						</div>
+						<div class="col m7 header-top-user">
+							<div class="hoi">
+								<div class="chip user hoverable">
+									<img src="~/Images/leerlingen/lash1500.jpg" alt="Contact Person">
+									@WebSecurity.CurrentUserName
+								</div>
+								<div class="chip hoverable">
+									@if(User.IsInRole("admin")){
+                                        <a>Admin</a>
+                                    }
+                                    else{
+                                        <a>User</a>
+                                    }
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+        <!-- Toevoegen van een leerling Dialog -->
+        <div id="modal-add" class="modal modal-fixed-footer">
+            <form method="post" class="col s12" enctype="multipart/form-data">
+	            <div class="modal-content">
+		            <h4 class="center">Geschenk toevoegen</h4>
+		            <div class="row">
+				        <div class="row margin">
+					        <div class="input-field margin col s12">
+						        <input id="geschenk" name="geschenk" type="text" value="@Request.Form["geschenk"]">
+						        <label for="geschenk">Geschenk</label>
+					        </div>
+                        </div>
+                        <div class="row margin">
+					        <div class="input-field margin col s12">
+						        <input id="prijs" name="prijs" type="text" value="@Request.Form["prijs"]">
+						        <label for="prijs">Prijs</label>
+					        </div>
+				        </div>
+				        <div class="row margin">
+					        <div class="input-field margin col s12">
+						        <input id="koper" name="koper" type="text" value="@Request.Form["koper"]">
+						        <label for="koper">Koper</label>
+					        </div>
+                        </div>
+                        <div class="row margin">
+					        <div class="input-field margin col s12">
+						        <input id="prioriteit" name="prioriteit" type="text" value="@Request.Form["prioriteit"]">
+						        <label for="prioriteit">Prioriteit</label>
+					        </div>
+                        </div>
+                        <div class="row margin">
+					        <div class="input-field margin col s12">
+						        <input id="status" name="status" type="text" value="@Request.Form["status"]">
+						        <label for="status">Status (1 = gekocht | 0 = niet gekocht)</label>
+					        </div>
+                        </div>
+		            </div>
+	            </div>
+                <div class="modal-footer">
+                    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
+                    <button type="submit" name="buttonSubmit" class="waves-effect waves-green btn-flat modal-action modal-close" onclick="Materialize.toast('Leerling_Naam Toegevoegd', 4000)">Voeg toe!</button>
+                </div>
+	        </form>
+        </div>
+
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>

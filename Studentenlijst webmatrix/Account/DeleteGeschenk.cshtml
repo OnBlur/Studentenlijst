@@ -1,0 +1,77 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+	<script src="~/Scripts/sticky.min.js"></script>
+	<script src="~/Scripts/validator.min.js"></script>
+	<script src="~/Scripts/jquery.tablesorter.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Geschenken";
+
+    WebSecurity.RequireAuthenticatedUser();
+
+    var geschenk = "";
+    var prijs = "";
+    var koper = "";
+    var prioriteit = "";
+    var status = "";
+    var movieId = "";
+
+    if(!IsPost){
+        if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()){
+            movieId = Request.QueryString["ID"];
+            var db = Database.Open("StarterSite");
+            var dbCommand = "SELECT * FROM Geschenken WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, movieId);
+            if(row != null) {
+                geschenk = row.Geschenk;
+                prijs = row.Prijs;
+                koper = row.Koper;
+                prioriteit = row.Prioriteit;
+                status = row.Status;
+            }
+            else{
+                Validation.AddFormError("No movie was found for that ID.");
+            }
+        }
+        else{
+            Validation.AddFormError("No movie was found for that ID.");
+        }
+    }
+
+    if(IsPost && !Request["buttonDelete"].IsEmpty()){
+        movieId = Request.Form["movieId"];
+        var db = Database.Open("StarterSite");
+        var deleteCommand = "DELETE FROM Geschenken WHERE ID = @0";
+        db.Execute(deleteCommand, movieId);
+        Response.Redirect("~/Default");
+    }
+}
+<section id="table" class="section">
+	<div class="container">
+		<div class="row z-depth-1 hoverable">
+			<div class="intro col s12 m12">
+                <form method="post">
+
+                <p><span>geschenk:</span>
+                <span>@geschenk</span></p>
+
+                <p><span>prijs:</span>
+                <span>@prijs</span></p>
+
+                <p><span>prioriteit:</span>
+                <span>@prioriteit</span></p>
+
+                <input type="hidden" name="movieid" value="@movieId" />
+                <div class="input-field margin col s12">
+					<button type="submit" class="btn waves-effect waves-light right" name="buttonDelete">Delete</button>
+				</div>
+            </form>
+            </div>
+        </div>
+    </div>
+</section>

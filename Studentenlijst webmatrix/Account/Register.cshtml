@@ -1,0 +1,118 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+	<script src="~/Scripts/validator.min.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayoutLogin.cshtml";
+    Page.Title = "Register";
+
+    // Initialize general page variables
+    var email = "";
+    var password = "";
+    var confirmPassword = "";
+
+    // If this is a POST request, validate and process data
+    if (IsPost) {
+        AntiForgery.Validate();
+        email = Request.Form["email"];
+        password = Request.Form["password"];
+
+        // Validate the user's captcha answer
+        // if (!ReCaptcha.Validate("PRIVATE_KEY")) {
+        //     ModelState.AddError("recaptcha", "Captcha response was not correct");
+        // }
+
+        // If all information is valid, create a new account
+        if (Validation.IsValid()) {
+            // Insert a new user into the database
+            var db = Database.Open("StarterSite");
+
+            // Check if user already exists
+            var user = db.QuerySingle("SELECT Email FROM UserProfile WHERE LOWER(Email) = LOWER(@0)", email);
+            if (user == null) {
+                // Insert email into the profile table
+                db.Execute("INSERT INTO UserProfile (Email) VALUES (@0)", email);
+
+                // Create and associate a new entry in the membership database.
+                // If successful, continue processing the request
+                try {
+                    bool requireEmailConfirmation = !WebMail.SmtpServer.IsEmpty();
+                    var token = WebSecurity.CreateAccount(email, password, requireEmailConfirmation);
+                    if (requireEmailConfirmation) {
+                        var hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
+                        var confirmationUrl = hostUrl + VirtualPathUtility.ToAbsolute("~/Account/Confirm?confirmationCode=" + HttpUtility.UrlEncode(token));
+
+                        WebMail.Send(
+                            to: email,
+                            subject: "Please confirm your account",
+                            body: "Your confirmation code is: " + token + ". Visit <a href=\"" + confirmationUrl + "\">" + confirmationUrl + "</a> to activate your account."
+                        );
+                    }
+
+                    if (requireEmailConfirmation) {
+                        // Thank the user for registering and let them know an email is on its way
+                        Response.Redirect("~/Account/Thanks");
+                    } else {
+                        // Navigate back to the homepage and exit
+                        WebSecurity.Login(email, password);
+
+                        Response.Redirect("~/");
+                    }
+                } catch (System.Web.Security.MembershipCreateUserException e) {
+                    ModelState.AddFormError(e.Message);
+                }
+            } else {
+                // User already exists
+                ModelState.AddFormError("Email address is already in use.");
+            }
+        }
+    }
+}
+<div class="col s12 z-depth-4 card-panel">
+    <form method="post" class="login-form" enctype="multipart/form-data">
+        @AntiForgery.GetHtml()
+        @* If at least one validation error exists, notify the user *@
+        @Html.ValidationSummary("Account creation was unsuccessful. Please correct the errors and try again.", excludeFieldErrors: true, htmlAttributes: null)
+
+        <div class="row">
+			<div class="input-field col s12 center">
+				<img src="~/Images/nhl.png" alt="foto" class="responsive-img valign profile-image-login">
+				<p class="center login-form-text">Hebberige Bruiden</p>
+			</div>
+		</div>
+        <!--Email input field-->
+        <div class="row margin">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">email</i>
+                <input type="text" class="validate" id="email" name="email" value="@email" @Validation.For("email")/>
+                <label for="email" class="center-align" @if (!ModelState.IsValidField("email")) {<text>class="error-label"</text>}>Email address</label>
+                @Html.ValidationMessage("email")
+			</div>
+		</div>
+        <!--Password input field-->
+        <div class="row margin">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">lock</i>
+				<input type="password" class="validate" id="password" name="password" @Validation.For("password")/>
+				<label for="password" @if (!ModelState.IsValidField("password")) {<text>class="error-label"</text>}>Password</label>
+                @Html.ValidationMessage("password")
+			</div>
+		</div>
+        <!--Login button-->
+        <div class="row margin">
+			<div class="input-field col s12">
+                <button class="btn waves-effect waves-light col s12" type="submit" name="action">Register</button>
+			</div>
+		</div>
+        <!--Links-->
+        <div class="row">
+            <div class="input-field col s12">
+            <p class="margin center medium-small sign-up">Already have an account? <a href="~/Account/Login">Login</a></p>
+          </div>
+        </div>
+    </form>
+</div>

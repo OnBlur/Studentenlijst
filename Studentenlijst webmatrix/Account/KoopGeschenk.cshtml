@@ -1,0 +1,97 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+	<script src="~/Scripts/sticky.min.js"></script>
+	<script src="~/Scripts/validator.min.js"></script>
+	<script src="~/Scripts/jquery.tablesorter.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Geschenken";
+
+    WebSecurity.RequireAuthenticatedUser();
+
+    var geschenk = "";
+    var prijs = "";
+    var prioriteit = "";
+    var koper = "";
+    var status = "";
+    var id = "";
+
+    if(!IsPost){
+        if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()) {
+            id = Request.QueryString["ID"];
+            var db = Database.Open("StarterSite");
+            var dbCommand = "SELECT * FROM Geschenken WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, id);
+
+            if(row != null) {
+                geschenk = row.Geschenk;
+                prijs = row.Prijs;
+                prioriteit = row.Prioriteit;
+                koper = row.Koper;
+                status = row.Status;
+            }
+            else{
+                Validation.AddFormError("No present was selected.");
+            }
+        }
+        else{
+            Validation.AddFormError("No present was selected.");
+        }
+    }
+
+    if(IsPost){
+        koper = Request.Form["koper"];
+        status = Request.Form["status"];
+        id = Request.Form["id"];
+
+        if(Validation.IsValid()){
+            var db = Database.Open("StarterSite");
+            var updateCommand = "UPDATE Geschenken SET koper=@0, status=@1 WHERE Id=@2";
+            db.Execute(updateCommand, koper, status, id);
+            Response.Redirect("~/Default");
+        }
+    }
+}
+
+<section id="table" class="section">
+	<div class="container">
+		<div class="row z-depth-1 hoverable">
+			<div class="intro col s12 m12">
+                <form method="post">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-field="id">Geschenk</th>
+                                <th data-field="name">Prijs</th>
+                                <th data-field="name">Koper</th>
+                                <th data-field="price">Prioriteit</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>@geschenk</td>
+                                <td>@prijs</td>
+                                <td>@koper</td>
+                                <td>@prioriteit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <input type="hidden" name="koper" value="@WebSecurity.CurrentUserName" />
+                    <input type="hidden" name="status" value="1" />
+                    <input type="hidden" name="id" value="@id" />
+
+                    <div class="input-field margin col s12">
+						<button type="submit" class="btn waves-effect waves-light right" name="buttonSubmit">Kopen!</button>
+					</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
