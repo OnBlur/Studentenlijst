@@ -28,10 +28,7 @@
         AntiForgery.Validate();
         // is this an external login request?
         string provider = Request.Form["provider"];
-        if (!provider.IsEmpty()) {
-            OAuthWebSecurity.RequestAuthentication(provider, Href("~/Account/RegisterService", new { returnUrl }));
-            return;
-        } else if (Validation.IsValid()) {
+        if (Validation.IsValid()) {
             email = Request.Form["email"];
             password = Request.Form["password"];
             rememberMe = Request.Form["rememberMe"].AsBool();
