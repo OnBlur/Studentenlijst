@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta charset="UTF-8">
+		<meta name="description" content="Beheer jou geschenken.">
+		<meta name="keywords" content="NHL, nhl hoogeschool, studentenlijst">
+		<meta name="author" content="Mikhail Lashkov">
+
+        <title>@Page.Title - Leerlingen</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+        <link type="text/css" rel="stylesheet" href="~/Content/materialize.min.css"  media="screen,projection"/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="~/Content/style.css">
+    </head>
+    <body>
+        <header id="header-top">
+			<div id="header-bottom" class="z-depth-1">
+				<div class="container">
+					<div class="row col s12 m12">
+						<div class="col m5 header-top">
+							<a href="~/Default"><span class="header-top-logo">Studentenlijst</span></a>
+						</div>
+						<div class="col m7 header-top-user">
+							<div class="hoi">
+								<div class="chip user hoverable">
+									<img src="~/Images/leerlingen/lash1500.jpg" alt="Contact Person">
+									@WebSecurity.CurrentUserName
+								</div>
+								<div class="chip hoverable">
+									@if(User.IsInRole("admin")){
+                                        <a>ADMIN</a>
+                                    }
+                                    else{
+                                        <a>USER</a>
+                                    }
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+        <!-- Table dropdown -->
+        <ul id="meer-dropdown" class="dropdown-content">
+			<li><a href="#modal-more" class="-text modal-trigger">Meer</a>
+			</li>
+			<li><a href="#modal-add" class="-text modal-trigger">Aanpassen</a>
+			</li>
+			<li><a href="#modal-delete" class="-text modal-trigger">Verwijderen</a>
+			</li>
+		</ul>
+        <!-- plus button en de bovenliggende -->
+        <div class="fixed-action-btn">
+            @if(User.IsInRole("admin")){
+                <a class="btn-floating btn-large red modal-trigger" href="#modal-add">
+		            <i class="right material-icons activator">add</i>
+	            </a>
+	            <ul>
+                    <li><a class="btn-floating red" href="~/Default" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i></a>
+				    </li>
+				    <li><a class="btn-floating yellow darken-1" href="~/Account/Admin" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="Admin">settings</i></a>
+				    </li>
+				    <li><a class="btn-floating green" href="~/Account/Statistiken" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="Statistiken">trending_up</i></a>
+				    </li>
+		            <li>
+                        <form id="logoutForm" action="~/Account/Logout" method="post">
+                            @AntiForgery.GetHtml()
+                            <a class="btn-floating blue" href="javascript:document.getElementById('logoutForm').submit()" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                                <i class="large material-icons tooltipped" data-position="left" data-tooltip="Log uit">exit_to_app</i>
+                            </a>
+                        </form>
+		            </li>
+	            </ul>
+            }
+            else{
+                <form id="logoutForm" action="~/Account/Logout" method="post">
+                    @AntiForgery.GetHtml()
+                    <a class="btn-floating btn-large red modal-trigger" href="javascript:document.getElementById('logoutForm').submit()">
+                        <i class="right material-icons" data-position="left">exit_to_app</i>
+                    </a>
+                </form>
+            }
+        </div>
+        <!-- Alert als je het geselecteerde tabel echt wilt verwijderen dialog -->
+		<div id="modal-delete" class="modal center">
+			<div class="modal-content">
+				<h4>Verwijderen</h4>
+				<p>Weet je zeker dat je deze leerling wilt Verwijderenen?</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Nee</a>
+				<a href="#" class="waves-effect waves-green btn-flat modal-action modal-close" onclick="Materialize.toast('Leerling_Naam Verwijdert', 4000)">Ja</a>
+			</div>
+		</div>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>

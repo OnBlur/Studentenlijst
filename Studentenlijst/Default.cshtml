@@ -1,0 +1,198 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+	<script src="~/Scripts/sticky.min.js"></script>
+	<script src="~/Scripts/validator.min.js"></script>
+	<script src="~/Scripts/jquery.tablesorter.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Studentenlijst";
+
+    WebSecurity.RequireAuthenticatedUser();
+
+    var db = Database.Open("StarterSite") ;
+    var selectCommand = "SELECT * FROM Student";
+    //var searchTerm = "";
+
+    var StudentNummer = "";
+    var Naam = "";
+    var Voorvoegsel = "";
+    var Roepnaam = "";
+    var Geslacht = "";
+    var Geboortedatum = "";
+    var Adres = "";
+    var Land = "";
+    var Telefoon = "";
+    var Mobiel = "";
+    var Email = "";
+    var Emailinstelling = "";
+
+    // Search input
+    //if(!Request.QueryString["search"].IsEmpty() ) {
+    //    selectCommand = "SELECT * FROM Geschenken WHERE Geschenk OR Prijs OR Prioriteit OR Koper OR Status LIKE @0";
+    //    searchTerm = "%" + Request.QueryString["search"] + "%";
+    //}
+
+    // Add Geschenk in modal
+    if(IsPost){
+        if(Validation.IsValid()){
+            StudentNummer = Request.Form["StudentNummer"];
+            Naam = Request.Form["Naam"];
+            Voorvoegsel = Request.Form["Voorvoegsel"];
+            Roepnaam = Request.Form["Roepnaam"];
+            Geslacht = Request.Form["Geslacht"];
+            Geboortedatum = Request.Form["Geboortedatum"];
+            Adres = Request.Form["Adres"];
+            Land = Request.Form["Land"];
+            Telefoon = Request.Form["Telefoon"];
+            Mobiel = Request.Form["Mobiel"];
+            Email = Request.Form["Email"];
+            Emailinstelling = Request.Form["Emailinstelling"];
+
+            var insertCommand = "INSERT INTO Student (StudentNummer, Naam, Voorvoegsel, Roepnaam, Geslacht, Geboortedatum, Adres, Land, Telefoon, Mobiel, Email, Emailinstelling) VALUES(@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11)";
+            db.Execute(insertCommand, StudentNummer, Naam, Voorvoegsel, Roepnaam, Geslacht, Geboortedatum, Adres, Land, Telefoon, Mobiel, Email, Emailinstelling);
+
+            Response.Redirect("~/Default");
+        }
+    }
+
+    var selectedData = db.Query(selectCommand);
+    //var selectedData = db.Query(selectCommand, searchTerm);
+    // var grid = new WebGrid(source: selectedData, defaultSort: "Genre", rowsPerPage:3);
+}
+<section id="table" class="section">
+	<div class="container">
+		<div class="row z-depth-1 hoverable">
+			<div class="intro col s12 m12">
+                <!--
+                <form method="get">
+                    <div class="search input-field margin col m6">
+					    <input id="search" name="search" type="text" value="@Request.QueryString["search"]">
+					    <label for="search">Zoeken</label>
+                    </div>
+                    <div class="search input-field margin col m6">
+                        <button class="btn waves-effect waves-light right" type="submit" name="action">Search</button>
+                    </div>
+                </form>
+                -->
+				<div class="col m12 s12">
+                    <table id="studentsTable" class="tablesorter bordered striped centered responsive-table">
+                        <thead>
+                            <tr>
+                                <th data-field="Image"> </th>
+                                <th data-field="Naam">Naam</th>
+                                <th data-field="Geboortedatum">Geboortedatum</th>
+                                <th data-field="Mobiel">Mobiel</th>
+                                <th data-field="Email">Email</th>
+                                <th data-field="Opleiding">Opleiding</th>
+                                <th data-field="Groep">Groep</th>
+                                <th data-field="Geslacht">Geslacht</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var row in db.Query(selectCommand)){
+                                <tr>
+                                    <td class="image-table">
+										<figure class="card-profile-image">
+											<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
+										</figure>
+									</td>
+                                    <td>@row.Naam</td>
+                                    <td>@row.Geboortedatum</td>
+                                    <td>@row.Mobiel</td>
+                                    <td><a href="mailto:@row.Email">@row.Email</a></td>
+                                    <td>@row.Opleiding</td>
+                                    <td>@row.Groep</td>
+                                    <td>@row.Geslacht</td>
+                                    <td><div class="more" data-activates="meer-dropdown"></div></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Toevoegen van een leerling Dialog -->
+<div id="modal-add" class="modal modal-fixed-footer">
+    <form method="post" class="col s12" enctype="multipart/form-data">
+	    <div class="modal-content">
+		    <h4 class="center">Leerling toevoegen</h4>
+            <div class="row margin">
+				<div class="input-field margin col s6">
+					<input id="studentNummer" name="StudentNummer" type="text" value="@Request.Form["StudentNummer"]" required>
+					<label for="studentNummer">StudentNummer</label>
+				</div>
+            </div>
+			<div class="row margin">
+				<div class="input-field margin col s6">
+					<input class="validate" id="naam" name="Naam" type="text" value="@Request.Form["Naam"]" required>
+					<label for="naam">Naam</label>
+				</div>
+				<div class="input-field margin col s6">
+					<input class="validate" id="voorvoegsel" name="Voorvoegsel" type="text" value="@Request.Form["Voorvoegsel"]">
+					<label for="voorvoegsel">Voorvoegsel</label>
+				</div>
+			</div>
+			<div class="row margin">
+				<div class="input-field margin col s6">
+					<input class="validate" id="roepnaam" name="Roepnaam" type="text" value="@Request.Form["Roepnaam"]">
+					<label for="roepnaam">Roepnaam</label>
+				</div>
+                <div class="input-field margin col s6">
+					<select name="Geslacht">
+						<option value="@Request.Form["Geslacht"]" disabled>Kies een geslacht</option>
+						<option value="1">Man</option>
+						<option value="2">Vrouw</option>
+					</select>
+					<label>Geslacht</label>
+				</div>
+			</div>
+			<div class="row margin">
+				<div class="input-field margin col s12">
+					<input id="date" name="Geboortedatum" class="datepicker" type="text" value="@Request.Form["Geboortedatum"]">
+					<label for="date">Geboortedatum</label>
+				</div>
+			</div>
+			<div class="row margin">
+				<div class="input-field margin col s6">
+					<input id="adres" name="Adres" type="text" value="@Request.Form["Adres"]">
+					<label for="adres">Adres</label>
+				</div>
+                <div class="input-field margin col s6">
+					<input id="land" name="Land" type="text" value="@Request.Form["Land"]">
+					<label for="land">Land</label>
+				</div>
+			</div>
+			<div class="row margin">
+				<div class="input-field margin col s6">
+					<input id="telefoon" name="Telefoon" type="tel" value="@Request.Form["Telefoon"]">
+					<label for="telefoon">Telefoon</label>
+				</div>
+                <div class="input-field margin col s6">
+					<input id="mobiel" name="mobiel" type="tel" value="@Request.Form["Mobiel"]">
+					<label for="mobiel">Mobiel</label>
+				</div>
+			</div>
+			<div class="row margin">
+				<div class="input-field margin col s6">
+					<input id="email" name="email" type="email" value="@Request.Form["Email"]">
+					<label for="email">E-mail</label>
+				</div>
+                <div class="input-field margin col s6">
+					<input id="emailinstelling" name="emailinstelling" type="tel" value="@Request.Form["Emailinstelling"]">
+					<label for="emailinstelling">emailinstelling</label>
+				</div>
+			</div>
+	    </div>
+        <div class="modal-footer">
+            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
+            <button type="submit" name="buttonSubmit" class="waves-effect waves-green btn-flat modal-action modal-close">NEXT</button>
+        </div>
+	</form>
+</div>
