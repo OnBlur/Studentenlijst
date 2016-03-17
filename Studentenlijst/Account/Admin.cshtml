@@ -75,7 +75,20 @@
                                 <tr>
                                     <td>@row.Naam</td>
                                     <td><a href="mailto:@row.Email">@row.Email</a></td>
-                                    <td>@row.Status</td>
+                                    <td>
+                                        <div class="switch">
+										    <label>
+											    Off
+                                                @if(row.Status == "1"){
+                                                    <input type="checkbox" checked="checked">
+                                                }
+											    else{
+											        <input type="checkbox">
+											    }
+											    <span class="lever"></span> On
+										    </label>
+									    </div>
+                                    </td>
                                     <td><div class="more" data-activates="meer-dropdown"></div></td>
                                 </tr>
                             }

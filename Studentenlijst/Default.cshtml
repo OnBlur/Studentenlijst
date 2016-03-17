@@ -107,7 +107,12 @@
                                     <td><a href="mailto:@row.Email">@row.Email</a></td>
                                     <td>@row.Opleiding</td>
                                     <td>@row.Groep</td>
-                                    <td>@row.Geslacht</td>
+                                    @if(row.Geslacht == "1"){
+                                        <td>Man</td>
+                                    }
+                                    else{
+                                        <td>Vrouw</td>
+                                    }
                                     <td><div class="more" data-activates="meer-dropdown"></div></td>
                                 </tr>
                             }
