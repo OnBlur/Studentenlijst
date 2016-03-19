@@ -79,7 +79,7 @@
                                         <div class="switch">
 										    <label>
 											    Off
-                                                @if(row.Status == "1"){
+                                                @if(row.Status == "on"){
                                                     <input type="checkbox" checked="checked">
                                                 }
 											    else{
@@ -99,6 +99,7 @@
         </div>
     </div>
 </section>
+<!-- Toevoegen van een gebruiker Dialog -->
 <div id="modal-add" class="modal modal-fixed-footer">
     <form method="post" class="col s12" enctype="multipart/form-data">
 	    <div class="modal-content">
@@ -114,13 +115,16 @@
 					<input id="email" name="Email" type="text" value="@Request.Form["Email"]" required>
 					<label for="email">Email</label>
 				</div>
-                <div class="input-field margin col s6">
-					<select name="Status">
-						<option value="@Request.Form["Status"]" disabled>Kies een geslacht</option>
-						<option value="1">ON</option>
-						<option value="2">OFF</option>
-					</select>
-					<label>Status</label>
+			</div>
+            <div class="row margin">
+				<div class="input-field margin col s12">
+					<div class="switch">
+						<label>
+							<a>Status account: </a> Off
+							<input name="Status" value="@Request.Form["Status"]" type="checkbox" checked="checked">
+							<span class="lever"></span> On
+						</label>
+					</div>
 				</div>
 			</div>
 	    </div>

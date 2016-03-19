@@ -682,6 +682,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
 	left: 10px;
 	top: 30px;
 }
+#modal-add{
+    width: 35%;
+}
 @media screen and (max-width: 1410px) {
 	.meer-pers-info, .meer-studie-info {
 		width: 100% !important;

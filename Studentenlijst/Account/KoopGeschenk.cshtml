@@ -10,30 +10,43 @@
 
 @{
     Layout = "~/_SiteLayout.cshtml";
-    Page.Title = "Geschenken";
+    Page.Title = "Student";
 
     WebSecurity.RequireAuthenticatedUser();
 
-    var geschenk = "";
-    var prijs = "";
-    var prioriteit = "";
-    var koper = "";
-    var status = "";
-    var id = "";
+    var StudentNummer = "";
+    var Naam = "";
+    var Voorvoegsel = "";
+    var Roepnaam = "";
+    var Geslacht = "";
+    var Geboortedatum = "";
+    var Adres = "";
+    var Land = "";
+    var Telefoon = "";
+    var Mobiel = "";
+    var Email = "";
+    var Emailinstelling = "";
 
     if(!IsPost){
-        if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()) {
-            id = Request.QueryString["ID"];
+        if(!Request.QueryString["StudentNummer"].IsEmpty() && Request.QueryString["StudentNummer"].IsInt()) {
+            StudentNummer = Request.QueryString["StudentNummer"];
             var db = Database.Open("StarterSite");
-            var dbCommand = "SELECT * FROM Geschenken WHERE ID = @0";
-            var row = db.QuerySingle(dbCommand, id);
+            var dbCommand = "SELECT * FROM Student WHERE StudentNummer = @0";
+            var row = db.QuerySingle(dbCommand, StudentNummer);
 
             if(row != null) {
-                geschenk = row.Geschenk;
-                prijs = row.Prijs;
-                prioriteit = row.Prioriteit;
-                koper = row.Koper;
-                status = row.Status;
+                StudentNummer = Request.Form["StudentNummer"];
+                Naam = Request.Form["Naam"];
+                Voorvoegsel = Request.Form["Voorvoegsel"];
+                Roepnaam = Request.Form["Roepnaam"];
+                Geslacht = Request.Form["Geslacht"];
+                Geboortedatum = Request.Form["Geboortedatum"];
+                Adres = Request.Form["Adres"];
+                Land = Request.Form["Land"];
+                Telefoon = Request.Form["Telefoon"];
+                Mobiel = Request.Form["Mobiel"];
+                Email = Request.Form["Email"];
+                Emailinstelling = Request.Form["Emailinstelling"];
             }
             else{
                 Validation.AddFormError("No present was selected.");
@@ -43,54 +56,146 @@
             Validation.AddFormError("No present was selected.");
         }
     }
-
-    if(IsPost){
-        koper = Request.Form["koper"];
-        status = Request.Form["status"];
-        id = Request.Form["id"];
-
-        if(Validation.IsValid()){
-            var db = Database.Open("StarterSite");
-            var updateCommand = "UPDATE Geschenken SET koper=@0, status=@1 WHERE Id=@2";
-            db.Execute(updateCommand, koper, status, id);
-            Response.Redirect("~/Default");
-        }
-    }
 }
 
 <section id="table" class="section">
 	<div class="container">
 		<div class="row z-depth-1 hoverable">
 			<div class="intro col s12 m12">
-                <form method="post">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th data-field="id">Geschenk</th>
-                                <th data-field="name">Prijs</th>
-                                <th data-field="name">Koper</th>
-                                <th data-field="price">Prioriteit</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>@geschenk</td>
-                                <td>@prijs</td>
-                                <td>@koper</td>
-                                <td>@prioriteit</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <input type="hidden" name="koper" value="@WebSecurity.CurrentUserName" />
-                    <input type="hidden" name="status" value="1" />
-                    <input type="hidden" name="id" value="@id" />
-
-                    <div class="input-field margin col s12">
-						<button type="submit" class="btn waves-effect waves-light right" name="buttonSubmit">Kopen!</button>
-					</div>
-                </form>
+                <div class="row">
+					<form class="col s12" enctype="multipart/form-data">
+						<div class="meer-header col s4">
+							<div class="col s12">
+								<i href="#" class="small material-icons left modal-action modal-close">backspace</i>
+								<i href="#modal-delete" class="small material-icons right modal-trigger">delete</i>
+								<i href="#modal-add" class="small right material-icons modal-trigger">edit</i>
+							</div>
+							<div class="col s12 center">
+								<img src="img/leerlingen/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
+								<h5 class="center">@row.Naam</h5>
+							</div>
+						</div>
+						<div class="meer-pers-info col s8 right">
+							<div class="card-panel">
+								<h5 class="center">Personelijke informatie</h5>
+								<div class="information">
+									<div class="information-section">
+										<p class="left-information">Mikhail Lashkov</p>
+										<p class="rigth-information">Naam</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">---</p>
+										<p class="rigth-information">Voorvoegsels</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">Misha</p>
+										<p class="rigth-information">Roepnaam</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">Man</p>
+										<p class="rigth-information">Geslacht</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">22-01-1994</p>
+										<p class="rigth-information">Geboortedatum</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">Blikfaart 20</p>
+										<p class="rigth-information">Adres</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">Nederland</p>
+										<p class="rigth-information">Land</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">0517234348</p>
+										<p class="rigth-information">Telefoon</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">0618874813</p>
+										<p class="rigth-information">Mobiel</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information"><a href="mailto:michakiber1@gmail.com">michakiber1@gmail.com</a></p>
+										<p class="rigth-information">E-mail</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">????</p>
+										<p class="rigth-information">emailinstelling</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="meer-studie-info col s8 right">
+							<div class="card-panel">
+								<h5 class="center">Studie informatie</h5>
+								<div class="information">
+									<div class="information-section">
+										<p class="left-information">Informatica</p>
+										<p class="rigth-information">Opleiding</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">????</p>
+										<p class="rigth-information">Fase</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">1B</p>
+										<p class="rigth-information">Groep</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">Fiona Saredien</p>
+										<p class="rigth-information">Mentor</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">lash1500</p>
+										<p class="rigth-information">Studentnummer</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">MBO Applicatieontwikkelaar</p>
+										<p class="rigth-information">Vooropleiding</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">????</p>
+										<p class="rigth-information">etiketnaam</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">????</p>
+										<p class="rigth-information">etiketregel1</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">????</p>
+										<p class="rigth-information">etiketregel2</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">NEE</p>
+										<p class="rigth-information">herinschrijving</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">20-07-2015</p>
+										<p class="rigth-information">datum van</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">20-07-2019</p>
+										<p class="rigth-information">datum tot</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">????</p>
+										<p class="rigth-information">Aankomst bij isatcode</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">10-03-2015</p>
+										<p class="rigth-information">Aanmeldingdatum</p>
+									</div>
+									<div class="information-section">
+										<p class="left-information">????</p>
+										<p class="rigth-information">Datumdefinitief</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
             </div>
         </div>
     </div>
