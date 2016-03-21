@@ -1,0 +1,229 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+	<script src="~/Scripts/sticky.min.js"></script>
+	<script src="~/Scripts/validator.min.js"></script>
+	<script src="~/Scripts/jquery.tablesorter.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Student";
+
+    WebSecurity.RequireAuthenticatedUser();
+
+    // Personelijke gegevens
+    var Naam = "";
+    var Voorvoegsel = "";
+    var Roepnaam = "";
+    var Geslacht = "";
+    var Geboortedatum = "";
+    var Adres = "";
+    var Land = "";
+    var Telefoon = "";
+    var Mobiel = "";
+    var Email = "";
+    var Emailinstelling = "";
+    // Studie gegevens
+    var Opleiding = "";
+    var Fase = "";
+    var Groep = "";
+    var Mentor = "";
+    var StudentNummer = "";
+    var Vooropleiding = "";
+    var Etiketnaam = "";
+    var Etiketregel1 = "";
+    var Etiketregel2 = "";
+    var Herinschrijving = "";
+    var DatumVan = "";
+    var DatumTot = "";
+    var AankomstBijIsatcode = "";
+    var Aanmeldingdatum = "";
+    var Datumdefinitief = "";
+
+    if(!IsPost){
+        if(!Request.QueryString["StudentNummer"].IsEmpty() && Request.QueryString["StudentNummer"].IsInt()){
+            StudentNummer = Request.QueryString["StudentNummer"];
+            var db = Database.Open("StarterSite");
+            var dbCommand = "SELECT * FROM Student WHERE StudentNummer = @0";
+            var row = db.QuerySingle(dbCommand, StudentNummer);
+            if(row != null) {
+                Naam = row.Naam;
+                Voorvoegsel = row.Voorvoegsel;
+                Roepnaam = row.Roepnaam;
+                Geslacht = row.Geslacht;
+                Geboortedatum = row.Geboortedatum;
+                Adres = row.Adres;
+                Land = row.Land;
+                Telefoon = row.Telefoon;
+                Mobiel = row.Mobiel;
+                Email = row.Email;
+                Emailinstelling = row.Emailinstelling;
+                // Studie gegevens
+                Opleiding = row.Opleiding;
+                Fase = row.Fase;
+                Groep = row.Groep;
+                Mentor = row.Mentor;
+                StudentNummer = row.StudentNummer.ToString();   // Converted StudentenNummer to String from Int
+                Vooropleiding = row.Vooropleiding;
+                Etiketnaam = row.Etiketnaam;
+                Etiketregel1 = row.Etiketregel1;
+                Etiketregel2 = row.Etiketregel2;
+                Herinschrijving = row.Herinschrijving;
+                DatumVan = row.DatumVan;
+                DatumTot = row.DatumTot;
+                AankomstBijIsatcode = row.AankomstBijIsatcode;
+                Aanmeldingdatum = row.Aanmeldingdatum;
+                Datumdefinitief = row.Datumdefinitief;
+            }
+            else{
+                Validation.AddFormError("Leerling bestaat niet!");
+            }
+        }
+        else{
+            Validation.AddFormError("Leerling bestaat niet");
+        }
+    }
+}
+@Html.ValidationSummary()
+<section id="table" class="section">
+	<div class="container">
+		<div class="row">
+			<form method="post" enctype="multipart/form-data">
+                <div class="meer-header col s4 left">
+                    <div class="card-panel col s12">
+					    <div class="meer-header-action col s12">
+						    <i href="~/Default" class="small material-icons left modal-action modal-close">backspace</i>
+						    <i href="#modal-delete" class="small material-icons right modal-trigger">delete</i>
+						    <i href="#modal-add" class="small right material-icons modal-trigger">edit</i>
+					    </div>
+					    <div class="col s12 center">
+						    <img src="~/Images/leerlingen/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
+						    <h5 class="center">@Naam</h5>
+					    </div>
+                    </div>
+                </div>
+				<div class="meer-pers-info col s8 right">
+					<div class="card-panel">
+						<h5 class="center">Personelijke informatie</h5>
+						<div class="information">
+							<div class="information-section">
+								<p class="left-information">@Naam</p>
+								<p class="rigth-information">Naam</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Voorvoegsel</p>
+								<p class="rigth-information">Voorvoegsel</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Roepnaam</p>
+								<p class="rigth-information">Roepnaam</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Geslacht</p>
+								<p class="rigth-information">Geslacht</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Geboortedatum</p>
+								<p class="rigth-information">Geboortedatum</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Adres</p>
+								<p class="rigth-information">Adres</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Land</p>
+								<p class="rigth-information">Land</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Telefoon</p>
+								<p class="rigth-information">Telefoon</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Mobiel</p>
+								<p class="rigth-information">Mobiel</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information"><a href="mailto:@Email">@Email</a></p>
+								<p class="rigth-information">E-mail</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Emailinstelling</p>
+								<p class="rigth-information">emailinstelling</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="meer-studie-info col s8 right">
+					<div class="card-panel">
+						<h5 class="center">Studie informatie</h5>
+						<div class="information">
+							<div class="information-section">
+								<p class="left-information">@Opleiding</p>
+								<p class="rigth-information">Opleiding</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Fase</p>
+								<p class="rigth-information">Fase</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Groep</p>
+								<p class="rigth-information">Groep</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Mentor</p>
+								<p class="rigth-information">Mentor</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@StudentNummer</p>
+								<p class="rigth-information">Studentnummer</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Vooropleiding</p>
+								<p class="rigth-information">Vooropleiding</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Etiketnaam</p>
+								<p class="rigth-information">Etiketnaam</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Etiketregel1</p>
+								<p class="rigth-information">Etiketregel1</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Etiketregel2</p>
+								<p class="rigth-information">Etiketregel2</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Herinschrijving</p>
+								<p class="rigth-information">Herinschrijving</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@DatumVan</p>
+								<p class="rigth-information">Datum van</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@DatumTot</p>
+								<p class="rigth-information">Datum tot</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@AankomstBijIsatcode</p>
+								<p class="rigth-information">Aankomst bij isatcode</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Aanmeldingdatum</p>
+								<p class="rigth-information">Aanmeldingdatum</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@Datumdefinitief</p>
+								<p class="rigth-information">Datumdefinitief</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+        </div>
+    </div>
+</section>

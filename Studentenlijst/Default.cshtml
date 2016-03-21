@@ -16,7 +16,7 @@
 
     var db = Database.Open("StarterSite") ;
     var selectCommand = "SELECT * FROM Student";
-    //var searchTerm = "";
+    var searchTerm = "";
 
     // Personelijke gegevens
     var Naam = "";
@@ -48,10 +48,10 @@
     var Datumdefinitief = "";
 
     // Search input
-    //if(!Request.QueryString["search"].IsEmpty() ) {
-    //    selectCommand = "SELECT * FROM Geschenken WHERE Geschenk OR Prijs OR Prioriteit OR Koper OR Status LIKE @0";
-    //    searchTerm = "%" + Request.QueryString["search"] + "%";
-    //}
+    if(!Request.QueryString["search"].IsEmpty() ) {
+        selectCommand = "SELECT * FROM Student WHERE Naam LIKE @0";
+        searchTerm = "%" + Request.QueryString["search"] + "%";
+    }
 
     // Add Geschenk in modal
     if(IsPost){
@@ -92,15 +92,13 @@
         }
     }
 
-    var selectedData = db.Query(selectCommand);
-    //var selectedData = db.Query(selectCommand, searchTerm);
-    // var grid = new WebGrid(source: selectedData, defaultSort: "Genre", rowsPerPage:3);
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var grid = new WebGrid(source: selectedData, defaultSort: "Naam", rowsPerPage:20);
 }
 <section id="table" class="section">
 	<div class="container">
 		<div class="row z-depth-1 hoverable">
 			<div class="intro col s12 m12">
-                <!--
                 <form method="get">
                     <div class="search input-field margin col m6">
 					    <input id="search" name="search" type="text" value="@Request.QueryString["search"]">
@@ -110,60 +108,38 @@
                         <button class="btn waves-effect waves-light right" type="submit" name="action">Search</button>
                     </div>
                 </form>
-                -->
 				<div class="col m12 s12">
-                    <table id="studentsTable" class="tablesorter bordered striped centered responsive-table">
-                        <thead>
-                            <tr>
-                                <th data-field="Image"> </th>
-                                <th data-field="Naam">Naam</th>
-                                <th data-field="Geboortedatum">Geboortedatum</th>
-                                <th data-field="Mobiel">Mobiel</th>
-                                <th data-field="Email">Email</th>
-                                <th data-field="Opleiding">Opleiding</th>
-                                <th data-field="Groep">Groep</th>
-                                <th data-field="Geslacht">Geslacht</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach(var row in selectedData){
-                                <tr>
-                                    <td class="image-table">
-										<figure class="card-profile-image">
-											<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Mikhail Lashkov">
-										</figure>
-									</td>
-                                    <td>@row.Naam</td>
-                                    <td>@row.Geboortedatum</td>
-                                    <td>@row.Mobiel</td>
-                                    <td><a href="mailto:@row.Email">@row.Email</a></td>
-                                    <td>@row.Opleiding</td>
-                                    <td>@row.Groep</td>
-                                    @if(row.Geslacht == "1"){
-                                        <td>Man</td>
-                                    }
-                                    else{
-                                        <td>Vrouw</td>
-                                    }
-                                    <td><div class="more" data-activates="meer-dropdown"></div></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    @grid.GetHtml(
+                    tableStyle: "bordered striped responsive-table",
+                    headerStyle: "centered",
+                    alternatingRowStyle: "alt",
+                    columns: grid.Columns(
+                        grid.Column("Naam"),
+                        grid.Column("Geboortedatum"),
+                        grid.Column("Mobiel"),
+                        grid.Column("Email"),
+                        grid.Column("Opleiding"),
+                        grid.Column("Groep"),
+                        grid.Column("StudentNummer"),
+                        grid.Column(format: @<a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer">MEER</a>),
+                        grid.Column(format: @<div class="more" data-activates="meer-dropdown">
+                        <!-- Table dropdown -->
+                        <ul id="meer-dropdown" class="dropdown-content">
+	                        <li><a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer" class="-text modal-trigger">Meer</a>
+	                        </li>
+	                        <li><a href="~/Account/DeleteGeschenk?studentnummer=@item.StudentNummer" class="-text modal-trigger">Aanpassen</a>
+	                        </li>
+	                        <li><a href="#modal-delete" class="-text modal-trigger">Verwijderen</a>
+	                        </li>
+                        </ul>
+                        </div>)
+                        )
+                    )
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Table dropdown -->
-<ul id="meer-dropdown" class="dropdown-content">
-	<li><a href="#modal-more" class="-text modal-trigger">Meer</a>
-	</li>
-	<li><a href="~/KoopGeschenk?id=@StudentNummer" class="-text modal-trigger">Aanpassen</a>
-	</li>
-	<li><a href="#modal-delete" class="-text modal-trigger">Verwijderen</a>
-	</li>
-</ul>
 <!-- Toevoegen van een leerling Dialog -->
 <div id="modal-add" class="modal modal-fixed-footer">
     <form method="post" class="col s12" enctype="multipart/form-data">
@@ -179,17 +155,17 @@
                 <div id="personelijkeInfo" class="col s12">
 			        <div class="row margin">
 				        <div class="input-field margin col s6">
-					        <input class="validate" id="naam" name="Naam" type="text" value="@Request.Form["Naam"]">
+					        <input id="naam" name="Naam" type="text" value="@Request.Form["Naam"]">
 					        <label for="naam">Naam</label>
 				        </div>
 				        <div class="input-field margin col s6">
-					        <input class="validate" id="voorvoegsel" name="Voorvoegsel" type="text" value="@Request.Form["Voorvoegsel"]">
+					        <input id="voorvoegsel" name="Voorvoegsel" type="text" value="@Request.Form["Voorvoegsel"]">
 					        <label for="voorvoegsel">Voorvoegsel</label>
 				        </div>
 			        </div>
 			        <div class="row margin">
 				        <div class="input-field margin col s4">
-					        <input class="validate" id="roepnaam" name="Roepnaam" type="text" value="@Request.Form["Roepnaam"]">
+					        <input id="roepnaam" name="Roepnaam" type="text" value="@Request.Form["Roepnaam"]">
 					        <label for="roepnaam">Roepnaam</label>
 				        </div>
                         <div class="input-field margin col s4">
@@ -235,7 +211,7 @@
                     </div>
                     <div class="row margin">
 				        <div class="input-field margin col s12">
-					        <input id="emailinstelling" name="Emailinstelling" type="email" value="@Request.Form["Emailinstelling"]">
+					        <input id="emailinstelling" name="Emailinstelling" type="text" value="@Request.Form["Emailinstelling"]">
 					        <label for="emailinstelling">Emailinstelling</label>
 				        </div>
                     </div>
@@ -310,7 +286,7 @@
                     </div>
                     <div class="row margin">
 				        <div class="input-field margin col s12">
-					        <input id="datumtot" name="DatumTot" class="datepicker" type="date" value="@Request.Form["DatumTot"]">
+					        <input id="datumtot" name="DatumTot" class="datepicker" type="text" value="@Request.Form["DatumTot"]">
 					        <label for="datumtot">Datum Tot</label>
 				        </div>
                     </div>

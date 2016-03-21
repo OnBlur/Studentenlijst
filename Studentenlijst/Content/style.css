@@ -220,6 +220,9 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+.card-panel {
+    border-radius: 0px; 
+}
 .hoi{
 	float:right;
 }
@@ -659,7 +662,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
     /* box-sizing: border-box; */
     display: table-cell;
     overflow: hidden;
-    padding: 10px 4px;
+    padding: 10px 10px;
     text-overflow: ellipsis;
     vertical-align: top;
     white-space: nowrap;
@@ -672,15 +675,13 @@ textarea.materialize-textarea:focus:not([readonly]) {
     box-sizing: border-box;
     display: table-cell;
     overflow: hidden;
-    padding: 10px 4px;
+    padding: 10px 10px;
     text-overflow: ellipsis;
     vertical-align: top;
     white-space: nowrap;
 }
-.meer-header{
-	position: fixed;
-	left: 10px;
-	top: 30px;
+.meer-header-action{
+    padding-top: 20px !important;
 }
 #modal-add{
     width: 35%;
