@@ -4,6 +4,10 @@ i {
 .section .table-of-contents{
 	position: fixed;
 }
+.section {
+    padding-top: inherit;
+    padding-bottom: inherit;
+}
 .small{
 	cursor:pointer;
 	opacity:.55;

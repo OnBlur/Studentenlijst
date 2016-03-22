@@ -49,7 +49,7 @@
 
     // Search input
     if(!Request.QueryString["search"].IsEmpty() ) {
-        selectCommand = "SELECT * FROM Student WHERE Naam LIKE @0";
+        selectCommand = "SELECT * FROM Student WHERE Voorvoegsel LIKE @0 OR Roepnaam LIKE @0 OR Geslacht LIKE @0 OR Geboortedatum LIKE @0 OR Adres LIKE @0 OR Land LIKE @0 OR Telefoon LIKE @0 OR Mobiel LIKE @0 OR Email LIKE @0 OR Emailinstelling LIKE @0 OR Opleiding LIKE @0 OR Fase LIKE @0 OR Groep LIKE @0 OR Mentor LIKE @0 OR StudentNummer LIKE @0 OR Vooropleiding LIKE @0 OR Etiketnaam LIKE @0 OR Etiketregel1 LIKE @0 OR Etiketregel2 LIKE @0 OR Herinschrijving LIKE @0 OR DatumVan LIKE @0 OR DatumTot LIKE @0 OR AankomstBijIsatcode LIKE @0 OR Aanmeldingdatum LIKE @0 OR Datumdefinitief LIKE @0";
         searchTerm = "%" + Request.QueryString["search"] + "%";
     }
 
@@ -122,12 +122,13 @@
                         grid.Column("Groep"),
                         grid.Column("StudentNummer"),
                         grid.Column(format: @<a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer">MEER</a>),
+                        grid.Column(format: @<a href="~/Account/DeleteGeschenk?studentnummer=@item.StudentNummer" class="-text modal-trigger">Delete</a>),
                         grid.Column(format: @<div class="more" data-activates="meer-dropdown">
                         <!-- Table dropdown -->
                         <ul id="meer-dropdown" class="dropdown-content">
 	                        <li><a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer" class="-text modal-trigger">Meer</a>
 	                        </li>
-	                        <li><a href="~/Account/DeleteGeschenk?studentnummer=@item.StudentNummer" class="-text modal-trigger">Aanpassen</a>
+	                        <li><a href="~/Account/StudentDelete?studentnummer=@item.StudentNummer" class="-text modal-trigger">Aanpassen</a>
 	                        </li>
 	                        <li><a href="#modal-delete" class="-text modal-trigger">Verwijderen</a>
 	                        </li>
@@ -317,3 +318,16 @@
         </div>
 	</form>
 </div>
+<form method="post">
+    <!-- Alert als je het geselecteerde tabel echt wilt verwijderen dialog -->
+    <div id="modal-delete" class="modal center">
+	    <div class="modal-content">
+		    <h4>Verwijderen</h4>
+		    <p>Weet je zeker dat je deze leerling wilt Verwijderenen?</p>
+	    </div>
+	    <div class="modal-footer">
+		    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Nee</a>
+		    <button type="submit" name="buttonDelete" class="waves-effect waves-green btn-flat modal-action modal-close">Ja</button>
+	    </div>
+    </div>
+</form>

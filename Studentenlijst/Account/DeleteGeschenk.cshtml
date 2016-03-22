@@ -14,25 +14,21 @@
 
     WebSecurity.RequireAuthenticatedUser();
 
-    var geschenk = "";
-    var prijs = "";
-    var koper = "";
-    var prioriteit = "";
-    var status = "";
+    var Naam = "";
+    var Email = "";
+    var StudentNummer = "";
     var movieId = "";
 
     if(!IsPost){
-        if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()){
-            movieId = Request.QueryString["ID"];
+        if(!Request.QueryString["StudentNummer"].IsEmpty() && Request.QueryString["StudentNummer"].IsInt()){
+            movieId = Request.QueryString["StudentNummer"];
             var db = Database.Open("StarterSite");
-            var dbCommand = "SELECT * FROM Geschenken WHERE ID = @0";
+            var dbCommand = "SELECT * FROM Student WHERE StudentNummer = @0";
             var row = db.QuerySingle(dbCommand, movieId);
             if(row != null) {
-                geschenk = row.Geschenk;
-                prijs = row.Prijs;
-                koper = row.Koper;
-                prioriteit = row.Prioriteit;
-                status = row.Status;
+                Naam = row.Naam;
+                Email = row.Email;
+                StudentNummer = row.StudentNummer.ToString();
             }
             else{
                 Validation.AddFormError("No movie was found for that ID.");
@@ -46,7 +42,7 @@
     if(IsPost && !Request["buttonDelete"].IsEmpty()){
         movieId = Request.Form["movieId"];
         var db = Database.Open("StarterSite");
-        var deleteCommand = "DELETE FROM Geschenken WHERE ID = @0";
+        var deleteCommand = "DELETE FROM Student WHERE StudentNummer = @0";
         db.Execute(deleteCommand, movieId);
         Response.Redirect("~/Default");
     }
@@ -55,22 +51,25 @@
 	<div class="container">
 		<div class="row z-depth-1 hoverable">
 			<div class="intro col s12 m12">
-                <form method="post">
+                @Html.ValidationSummary()
+              <form method="post">
+                <fieldset>
+                <legend>Movie Information</legend>
 
-                <p><span>geschenk:</span>
-                <span>@geschenk</span></p>
+                <p><span>Title:</span>
+                 <span>@Naam</span></p>
 
-                <p><span>prijs:</span>
-                <span>@prijs</span></p>
+                <p><span>Genre:</span>
+                 <span>@Email</span></p>
 
-                <p><span>prioriteit:</span>
-                <span>@prioriteit</span></p>
+                <p><span>Year:</span>
+                  <span>@StudentNummer</span></p>
 
                 <input type="hidden" name="movieid" value="@movieId" />
-                <div class="input-field margin col s12">
-					<button type="submit" class="btn waves-effect waves-light right" name="buttonDelete">Delete</button>
-				</div>
-            </form>
+                <p><input type="submit" name="buttonDelete" value="Delete Movie" /></p>
+                </fieldset>
+                <p><a href="~/Movies">Return to movie listing</a></p>
+              </form>
             </div>
         </div>
     </div>
