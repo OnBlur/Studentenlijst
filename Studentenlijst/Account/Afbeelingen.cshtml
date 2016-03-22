@@ -3,9 +3,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="~/Scripts/materialize.min.js"></script>
 	<script src="~/Scripts/init.js"></script>
-	<script src="~/Scripts/sticky.min.js"></script>
-	<script src="~/Scripts/validator.min.js"></script>
-	<script src="~/Scripts/jquery.tablesorter.js"></script>
 }
 
 @{
@@ -21,9 +18,8 @@
     if(IsPost){
         photo = WebImage.GetImageFromRequest();
         if(photo != null){
-            newFileName =  "_" + Path.GetFileName(photo.FileName);
+            newFileName = Path.GetFileName(photo.FileName);
             imagePath = @"Images\Studenten\" + newFileName;
-
             photo.Save(@"~\" + imagePath);
         }
     }
@@ -32,18 +28,10 @@
 <section id="table" class="section">
 	<div class="container">
         <div class="row z-depth-1 hoverable">
+            <div class="col s12 m12 blue darken-2 table-header">
+                <span class="white-text table-header-text left">Afbeeldingen</span>
+            </div>
 			<div class="intro col s12 m12">
-                <div class="col s12 m12">
-                    <form method="get">
-                        <div class="search input-field margin col m6">
-					        <input id="search" name="search" type="text" value="@Request.QueryString["search"]">
-					        <label for="search">Zoeken</label>
-                        </div>
-                        <div class="search input-field margin col m6">
-                            <button class="btn waves-effect waves-light right" type="submit" name="action">Search</button>
-                        </div>
-                    </form>
-                </div>
                 <div class="col s12">
                     <figure class="col s2">
 						<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
@@ -63,23 +51,13 @@
                     <figure class="col s2">
 						<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
 					</figure>
+                    @if(imagePath != ""){
+                        <figure class="col s2">
+                            <img src="@imagePath" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
+                        </figure>
+                    }
                 </div>
             </div>
-            <form action="" method="post" enctype="multipart/form-data">
-                <fieldset>
-                    <legend> Upload Image </legend>
-                    <label for="Image">Image</label>
-                    <input type="file" name="Image" accept="image/*"/>
-                    <br/>
-                    <input type="submit" value="Upload" />
-                </fieldset>
-            </form>
-            <h1>Uploaded Image</h1>
-            @if(imagePath != ""){
-                <div class="result">
-                    <img src="@imagePath" alt="image" />
-                </div>
-            }
         </div>
     </div>
 </section>
@@ -87,18 +65,19 @@
 <div id="modal-add" class="modal modal-fixed-footer">
     <form method="post" class="col s12" enctype="multipart/form-data">
 	    <div class="modal-content">
+            <h4 class="center">Afbeelding toevoegen</h4>
             <div class="row">
-                <div id="Afbeeldingen" class="col s12">
-			        <div class="row margin">
-				        <div class="input-field margin col s6">
-					        <input id="naam" name="Naam" type="text" value="@Request.Form["Naam"]">
-					        <label for="naam">Naam</label>
-				        </div>
-				        <div class="input-field margin col s6">
-					        <input id="voorvoegsel" name="Voorvoegsel" type="text" value="@Request.Form["Voorvoegsel"]">
-					        <label for="voorvoegsel">Voorvoegsel</label>
-				        </div>
-			        </div>
+                <div class="col s12">
+                    <div class="row margin">
+						<div class="file-field input-field margin col s12">
+							<input disabled="" id="upload" type="text" class="file-path">
+							<label for="upload">Foto locatie</label>
+							<div class="btn right">
+								<span>Foto toevoegen</span>
+								<input type="file" name="Image" accept="image/*">
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
 	    </div>

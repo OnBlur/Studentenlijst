@@ -3,9 +3,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="~/Scripts/materialize.min.js"></script>
 	<script src="~/Scripts/init.js"></script>
-	<script src="~/Scripts/sticky.min.js"></script>
-	<script src="~/Scripts/validator.min.js"></script>
-	<script src="~/Scripts/jquery.tablesorter.js"></script>
 }
 
 @{
@@ -98,6 +95,9 @@
 <section id="table" class="section">
 	<div class="container">
 		<div class="row z-depth-1 hoverable">
+            <div class="col s12 m12 blue darken-2 table-header">
+                <span class="white-text table-header-text left">Studenten</span>
+            </div>
 			<div class="intro col s12 m12">
                 <form method="get">
                     <div class="search input-field margin col m6">
@@ -122,19 +122,10 @@
                         grid.Column("Opleiding"),
                         grid.Column("Groep"),
                         grid.Column("StudentNummer"),
-                        grid.Column(format: @<a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer">MEER</a>),
-                        grid.Column(format: @<a href="~/Account/DeleteGeschenk?studentnummer=@item.StudentNummer" class="-text modal-trigger">Delete</a>),
-                        grid.Column(format: @<div class="more" data-activates="meer-dropdown">
-                        <!-- Table dropdown -->
-                        <ul id="meer-dropdown" class="dropdown-content">
-	                        <li><a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer" class="-text modal-trigger">Meer</a>
-	                        </li>
-	                        <li><a href="~/Account/StudentDelete?studentnummer=@item.StudentNummer" class="-text modal-trigger">Aanpassen</a>
-	                        </li>
-	                        <li><a href="#modal-delete" class="-text modal-trigger">Verwijderen</a>
-	                        </li>
-                        </ul>
-                        </div>)
+                        grid.Column(format: @<a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
+                        grid.Column(format: @<a href="~/Account/StudentAanpassen?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
+                        grid.Column(format: @<a href="~/Account/StudentVerwijderen?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
+                                
                         )
                     )
                 </div>

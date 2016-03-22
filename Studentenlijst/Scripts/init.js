@@ -33,9 +33,6 @@
 	
     $('ul.tabs').tabs();
 	$('.materialboxed').materialbox();
-	$("#studentsTable").tablesorter();
-	$("#usersTable").tablesorter(); 
-	$("#logTable").tablesorter(); 
 	$('.modal-trigger').leanModal();
 	$('.datepicker').pickadate();
 	$('.tooltipped').tooltip({delay: 50});
