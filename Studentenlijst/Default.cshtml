@@ -10,7 +10,7 @@
 
 @{
     Layout = "~/_SiteLayout.cshtml";
-    Page.Title = "Studentenlijst";
+    Page.Title = "Studenten";
 
     WebSecurity.RequireAuthenticatedUser();
 
@@ -114,6 +114,7 @@
                     headerStyle: "centered",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
+                        grid.Column(format: @<figure class="card-profile-image"><img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1"></figure>),
                         grid.Column("Naam"),
                         grid.Column("Geboortedatum"),
                         grid.Column("Mobiel"),

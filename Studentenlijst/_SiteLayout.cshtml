@@ -7,7 +7,7 @@
 		<meta name="keywords" content="NHL, nhl hoogeschool, studentenlijst">
 		<meta name="author" content="Mikhail Lashkov">
 
-        <title>@Page.Title - Leerlingen</title>
+        <title>@Page.Title - Sudentenlijst</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
         <link type="text/css" rel="stylesheet" href="~/Content/materialize.min.css"  media="screen,projection"/>
@@ -25,7 +25,7 @@
 						<div class="col m7 header-top-user">
 							<div class="hoi">
 								<div class="chip user hoverable">
-									<img src="~/Images/leerlingen/lash1500.jpg" alt="Contact Person">
+									<img src="~/Images/Studenten/lash1500.jpg" alt="Contact Person">
 									@WebSecurity.CurrentUserName
 								</div>
 								<div class="chip hoverable">
@@ -51,11 +51,25 @@
 		            <i class="right material-icons activator">add</i>
 	            </a>
 	            <ul>
-                    <li><a class="btn-floating red" href="~/Default" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i></a>
+                    <li>
+                        <a class="btn-floating red" href="~/Default" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i>
+                        </a>
 				    </li>
-				    <li><a class="btn-floating yellow darken-1" href="~/Account/Admin" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="Admin">settings</i></a>
+                    <li>
+                        <a class="btn-floating cyan darken-1" href="~/Account/Afbeelingen" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Foto's">camera</i>
+                        </a>
 				    </li>
-				    <li><a class="btn-floating green" href="~/Account/Statistiken" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="large material-icons tooltipped" data-position="left" data-tooltip="Statistiken">trending_up</i></a>
+				    <li>
+                        <a class="btn-floating yellow darken-1" href="~/Account/Admin" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Admin">settings</i>
+                        </a>
+				    </li>
+				    <li>
+                        <a class="btn-floating green" href="~/Account/Statistiken" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Statistiken">trending_up</i>
+                        </a>
 				    </li>
 		            <li>
                         <form id="logoutForm" action="~/Account/Logout" method="post">

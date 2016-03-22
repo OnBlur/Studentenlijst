@@ -1,0 +1,114 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+	<script src="~/Scripts/sticky.min.js"></script>
+	<script src="~/Scripts/validator.min.js"></script>
+	<script src="~/Scripts/jquery.tablesorter.js"></script>
+
+    <!-- chartjs -->
+	<script type="text/javascript" src="~/Scripts/plugins/chartjs/chart.min.js"></script>
+	<script type="text/javascript" src="~/Scripts/plugins/chartjs/chart-script.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Statistiken";
+
+    WebSecurity.RequireAuthenticatedUser();
+}
+
+<!DOCTYPE html>
+
+<section id="table" class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m12">
+				<div class="card z-depth-1 hoverable">
+					<div class="card-content cyan accent-4">
+						<a class="btn-floating btn-move-up waves-effect waves-light red right"><i class="material-icons activator">add</i></a>
+						<div class="line-chart-wrapper">
+							<p class="margin white-text left">Aantal Leerlingen 2015</p>
+							<canvas id="line-chart" height="220" width="572" style="width: 572px; height: 220px;"></canvas>
+						</div>
+					</div>
+					<div class="card-reveal">
+						<span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i></span>
+						<table id="statstics-table" class="responsive-table tablesorter bordered striped centered">
+							<thead>
+								<tr>
+									<th data-field="country-name">Maand</th>
+									<th data-field="item-sold">Aantal leerlingen</th>
+									<th data-field="total-profit">Profit/Loss</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Januari</td>
+									<td>300</td>
+									<td class="red-text">-20</td>
+								</tr>
+								<tr>
+									<td>Februari</td>
+									<td>280</td>
+									<td class="red-text">-20</td>
+								</tr>
+								<tr>
+									<td>Maart</td>
+									<td>260</td>
+									<td class="red-text">-20</td>
+								</tr>
+								<tr>
+									<td>April</td>
+									<td>240</td>
+									<td class="red-text">-20</td>
+								</tr>
+								<tr>
+									<td>Mei</td>
+									<td>220</td>
+									<td class="red-text">-20</td>
+								</tr>
+								<tr>
+									<td>Juni</td>
+									<td>210</td>
+									<td class="red-text">-10</td>
+								</tr>
+								<tr>
+									<td>Juli</td>
+									<td>205</td>
+									<td class="red-text">-5</td>
+								</tr>
+								<tr>
+									<td>Augustus</td>
+									<td>105</td>
+									<td class="red-text">-100</td>
+								</tr>
+								<tr>
+									<td>September</td>
+									<td>406</td>
+									<td class="green-text">+300</td>
+								</tr>
+								<tr>
+									<td>Oktober</td>
+									<td>386</td>
+									<td class="red-text">-20</td>
+								</tr>
+								<tr>
+									<td>November</td>
+									<td>366</td>
+									<td class="red-text">-20</td>
+								</tr>
+								<tr>
+									<td>December</td>
+									<td>316</td>
+									<td class="red-text">-50</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
