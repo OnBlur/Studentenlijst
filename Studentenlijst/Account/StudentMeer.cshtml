@@ -83,6 +83,12 @@
             Validation.AddFormError("Leerling bestaat niet");
         }
     }
+    if(Geslacht == "1"){
+        Geslacht = "Man";
+    }
+    else{
+        Geslacht = "Vrouw";
+    }
 }
 @Html.ValidationSummary()
 <section id="table" class="section">
@@ -95,14 +101,18 @@
                     </div>
                     <div class="card-panel">
 					    <div class="meer-header-action col s12">
-						    <a href="~/Default"><i class="small material-icons left modal-action modal-close">backspace</i></a>
-						    <a href="#modal-delete"><i class="small material-icons right modal-trigger">delete</i></a>
-						    <a href="#modal-add"><i class="small right material-icons modal-trigger">edit</i></a>
+						    <a href="~/Default"><i class="small material-icons left modal-action">backspace</i></a>
+						    <a href="~/Account/StudentVerwijder"><i class="small material-icons right">delete</i></a>
+						    <a href="~/Account/StudentEdit?studentnummer=@StudentNummer"><i class="small right material-icons">edit</i></a>
 					    </div>
 					    <div class="s12 center">
 						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
 						    <h5 class="center">@Naam</h5>
 					    </div>
+                        <div class="s12">
+                            <p class="left-information">@StudentNummer</p>
+							<p class="right-information right-align">Student nummer</p>
+                        </div>
                     </div>
                 </div>
 				<div class="meer-pers-info col s8 right">
@@ -111,49 +121,49 @@
                     </div>
 					<div class="card-panel">
 						<div class="information">
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Naam</p>
-								<p class="right-align">Naam</p>
+								<p class="right-information right-align">Naam</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Voorvoegsel</p>
-								<p class="right-align">Voorvoegsel</p>
+								<p class="right-information right-align">Voorvoegsel</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Roepnaam</p>
-								<p class="right-align">Roepnaam</p>
+								<p class="right-information right-align">Roepnaam</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Geslacht</p>
-								<p class="right-align">Geslacht</p>
+								<p class="right-information right-align">Geslacht</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Geboortedatum</p>
-								<p class="right-align">Geboortedatum</p>
+								<p class="right-information right-align">Geboortedatum</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Adres</p>
-								<p class="right-align">Adres</p>
+								<p class="right-information right-align">Adres</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Land</p>
-								<p class="right-align">Land</p>
+								<p class="right-information right-align">Land</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Telefoon</p>
-								<p class="right-align">Telefoon</p>
+								<p class="right-information right-align">Telefoon</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Mobiel</p>
-								<p class="right-align">Mobiel</p>
+								<p class="right-information right-align">Mobiel</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information"><a href="mailto:@Email">@Email</a></p>
-								<p class="right-align">E-mail</p>
+								<p class="right-information right-align">E-mail</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Emailinstelling</p>
-								<p class="right-align">emailinstelling</p>
+								<p class="right-information right-align">emailinstelling</p>
 							</div>
 						</div>
 					</div>
@@ -164,65 +174,65 @@
                     </div>
 					<div class="card-panel">
 						<div class="information">
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Opleiding</p>
-								<p class="right-align">Opleiding</p>
+								<p class="right-information right-align">Opleiding</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Fase</p>
-								<p class="right-align">Fase</p>
+								<p class="right-information right-align">Fase</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Groep</p>
-								<p class="right-align">Groep</p>
+								<p class="right-information right-align">Groep</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Mentor</p>
-								<p class="right-align">Mentor</p>
+								<p class="right-information right-align">Mentor</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@StudentNummer</p>
-								<p class="right-align">Studentnummer</p>
+								<p class="right-information right-align">Studentnummer</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Vooropleiding</p>
-								<p class="right-align">Vooropleiding</p>
+								<p class="right-information right-align">Vooropleiding</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Etiketnaam</p>
-								<p class="right-align">Etiketnaam</p>
+								<p class="right-information right-align">Etiketnaam</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Etiketregel1</p>
-								<p class="right-align">Etiketregel1</p>
+								<p class="right-information right-align">Etiketregel1</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Etiketregel2</p>
-								<p class="right-align">Etiketregel2</p>
+								<p class="right-information right-align">Etiketregel2</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Herinschrijving</p>
-								<p class="right-align">Herinschrijving</p>
+								<p class="right-information right-align">Herinschrijving</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@DatumVan</p>
-								<p class="right-align">Datum van</p>
+								<p class="right-information right-align">Datum van</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@DatumTot</p>
-								<p class="right-align">Datum tot</p>
+								<p class="right-information right-align">Datum tot</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@AankomstBijIsatcode</p>
-								<p class="right-align">Aankomst bij isatcode</p>
+								<p class="right-information right-align">Aankomst bij isatcode</p>
 							</div>
 							<div class="information-section">
 								<p class="left-information">@Aanmeldingdatum</p>
-								<p class="right-align">Aanmeldingdatum</p>
+								<p class="right-information right-align">Aanmeldingdatum</p>
 							</div>
-							<div class="information-section">
+							<div class="information-section grey lighten-3">
 								<p class="left-information">@Datumdefinitief</p>
-								<p class="right-align">Datumdefinitief</p>
+								<p class="right-information right-align">Datumdefinitief</p>
 							</div>
 						</div>
 					</div>

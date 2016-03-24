@@ -127,6 +127,12 @@
             Response.Redirect("~/Default");
         }
     }
+    if(Geslacht == "1"){
+        Geslacht = "Man";
+    }
+    else{
+        Geslacht = "Vrouw";
+    }
 }
 
 
@@ -149,6 +155,10 @@
 						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
 						    <h5 class="center">@Naam</h5>
 					    </div>
+                        <div class="s12">
+                            <p class="left-information">@StudentNummer</p>
+							<p class="right-information right-align">Student nummer</p>
+                        </div>
                     </div>
                 </div>
                 <div class="meer-pers-info col s8 right">
@@ -179,8 +189,21 @@
                         </div>
                         <div class="row input-field">
                             <p class="margin col s6">
-                                <input id="Geslacht" name="Geslacht" type="text" value="@Geslacht"/>
-                                <label for="Geslacht">@Geslacht</label>
+                                <select name="Geslacht">
+						            <option value="@Request.Form["Geslacht"]" disabled>Kies een geslacht</option>
+						            @{
+                                        if(Geslacht == "Vrouw"){
+                                            <option value="2">Vrouw</option>
+                                            <option value="1">Man</option>
+                                        }
+                                        if(Geslacht=="Man"){
+                                             <option value="1">Man</option>
+                                             <option value="2">Vrouw</option>  
+                                        }
+                                    }
+
+                                   
+					            </select>
                             </p>
                             <p class="right-align col s6">Geslacht</p>
                         </div>
