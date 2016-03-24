@@ -123,7 +123,7 @@
                         grid.Column("Groep"),
                         grid.Column("StudentNummer"),
                         grid.Column(format: @<a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
-                        grid.Column(format: @<a href="~/Account/StudentAanpassen?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
+                        grid.Column(format: @<a href="~/Account/StudentEdit?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
                         grid.Column(format: @<a href="~/Account/StudentVerwijderen?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
                                 
                         )
