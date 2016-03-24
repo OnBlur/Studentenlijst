@@ -230,6 +230,7 @@ body {
 }
 .card-panel {
     border-radius: 0px; 
+    padding-top: 30px;
 }
 .hoi{
 	float:right;
@@ -681,7 +682,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
     vertical-align: top;
     white-space: nowrap;
 }
-.rigth-information{
+.right-information{
 	display: table-row;
     color: #666;
     width: 35%;
