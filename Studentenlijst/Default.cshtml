@@ -90,7 +90,7 @@
     }
 
     var selectedData = db.Query(selectCommand, searchTerm);
-    var grid = new WebGrid(source: selectedData, defaultSort: "Naam", rowsPerPage:20);
+    var grid = new WebGrid(source: selectedData, defaultSort: "Naam", rowsPerPage:9);
 }
 <section id="table" class="section">
 	<div class="container">
@@ -104,27 +104,22 @@
 					    <input id="search" name="search" type="text" value="@Request.QueryString["search"]">
 					    <label for="search">Zoeken</label>
                     </div>
-                    <div class="search input-field margin col m6">
-                        <button class="btn waves-effect waves-light right" type="submit" name="action">Search</button>
-                    </div>
                 </form>
 				<div class="col m12 s12">
                     @grid.GetHtml(
                     tableStyle: "bordered striped responsive-table",
-                    headerStyle: "centered",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
                         grid.Column(format: @<figure class="card-profile-image"><img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1"></figure>),
                         grid.Column("Naam"),
-                        grid.Column("Geboortedatum"),
                         grid.Column("Mobiel"),
                         grid.Column("Email"),
                         grid.Column("Opleiding"),
                         grid.Column("Groep"),
                         grid.Column("StudentNummer"),
-                        grid.Column(format: @<a href="~/Account/StudentMeer?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
+                        grid.Column(format: @<a href="~/Account/StudentMore?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
                         grid.Column(format: @<a href="~/Account/StudentEdit?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
-                        grid.Column(format: @<a href="~/Account/StudentVerwijderen?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
+                        grid.Column(format: @<a href="~/Account/StudentDelete?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
                                 
                         )
                     )
@@ -237,7 +232,7 @@
                     </div>
                     <div class="row margin">
 				        <div class="input-field margin col s12">
-					        <input id="studentNummer" name="StudentNummer" type="text" value="@Request.Form["Studentnummer"]">
+					        <input id="studentNummer" name="StudentNummer" type="text" value="@Request.Form["Studentnummer"]" required>
 					        <label for="studentNummer">Studentnummer</label>
 				        </div>
                     </div>

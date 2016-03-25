@@ -4,7 +4,6 @@
 	<script src="~/Scripts/init.js"></script>
 }
 
-
 @{
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Student verwijderen";
@@ -50,7 +49,6 @@
         Response.Redirect("~/Default");
     }
 
-
 }
 <section id="table" class="section">
 	<div class="container">
@@ -58,8 +56,8 @@
 			<div class="intro col s12 m12">
                 @Html.ValidationSummary()
                 <form method="post">
-                    <a href="~/Default"><i class="small material-icons left modal-action modal-close">backspace</i></a>
-                    <table id="studentsTable" class="tablesorter bordered striped centered responsive-table">
+                    <a href="~/Default"><i class="small material-icons left">backspace</i></a>
+                    <table id="studentsTable" class="bordered striped centered responsive-table">
                         <thead>
                             <tr>
                                 <th>Naam</th>

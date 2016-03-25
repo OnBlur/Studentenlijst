@@ -1,5 +1,4 @@
-﻿@* Remove this section if you are using bundling *@
-@section Scripts {
+﻿@section Scripts {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="~/Scripts/materialize.min.js"></script>
 	<script src="~/Scripts/init.js"></script>
@@ -7,7 +6,7 @@
 
 @{
     Layout = "~/_SiteLayout.cshtml";
-    Page.Title = "Edit user";
+    Page.Title = "Student wijzigen";
 
     WebSecurity.RequireAuthenticatedUser();
     // Check if user has the right privileges
@@ -73,8 +72,8 @@
                     </div>
                     <div class="card-panel">
 					    <div class="meer-header-action col s12">
-						    <a href="~/Default"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
-					        <a href="~/Account/UserVerwijder?userid=@UserId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
+						    <a href="~/Account/Admin"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
+					        <a href="~/Account/UserDelete?userid=@UserId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
                         </div>
 					    <div class="s12 center">
 						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">

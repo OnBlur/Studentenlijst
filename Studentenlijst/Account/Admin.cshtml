@@ -19,9 +19,9 @@
     var selectCommand = "SELECT * FROM UserProfile";
     var searchTerm = "";
 
-    var email = "";
     var Naam = "";
     var RoleId = "";
+    var email = "";
     var password = "";
     var confirmPassword = "";
 
@@ -50,25 +50,9 @@
                 // Create and associate a new entry in the membership database.
                 // If successful, continue processing the request
                 try {
-                    bool requireEmailConfirmation = !WebMail.SmtpServer.IsEmpty();
-                    var token = WebSecurity.CreateAccount(email, password, requireEmailConfirmation);
-                    if (requireEmailConfirmation) {
-                        var hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
-                        var confirmationUrl = hostUrl + VirtualPathUtility.ToAbsolute("~/Account/Confirm?confirmationCode=" + HttpUtility.UrlEncode(token));
+                    var token = WebSecurity.CreateAccount(email, password);
+                    Response.Redirect("~/Account/Admin");
 
-                        WebMail.Send(
-                            to: email,
-                            subject: "Please confirm your account",
-                            body: "Your confirmation code is: " + token + ". Visit <a href=\"" + confirmationUrl + "\">" + confirmationUrl + "</a> to activate your account."
-                        );
-                    }
-
-                    if (requireEmailConfirmation) {
-                        // Thank the user for registering and let them know an email is on its way
-                        Response.Redirect("~/Account/Thanks");
-                    } else {
-                        Response.Redirect("~/Account/Admin");
-                    }
                 } catch (System.Web.Security.MembershipCreateUserException e) {
                     ModelState.AddFormError(e.Message);
                 }
@@ -94,23 +78,18 @@
 					    <input id="search" name="search" type="text" value="@Request.QueryString["search"]">
 					    <label for="search">Zoeken</label>
                     </div>
-                    <div class="search input-field margin col m6">
-                        <button class="btn waves-effect waves-light right" type="submit" name="action">Search</button>
-                    </div>
                 </form>
 				<div class="col m12 s12">
                     @grid.GetHtml(
                     tableStyle: "bordered striped responsive-table",
-                    headerStyle: "centered",
-                    footerStyle: "striped",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
+                        grid.Column("UserId"),
                         grid.Column("Naam"),
                         grid.Column("Email"),
-                        grid.Column("UserId"),
                         grid.Column("RoleId"),
                         grid.Column(format: @<a href="~/Account/UserEdit?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
-                        grid.Column(format: @<a href="~/Account/UserVerwijderen?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
+                        grid.Column(format: @<a href="~/Account/UserDelete?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
                         )
                     )
                 </div>

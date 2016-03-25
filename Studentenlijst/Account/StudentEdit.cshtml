@@ -142,7 +142,6 @@
         <div class="row">
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="StudentNummer" value="@Request["StudentNummer"]" />
-
                 <div class="meer-header col s4 left">
                     <div class="col s12 m12 blue darken-2 table-header">
                         <span class="white-text table-header-text left">Student Foto</span>
@@ -150,7 +149,7 @@
                     <div class="card-panel">
 					    <div class="meer-header-action col s12">
 						    <a href="~/Default"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
-					        <a href="~/Account/StudentVerwijderen?studentnummer=@StudentNummer"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
+					        <a href="~/Account/StudentDelete?studentnummer=@StudentNummer"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
                         </div>
 					    <div class="s12 center">
 						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
@@ -160,6 +159,9 @@
                             <p class="left-information">@StudentNummer</p>
 							<p class="right-information right-align">Student nummer</p>
                         </div>
+                    </div>
+                    <div class="col s12">
+                        <button class="btn waves-effect waves-light center" type="submit" name="buttonSubmit">Bevestigen</button>
                     </div>
                 </div>
                 <div class="meer-pers-info col s8 right">
@@ -367,9 +369,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="margin col m12">
-                    <button class="btn waves-effect waves-light right" type="submit" name="buttonSubmit">Bevestigen</button>
                 </div>
             </form>
         </div>
