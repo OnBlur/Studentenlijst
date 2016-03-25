@@ -2,9 +2,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="~/Scripts/materialize.min.js"></script>
 	<script src="~/Scripts/init.js"></script>
-	<script src="~/Scripts/sticky.min.js"></script>
-	<script src="~/Scripts/validator.min.js"></script>
-	<script src="~/Scripts/jquery.tablesorter.js"></script>
 }
 
 
@@ -23,9 +20,6 @@
     var Leerjaar = "";
     var Telefoon = "";
     var StudentNummer = "";
-
-    
-
 
     if(!IsPost){
         if(!Request.QueryString["StudentNummer"].IsEmpty() && Request.QueryString["StudentNummer"].IsInt()){
@@ -86,6 +80,33 @@
                                 </tr>
                             }
                         </tbody>
+                    </table>
+                    <input type="hidden" name="StudentNummer" value="@StudentNummer"/>
+                    <input class="btn waves-effect waves-light verwijderbutton" type="submit" value ="Verwijderen" name="buttonDelete" >
+                </form>
+                    <a href="~/Default"><i class="small material-icons left modal-action modal-close">backspace</i></a>
+                    <table id="studentsTable" class="tablesorter bordered striped centered responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Naam</th>
+                                <th>Roepnaam</th>
+                                <th>Studentnummer</th>
+                                <th>Klas</th>
+                                <th>Telefoon</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var row in db.Query(selectCommand, StudentNummer)){
+                                <tr>
+                                        
+                                    <td>@row.Naam</td>
+                                    <td>@row.Roepnaam</td>
+                                    <td>@row.Studentnummer.ToString()</td>
+                                    <td>@row.Fase@row.Groep</td>
+                                    <td>@row.Mobiel</td>
+                                </tr>
+                            }
+                            </tbody>
                     </table>
                     <input type="hidden" name="StudentNummer" value="@StudentNummer"/>
                     <input class="btn waves-effect waves-light verwijderbutton" type="submit" value ="Verwijderen" name="buttonDelete" >
