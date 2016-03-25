@@ -84,33 +84,6 @@
                     <input type="hidden" name="StudentNummer" value="@StudentNummer"/>
                     <input class="btn waves-effect waves-light verwijderbutton" type="submit" value ="Verwijderen" name="buttonDelete" >
                 </form>
-                    <a href="~/Default"><i class="small material-icons left modal-action modal-close">backspace</i></a>
-                    <table id="studentsTable" class="tablesorter bordered striped centered responsive-table">
-                        <thead>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Roepnaam</th>
-                                <th>Studentnummer</th>
-                                <th>Klas</th>
-                                <th>Telefoon</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach(var row in db.Query(selectCommand, StudentNummer)){
-                                <tr>
-                                        
-                                    <td>@row.Naam</td>
-                                    <td>@row.Roepnaam</td>
-                                    <td>@row.Studentnummer.ToString()</td>
-                                    <td>@row.Fase@row.Groep</td>
-                                    <td>@row.Mobiel</td>
-                                </tr>
-                            }
-                            </tbody>
-                    </table>
-                    <input type="hidden" name="StudentNummer" value="@StudentNummer"/>
-                    <input class="btn waves-effect waves-light verwijderbutton" type="submit" value ="Verwijderen" name="buttonDelete" >
-                </form>
             </div>
         </div>
     </div>
