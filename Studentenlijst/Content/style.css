@@ -4,6 +4,11 @@ i {
 .card {
     border-radius: 0px;
 }
+.waves-button-input{
+    background-color: #ff4081 !important;
+    border: none;
+    font-style: normal !important;
+}
 .section .table-of-contents{
 	position: fixed;
 }

@@ -10,37 +10,77 @@
     Page.Title = "Admin";
 
     WebSecurity.RequireAuthenticatedUser();
+    // Check if user has the right privileges
+    if(!User.IsInRole("admin")){
+        Response.Redirect("~/Default");
+    }
 
     var db = Database.Open("StarterSite") ;
     var selectCommand = "SELECT * FROM UserProfile";
     var searchTerm = "";
 
+    var email = "";
     var Naam = "";
-    var Email = "";
-    var Status = "";
+    var RoleId = "";
+    var password = "";
+    var confirmPassword = "";
 
     // Search input
     if(!Request.QueryString["search"].IsEmpty() ) {
-        selectCommand = "SELECT * FROM UserProfile WHERE Naam LIKE @0 OR Email LIKE @0 OR Status LIKE @0";
+        selectCommand = "SELECT * FROM UserProfile WHERE Naam LIKE @0 OR Email LIKE @0";
         searchTerm = "%" + Request.QueryString["search"] + "%";
     }
 
-    // Add Geschenk in modal
+    // Add User in modal
     if(IsPost){
-        if(Validation.IsValid()){
-            Naam = Request.Form["Naam"];
-            Email = Request.Form["Email"];
-            Status = Request.Form["Status"];
+        AntiForgery.Validate();
+        email = Request.Form["email"];
+        password = Request.Form["password"];
+        Naam = Request.Form["Naam"];
+        RoleId = Request.Form["RoleId"];
 
-            var insertCommand = "INSERT INTO UserProfile (Naam, Email, Status) VALUES(@0, @1, @2)";
-            db.Execute(insertCommand, Naam, Email, Status);
+        // If all information is valid, create a new account
+        if (Validation.IsValid()) {
+            // Check if user already exists
+            var user = db.QuerySingle("SELECT Email FROM UserProfile WHERE LOWER(Email) = LOWER(@0)", email);
+            if (user == null) {
+                // Insert email into the profile table
+                db.Execute("INSERT INTO UserProfile (Email, Naam, RoleId) VALUES (@0, @1, @2)", email, Naam, RoleId);
 
-            Response.Redirect("~/Account/Admin");
+                // Create and associate a new entry in the membership database.
+                // If successful, continue processing the request
+                try {
+                    bool requireEmailConfirmation = !WebMail.SmtpServer.IsEmpty();
+                    var token = WebSecurity.CreateAccount(email, password, requireEmailConfirmation);
+                    if (requireEmailConfirmation) {
+                        var hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
+                        var confirmationUrl = hostUrl + VirtualPathUtility.ToAbsolute("~/Account/Confirm?confirmationCode=" + HttpUtility.UrlEncode(token));
+
+                        WebMail.Send(
+                            to: email,
+                            subject: "Please confirm your account",
+                            body: "Your confirmation code is: " + token + ". Visit <a href=\"" + confirmationUrl + "\">" + confirmationUrl + "</a> to activate your account."
+                        );
+                    }
+
+                    if (requireEmailConfirmation) {
+                        // Thank the user for registering and let them know an email is on its way
+                        Response.Redirect("~/Account/Thanks");
+                    } else {
+                        Response.Redirect("~/Account/Admin");
+                    }
+                } catch (System.Web.Security.MembershipCreateUserException e) {
+                    ModelState.AddFormError(e.Message);
+                }
+            } else {
+                // User already exists
+                ModelState.AddFormError("Email address is already in use.");
+            }
         }
     }
 
     var selectedData = db.Query(selectCommand, searchTerm);
-    var grid = new WebGrid(source: selectedData, defaultSort: "Naam", rowsPerPage:10);
+    var grid = new WebGrid(source: selectedData, defaultSort: "Naam", rowsPerPage:9);
 }
 <section id="table" class="section">
 	<div class="container">
@@ -62,13 +102,15 @@
                     @grid.GetHtml(
                     tableStyle: "bordered striped responsive-table",
                     headerStyle: "centered",
+                    footerStyle: "striped",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
                         grid.Column("Naam"),
                         grid.Column("Email"),
-                        grid.Column("Status"),
-                        grid.Column(format: @<i class="small material-icons tooltipped right" data-position="top" data-tooltip="Aanpassen">edit</i>),
-                        grid.Column(format: @<i class="small material-icons tooltipped right" data-position="top" data-tooltip="Verwijderen">delete</i>)
+                        grid.Column("UserId"),
+                        grid.Column("RoleId"),
+                        grid.Column(format: @<a href="~/Account/UserEdit?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
+                        grid.Column(format: @<a href="~/Account/UserVerwijderen?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
                         )
                     )
                 </div>
@@ -76,38 +118,46 @@
         </div>
     </div>
 </section>
-<!-- Toevoegen van een gebruiker Dialog -->
+<!-- Toevoegen van een user Dialog -->
 <div id="modal-add" class="modal modal-fixed-footer">
-    <form method="post" class="col s12" enctype="multipart/form-data">
+    <form method="post" class="login-form col s12" enctype="multipart/form-data">
+        @AntiForgery.GetHtml()
+        @* If at least one validation error exists, notify the user *@
+        @Html.ValidationSummary("Account creation was unsuccessful. Please correct the errors and try again.", excludeFieldErrors: true, htmlAttributes: null)
 	    <div class="modal-content">
 		    <h4 class="center">Gebruiker toevoegen</h4>
             <div class="row margin">
-				<div class="input-field margin col s12">
-					<input id="naam" name="Naam" type="text" value="@Request.Form["Naam"]" required>
+				<div class="input-field margin col s6">
+					<input id="naam" name="Naam" type="text" value="@Request.Form["Naam"]">
 					<label for="naam">Naam</label>
 				</div>
-            </div>
-			<div class="row margin">
-				<div class="input-field margin col s6">
-					<input id="email" name="Email" type="text" value="@Request.Form["Email"]" required>
-					<label for="email">Email</label>
+                <div class="input-field margin col s6">
+                    <select name="RoleId">
+                        <option value="@Request.Form["RoleId"]" disabled>Kies een Rol</option>
+                        <option value="1">Admin</option>
+                        <option value="2">User</option>
+                    </select>
+                    <label>Rechten</label>
+                </div>
+			</div>
+            <div class="row margin">
+				<div class="input-field margin col s12">
+                    <input type="text" class="validate" id="email" name="email" value="@email" @Validation.For("email")/>
+                    <label for="email" class="center-align" @if (!ModelState.IsValidField("email")) {<text>class="error-label"</text>}>Email address</label>
+                    @Html.ValidationMessage("email")
 				</div>
 			</div>
             <div class="row margin">
 				<div class="input-field margin col s12">
-					<div class="switch">
-						<label>
-							<a>Status account: </a> Off
-							<input name="Status" value="@Request.Form["Status"]" type="checkbox" checked="checked">
-							<span class="lever"></span> On
-						</label>
-					</div>
+				    <input type="password" class="validate" id="password" name="password" @Validation.For("password")/>
+				    <label for="password" @if (!ModelState.IsValidField("password")) {<text>class="error-label"</text>}>Password</label>
+                    @Html.ValidationMessage("password")
 				</div>
 			</div>
 	    </div>
         <div class="modal-footer">
             <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
-            <button type="submit" name="buttonSubmit" class="waves-effect waves-green btn-flat modal-action modal-close">ADD</button>
+            <button class="waves-effect waves-green btn-flat" type="submit" name="action">Voeg toe</button>
         </div>
 	</form>
 </div>

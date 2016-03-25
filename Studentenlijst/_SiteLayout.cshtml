@@ -82,11 +82,23 @@
 	            </ul>
             }
             else{
+                <a class="btn-floating btn-large red modal-trigger" href="#modal-add">
+		            <i class="right material-icons activator">add</i>
+	            </a>
                 <form id="logoutForm" action="~/Account/Logout" method="post">
                     @AntiForgery.GetHtml()
-                    <a class="btn-floating btn-large red modal-trigger" href="javascript:document.getElementById('logoutForm').submit()">
-                        <i class="right material-icons" data-position="left">exit_to_app</i>
-                    </a>
+                    <ul>
+                        <li>
+                            <a class="btn-floating red" href="~/Default" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                                <i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="btn-floating blue" href="javascript:document.getElementById('logoutForm').submit()">
+                                <i class="large material-icons tooltipped" data-position="left" data-tooltip="Uitloggen">exit_to_app</i>
+                            </a>
+                        </li>
+                    </ul>
                 </form>
             }
         </div>

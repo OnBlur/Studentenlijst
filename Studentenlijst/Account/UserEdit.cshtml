@@ -1,0 +1,141 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Edit user";
+
+    WebSecurity.RequireAuthenticatedUser();
+    // Check if user has the right privileges
+    if(!User.IsInRole("admin")){
+        Response.Redirect("~/Default");
+    }
+
+    var Naam = "";
+    var Email = "";
+    var RoleId = "";
+    var UserId = "-1";
+
+    if(!IsPost){
+        if(!Request.QueryString["UserId"].IsEmpty() && Request.QueryString["UserId"].IsInt()) {
+            UserId = Convert.ToString(Request.QueryString["UserId"]);
+            var db = Database.Open("StarterSite");
+            var dbCommand = "SELECT * FROM UserProfile WHERE UserId = @0";
+            var row = db.QuerySingle(dbCommand, UserId);
+
+            if(row != null) {
+                Naam = row.Naam;
+                Email = row.Email;
+                RoleId = row.RoleId.ToString();
+            }
+            else{
+                Validation.AddFormError("No User was selected.");
+            }
+        }
+        else{
+            Validation.AddFormError("No User was selected.");
+        }
+    }
+
+    if(IsPost){
+        Naam = Request.Form["Naam"];
+        Email = Request.Form["Email"];
+        RoleId = Request.Form["RoleId"];
+        UserId = Request.Form["UserId"];
+
+        if(Validation.IsValid()){
+            var db = Database.Open("StarterSite");
+            var updateCommand = "UPDATE UserProfile SET Naam=@0, Email=@1, RoleId=@2 WHERE UserId=@3";
+            db.Execute(updateCommand, Naam, Email, RoleId, UserId);
+            Response.Redirect("~/Account/Admin");
+        }
+    }
+    if(RoleId == "1"){
+        RoleId = "Admin";
+    }
+    else{
+        RoleId = "User";
+    }
+}
+<section id="table" class="section">
+	<div class="container">
+		<div class="row">
+			<form method="post" enctype="multipart/form-data">
+                <input type="hidden" name="UserId" value="@Request["UserId"]" />
+
+                <div class="meer-header col s4 left">
+                    <div class="col s12 m12 blue darken-2 table-header">
+                        <span class="white-text table-header-text left">User Foto</span>
+                    </div>
+                    <div class="card-panel">
+					    <div class="meer-header-action col s12">
+						    <a href="~/Default"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
+					        <a href="~/Account/UserVerwijder?userid=@UserId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
+                        </div>
+					    <div class="s12 center">
+						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
+						    <h5 class="center">@Naam</h5>
+					    </div>
+                        <div class="s12">
+                            <p class="left-information">@UserId</p>
+							<p class="right-information right-align">Gebruiker nummer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="meer-pers-info col s8 right">
+                    <div class="col s12 m12 blue darken-2 table-header">
+                        <span class="white-text table-header-text left">Gebruiker zijn informatie</span>
+                    </div>
+                    <div class="card-panel">
+                        <div class="row input-field">
+                            <div class="col s6">
+                                <input id="Naam" name="Naam" type="text" value="@Naam"/>
+                                <label for="Naam">@Naam</label>
+                            </div>
+                            <p class="right-align col s6">Naam</p>
+                        </div>
+                        <div class="row input-field">
+                            <div class="col s6">
+                                <input id="Email" name="Email" type="text" value="@Email"/>
+                                <label for="Email">@Email</label>
+                            </div>
+                            <p class="right-align col s6">Email</p>
+                        </div>
+                        <div class="row input-field">
+                            <p class="margin col s6">
+                                <select name="RoleId">
+						            <option value="@Request.Form["RoleId"]" disabled>Kies een Recht</option>
+						            @{
+                                        if(RoleId == "User"){
+                                            <option value="2">User</option>
+                                            <option value="1">Admin</option>
+                                        }
+                                        if(RoleId=="Admin"){
+                                             <option value="1">Admin</option>
+                                             <option value="2">Admin</option>  
+                                        }
+                                    }
+					            </select>
+                            </p>
+                            <p class="right-align col s6">Rechten</p>
+                        </div>
+                        <div class="row input-field">
+                            <div class="col s6">
+                                <input id="password" name="password" type="password"/>
+                                <label for="password">Nieuwe wachtwoord</label>
+                            </div>
+                            <p class="right-align col s6">Wachtwoord</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin col m8">
+                    <button class="btn waves-effect waves-light right" type="submit" name="buttonSubmit">Bevestigen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

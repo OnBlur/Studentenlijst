@@ -149,8 +149,8 @@
                     </div>
                     <div class="card-panel">
 					    <div class="meer-header-action col s12">
-						    <a href="~/Default"><i class="small material-icons left modal-action modal-close">backspace</i></a>
-					        <a href="~/Account/StudentVerwijder?studentnummer=@StudentNummer"><i class="small material-icons right">delete</i></a>
+						    <a href="~/Default"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
+					        <a href="~/Account/StudentVerwijderen?studentnummer=@StudentNummer"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
                         </div>
 					    <div class="s12 center">
 						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
@@ -172,24 +172,24 @@
                                 <input id="Naam" name="Naam" type="text" value="@Naam"/>
                                 <label for="Naam">@Naam</label>
                             </div>
-                            <div class="right-align col s6">Naam</div>
+                            <p class="right-align col s6">Naam</p>
                         </div>
                         <div class="row input-field">
                             <div class="col s6">
                                 <input id="Voorvoegsel" name="Voorvoegsel" type="text" value="@Voorvoegsel"/>
                                 <label for="Voorvoegsel">@Voorvoegsel</label>
                             </div>
-                            <div class="right-align col s6">Voorvoegsel</div>
+                            <p class="right-align col s6">Voorvoegsel</p>
                         </div>
                         <div class="row input-field">
                             <div class="margin col s6">
                                 <input id="Roepnaam" name="Roepnaam" type="text" value="@Roepnaam"/>
                                 <label for="Roepnaam">@Roepnaam</label>
                             </div>
-                            <div class="right-align col s6">Roepnaam</div>
+                            <p class="right-align col s6">Roepnaam</p>
                         </div>
                         <div class="row input-field">
-                            <p class="margin col s6">
+                            <div class="margin col s6">
                                 <select name="Geslacht">
 						            <option value="@Request.Form["Geslacht"]" disabled>Kies een geslacht</option>
 						            @{
@@ -205,58 +205,58 @@
 
                                    
 					            </select>
-                            </p>
+                            </div>
                             <p class="right-align col s6">Geslacht</p>
                         </div>
                         <div class="row input-field">
-                            <p class="margin col s6">
+                            <div class="margin col s6">
                                 <input id="Geboortedatum" name="Geboortedatum" type="text" value="@Geboortedatum"/>
                                 <label for="Geboortedatum">@Geboortedatum</label>
-                            </p>
+                            </div>
                             <p class="right-align col s6">Geboortedatum</p>
                         </div>
                         <div class="row input-field">
-                            <p class="margin col s6">
+                            <div class="margin col s6">
                                 <input id="Adres" name="Adres" type="text" value="@Adres"/>
                                 <label for="Adres">@Adres</label>
-                            </p>
+                            </div>
                             <p class="right-align col s6">Adres</p>
                         </div>
                         <div class="row input-field">
-                            <p class="margin col s6">
+                            <div class="margin col s6">
                                 <input id="Land" name="Land" type="text" value="@Land"/>
                                 <label for="Land">@Land</label>
-                            </p>
+                            </div>
                             <p class="right-align col s6">Land</p>
                         </div>
                         <div class="row input-field">
-                            <p class="margin col s6">
+                            <div class="margin col s6">
                                 <input id="Telefoon" name="Telefoon" type="text" value="@Telefoon"/>
                                 <label for="Telefoon">@Telefoon</label>
-                            </p>
+                            </div>
                             <p class="right-align col s6">Telefoon</p>
                         </div>
                         <div class="row input-field">
-                            <p class="margin col s6">
+                            <div class="margin col s6">
                                 <input id="Mobiel" name="Mobiel" type="text" value="@Mobiel"/>
                                 <label for="Mobiel">@Mobiel</label>
-                            </p>
+                            </div>
                             <p class="right-align col s6">Mobiel</p>
                         </div>
                         <div class="row input-field">
-                            <p class="margin col s6">
+                            <div class="margin col s6">
                                 <a href="mailto:@Email">
                                     <input id="Email" name="Email" type="text" value="@Email"/>
                                     <label for="Email">@Email</label>
                                 </a>
-                            </p>
+                            </div>
                             <p class="right-align col s6">E-mail</p>
                         </div>
                         <div class="row input-field">
-                            <p class="margin col s6">
+                            <div class="margin col s6">
                                 <input id="Emailinstelling" name="Emailinstelling" type="text" value="@Emailinstelling"/>
                                 <label for="Emailinstelling">@Emailinstelling</label>
-                            </p>
+                            </div>
                             <p class="right-align col s6">E-mailinstelling</p>
                         </div>
                     </div>
@@ -268,107 +268,107 @@
                     <div class="card-panel">
                         <div class="information">
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Opleiding" name="Opleiding" type="text" value="@Opleiding"/>
                                     <label for="Opleiding">@Opleiding</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Opleiding</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Fase" name="Fase" type="text" value="@Fase"/>
                                     <label for="Fase">@Fase</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Fase</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Groep" name="Groep" type="text" value="@Groep"/>
                                     <label for="Groep">@Groep</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Groep</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Mentor" name="Mentor" type="text" value="@Mentor"/>
                                     <label for="Mentor">@Mentor</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Mentor</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Vooropleiding" name="Vooropleiding" type="text" value="@Vooropleiding"/>
                                     <label for="Vooropleiding">@Vooropleiding</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Vooropleiding</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Etiketnaam" name="Etiketnaam" type="text" value="@Etiketnaam"/>
                                     <label for="Etiketnaam">@Etiketnaam</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Etiketnaam</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Etiketregel1" name="Etiketregel1" type="text" value="@Etiketregel1"/>
                                     <label for="Etiketregel1">@Etiketregel1</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Etiketregel1</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Etiketregel2" name="Etiketregel2" type="text" value="@Etiketregel2"/>
                                     <label for="Etiketregel2">@Etiketregel2</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Etiketregel2</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Herinschrijving" name="Herinschrijving" type="text" value="@Herinschrijving"/>
                                     <label for="Herinschrijving">@Herinschrijving</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Herinschrijving</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="DatumVan" name="DatumVan" type="text" value="@DatumVan"/>
                                     <label for="DatumVan">@DatumVan</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Datum van</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="DatumTot" name="DatumTot" type="text" value="@DatumTot"/>
                                     <label for="DatumTot">@DatumTot</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Datum tot</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="AankomstBijIsatcode" name="AankomstBijIsatcode" type="text" value="@AankomstBijIsatcode"/>
                                     <label for="AankomstBijIsatcode">@AankomstBijIsatcode</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Aankomst bij isatcode</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Aanmeldingdatum" name="Aanmeldingdatum" type="text" value="@Aanmeldingdatum"/>
                                     <label for="Aanmeldingdatum">@Aanmeldingdatum</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Aanmeldingdatum</p>
                             </div>
                             <div class="row input-field">
-                                <p class="margin col s6">
+                                <div class="margin col s6">
                                     <input id="Datumdefinitief" name="Datumdefinitief" type="text" value="@Datumdefinitief"/>
                                     <label for="Datumdefinitief">@Datumdefinitief</label>
-                                </p>
+                                </div>
                                 <p class="right-align col s6">Datumdefinitief</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="search input-field margin col m12">
+                <div class="margin col m12">
                     <button class="btn waves-effect waves-light right" type="submit" name="buttonSubmit">Bevestigen</button>
                 </div>
             </form>
