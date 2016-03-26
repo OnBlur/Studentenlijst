@@ -22,7 +22,7 @@
     if(!IsPost){
         if(!Request.QueryString["UserId"].IsEmpty() && Request.QueryString["UserId"].IsInt()) {
             UserId = Convert.ToString(Request.QueryString["UserId"]);
-            var db = Database.Open("StarterSite");
+            var db = Database.Open("StudentenLijst");
             var dbCommand = "SELECT * FROM UserProfile WHERE UserId = @0";
             var row = db.QuerySingle(dbCommand, UserId);
 
@@ -47,7 +47,7 @@
         UserId = Request.Form["UserId"];
 
         if(Validation.IsValid()){
-            var db = Database.Open("StarterSite");
+            var db = Database.Open("StudentenLijst");
             var updateCommand = "UPDATE UserProfile SET Naam=@0, Email=@1, RoleId=@2 WHERE UserId=@3";
             db.Execute(updateCommand, Naam, Email, RoleId, UserId);
             Response.Redirect("~/Account/Admin");

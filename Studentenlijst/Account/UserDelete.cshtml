@@ -14,7 +14,7 @@
         Response.Redirect("~/Default");
     }
 
-    var db = Database.Open("StarterSite") ;
+    var db = Database.Open("StudentenLijst") ;
     var selectCommand = "SELECT * FROM UserProfile WHERE UserId = @0";
 
     var Naam = "";

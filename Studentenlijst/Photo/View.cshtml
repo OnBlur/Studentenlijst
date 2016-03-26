@@ -1,0 +1,153 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+}
+
+@{
+    WebSecurity.RequireAuthenticatedUser();
+    Layout = "~/_SiteLayout.cshtml";
+
+    var photoId = UrlData[0].AsInt();
+    var db = Database.Open("StudentenLijst");
+
+    var photo = db.QuerySingle("SELECT * FROM Photos WHERE Id = @0", photoId);
+    if (photo == null)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;        
+    }
+
+    Page.Title = "Photo - " + photo.FileTitle;
+
+    string description = photo.description;
+
+    if (IsPost)
+    {
+        var newComment = Request["newComment"].Trim();
+        if (newComment.IsEmpty()) 
+        {
+            Response.Redirect(Href("View", photoId));
+        }
+
+        db.Execute("INSERT INTO Comments (PhotoId, CommentDate, UserId, CommentText) VALUES (@0, @1, @2, @3)",
+            photoId, DateTime.Now, WebSecurity.CurrentUserId, newComment);
+
+        Response.Redirect(Href("View",photoId));
+        return;
+    }
+
+    // Found a match - so show its info
+    var user = db.QuerySingle("SELECT * FROM UserProfile WHERE UserId = @0", photo.UserId);
+    var gallery = db.QuerySingle("SELECT * FROM Galleries WHERE Id = @0", photo.GalleryId);
+    var comments = db.Query(@"SELECT * FROM Comments INNER JOIN UserProfile
+                              ON Comments.UserId = UserProfile.UserId WHERE PhotoId = @0 ORDER BY Comments.CommentDate", photo.Id);
+    var tagList = db.Query("SELECT Tags_TagName FROM Photos_Tags WHERE Photos_Id = @0 ORDER BY Tags_TagName", photo.Id);
+}
+
+<section id="table" class="section">
+	<div class="container">
+		<div class="row">
+            <div class="meer-header col s4 left">
+                <div class="col s12 m12 blue darken-2 table-header">
+                    <span class="white-text table-header-text left">Student Foto</span>
+                </div>
+                <div class="card-panel">
+					<div class="meer-header-action row">
+						<a href="~/View/@gallery.Id"><i class="small material-icons left modal-action tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
+						<a href="~/Photo/Remove/@photoId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
+						<a href="~/Photo/Edit/@photoId"><i class="small right material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>
+					</div>
+					<div class="row center margin">
+                        <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
+						<h5 class="center">@photo.FileTitle</h5>
+                        <a class="download" href="~/Photo/Full" title="Download: @(photo.FileTitle + photo.FileExtension)">Download full photo!</a> (@(photo.FileSize / 1024) KB)
+					</div>
+                    <div class="row margin">
+                        <p class="left-information left-align col s6">@photoId</p>
+						<p class="right-information right-align col s6">Foto ID</p>
+                    </div>
+                </div>
+            </div>
+            <div class="meer-pers-info col s8 right">
+                <div class="col s12 m12 blue darken-2 table-header">
+                    <span class="white-text table-header-text left">Personelijke informatie</span>
+                </div>
+				<div class="card-panel">
+					<div class="information">
+                        <div class="information-section grey lighten-3">
+							<p class="left-information left-align">
+                                @if (!description.IsEmpty()){
+                                    <text>@photo.Description</text>
+                                }
+                                else {
+                                    <text>No Description</text>
+                                }
+                            </p>
+							<p class="right-information right-align">Description</p>
+						</div>
+						<div class="information-section">
+							<p class="left-information left-align"><a href="~/User/View/@user.UserId" title="@user.Email">@user.Email</a></p>
+							<p class="right-information right-align">Uploaded by</p>
+						</div>
+						<div class="information-section grey lighten-3">
+							<p class="left-information left-align">@photo.UploadDate</p>
+							<p class="right-information right-align">Upload date</p>
+						</div>
+						<div class="information-section">
+							<p class="left-information left-align"><a href="~/View/@gallery.Id" title="@gallery.Name">@gallery.Name</a></p>
+							<p class="right-information right-align">Gallery</p>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="meer-pers-info col s8 right" style="padding-bottom: 5px;">
+                <div class="col s12 m12 blue darken-2 table-header">
+                    @switch ((int)comments.Count)
+                        {
+                            case 0:
+                                <span class="white-text table-header-text left">Nobody has commented on this photo</span>
+                                break;
+                            case 1:
+                                <span class="white-text table-header-text left">This photo has generated one comment.</span>
+                                break;
+                            default:
+                                <span class="white-text table-header-text left">This photo has generated @comments.Count comments.</span>
+                                break;
+                        }
+                </div>
+                    <ul class="collapsible" data-collapsible="accordion">
+                        @foreach (var comment in comments)
+                            {
+                                <li>
+                                    <div class="collapsible-header">
+                                        <i class="material-icons">comment</i>
+                                        <a href="~/User/View/@comment.UserId" class="left-align" title="View @(comment.Email)'s profile">@comment.Email</a> commented at @comment.CommentDate</div>
+                                    <div class="collapsible-body" style="background-color: #fff"><p>@comment.CommentText</p></div>
+                                </li>
+                            }
+                    </ul>
+                </div>
+                <div class="meer-pers-info col s8 right">
+                    <div class="col s12 m12 blue darken-2 table-header">
+                        <span class="white-text table-header-text left">Add comment</span>
+                    </div>
+                    <div class="card-panel">
+					    <div class="information">
+                            <form method="post" action="">
+                                <div class="input-field">
+                                    <textarea id="newComment" class="materialize-textarea margin" name="newComment" title="Your comment"></textarea>
+                                    <label for="newComment">Textarea</label>
+                                </div>
+                                <p class="form-actions">
+                                    <input type="submit" class="btn waves-effect waves-light right" title="Add comment" value="Add comment" />
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

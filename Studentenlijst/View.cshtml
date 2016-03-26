@@ -1,0 +1,105 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+}
+
+@{
+    WebSecurity.RequireAuthenticatedUser();
+    Layout = "~/_SiteLayout.cshtml";
+
+    var galleryId = UrlData[0].AsInt();
+
+    var db = Database.Open("StudentenLijst");
+
+    var gallery = db.QuerySingle("SELECT * FROM Galleries WHERE Id = @0", galleryId);
+    if (gallery == null)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    Page.Title = "Gallery - " + gallery.Name;
+    // Found a match - so show all its photos
+    var photos = db.Query("SELECT Id, FileTitle FROM Photos WHERE GalleryId = @0", galleryId).ToList();
+
+    if (IsPost)
+    {
+        var numFiles = Request.Files.Count;
+        if(numFiles == 0)
+        {
+            ModelState.AddError("fileUpload", "Please specify at least one photo to upload.");
+        } 
+        else 
+        {
+            for (int i = 0; i < numFiles; i++)
+            {
+                var file = Request.Files[i];
+                if (file.ContentLength > 0)
+                {
+                    var fileUpload = new WebImage(file.InputStream);
+                    var fileTitle = Path.GetFileNameWithoutExtension(file.FileName).Trim();
+                    if (fileTitle.IsEmpty())
+                    {
+                        fileTitle = "Untitled";
+                    }
+                    var fileExtension = Path.GetExtension(file.FileName).Trim();
+                    var fileBytes = fileUpload.GetBytes();
+                    db.Execute(@"INSERT INTO Photos
+                        (GalleryId, UserId, Description, FileTitle, FileExtension, ContentType, FileSize, UploadDate, FileContents) VALUES 
+                        (@0, @1, @2, @3, @4, @5, @6, @7, @8)", galleryId, WebSecurity.CurrentUserId, "", fileTitle, fileExtension,
+                    fileUpload.ImageFormat, fileBytes.Length, DateTime.Now, fileBytes);
+                }
+            }
+            Response.Redirect(Href("~/Photo/View", db.GetLastInsertId()));
+        }
+    }
+}
+
+<section id="table" class="section">
+	<div class="container">
+        <div class="row z-depth-1 hoverable">
+            <div class="col s12 m12 blue darken-2 table-header">
+                @if (photos.Count == 1)
+                    {
+                        <span class="white-text table-header-text left">@gallery.Name - 1 Afbeelding</span>
+                    }
+                    else
+                    {
+                        <span class="white-text table-header-text left">@gallery.Name - @photos.Count Afbeeldingen</span>
+                    }
+            </div>
+            <div class="intro col s12 m12">
+                @foreach (var photo in photos)
+                {
+                    <div class="col s3">
+                        <a href="~/Photo/View/@photo.Id" title="View @photo.FileTitle">
+                            <img alt="thumbnail of @photo.FileTitle" src="~/Photo/Thumbnail/@photo.Id" class="responsive-img" />
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Toevoegen van een leerling foto -->
+<div id="modal-add" class="modal modal-fixed-footer">
+    <form method="post" class="col s12" enctype="multipart/form-data">
+	    <div class="modal-content">
+            <h4 class="center">Afbeelding toevoegen aan @gallery.Name</h4>
+            <div class="row">
+                <div class="col s6">
+                    @FileUpload.GetHtml(addText: "Meer toevoegen", uploadText: "Upload", includeFormTag: false)
+                </div>
+                <div class="col s12">
+                    <p class="message info">The default file size is limited to 4MB. To change this you will need to update the 'HttpRuntimeSection/MaxRequestLength' section in web.config. </p>
+                </div>
+			</div>
+	    </div>
+        <div class="modal-footer">
+            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
+            <button type="submit" name="buttonSubmit" class="waves-effect waves-green btn-flat modal-action modal-close">Upload</button>
+        </div>
+	</form>
+</div>

@@ -6,21 +6,30 @@
 }
 
 @{
+    WebSecurity.RequireAuthenticatedUser();
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Foto's";
 
-    WebSecurity.RequireAuthenticatedUser();
+    var db = Database.Open("StudentenLijst");
+    var galleries = db.Query(@"SELECT Galleries.Id, Galleries.Name, COUNT(Photos.Id) AS PhotoCount
+                               FROM Galleries LEFT OUTER JOIN Photos ON Galleries.Id = Photos.GalleryId
+                               GROUP BY Galleries.Id, Galleries.Name").ToList();
 
-    WebImage photo = null;
-    var newFileName = "";
-    var imagePath = "";
-
-    if(IsPost){
-        photo = WebImage.GetImageFromRequest();
-        if(photo != null){
-            newFileName = Path.GetFileName(photo.FileName);
-            imagePath = @"Images\Studenten\" + newFileName;
-            photo.Save(@"~\" + imagePath);
+    if (IsPost && Validation.IsValid()) 
+    {
+        var galleryName = Request["Name"];
+        
+        var nameExists = db.QueryValue("SELECT COUNT(*) FROM Galleries WHERE LOWER(Name) = LOWER(@0)", galleryName) > 0;
+        if (nameExists) 
+        {
+            ModelState.AddError("Name", "A gallery with the supplied name already exists.");
+        } 
+        else
+        {
+            //Create Gallery
+            db.Execute("INSERT INTO Galleries (Name) VALUES (@0)", galleryName);
+            // And redirect
+            Response.Redirect(Href("~/View", db.GetLastInsertId()));
         }
     }
 }
@@ -29,32 +38,27 @@
 	<div class="container">
         <div class="row z-depth-1 hoverable">
             <div class="col s12 m12 blue darken-2 table-header">
-                <span class="white-text table-header-text left">Afbeeldingen</span>
+                @if (galleries.Count == 1) {
+                    <span class="white-text table-header-text left">Galerijen - There is one gallery</span>
+                }
+                else
+                {
+                    <span class="white-text table-header-text left">Galerijen - There are @galleries.Count galleries.</span>
+                }
             </div>
 			<div class="intro col s12 m12">
                 <div class="col s12">
-                    <figure class="col s2">
-						<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
-					</figure>
-                    <figure class="col s2">
-						<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
-					</figure>
-                    <figure class="col s2">
-						<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
-					</figure>
-                    <figure class="col s2">
-						<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
-					</figure>
-                    <figure class="col s2">
-						<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
-					</figure>
-                    <figure class="col s2">
-						<img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
-					</figure>
-                    @if(imagePath != ""){
-                        <figure class="col s2">
-                            <img src="@imagePath" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1">
-                        </figure>
+                    @foreach (var gallery in galleries)
+                    {
+                        <div class="col s3">
+                            <a href="~/View/@gallery.Id">
+                                <img alt="Images from @gallery.Name" src="~/Thumbnail/@gallery.Id" class="thumbnail-no-border" />
+                                <div class="col s12">
+                                    <span class="below-image">@gallery.Name</span>
+                                    <span class="image-overlay hide-from-mobile">@gallery.PhotoCount photo(s)</span>
+                                </div>
+                            </a>
+                        </div>
                     }
                 </div>
             </div>
@@ -65,17 +69,14 @@
 <div id="modal-add" class="modal modal-fixed-footer">
     <form method="post" class="col s12" enctype="multipart/form-data">
 	    <div class="modal-content">
-            <h4 class="center">Afbeelding toevoegen</h4>
+            <h4 class="center">Galerij toevoegen</h4>
             <div class="row">
                 <div class="col s12">
                     <div class="row margin">
 						<div class="file-field input-field margin col s12">
-							<input disabled="" id="upload" type="text" class="file-path">
-							<label for="upload">Foto locatie</label>
-							<div class="btn right">
-								<span>Foto toevoegen</span>
-								<input type="file" name="Image" accept="image/*">
-							</div>
+							<label for="name">Name</label>
+                            <input type="text" id="name" name="name" title="Gallery name" @Validation.For("name")/>
+                            @Html.ValidationMessage("Name")
 						</div>
 					</div>
                 </div>

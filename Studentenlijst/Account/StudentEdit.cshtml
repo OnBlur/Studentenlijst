@@ -45,7 +45,7 @@
         if (!Request.QueryString["StudentNummer"].IsEmpty() && Request.QueryString["StudentNummer"].IsInt())
         {
             StudentNummer = Convert.ToInt32(Request.QueryString["StudentNummer"]);
-            var db = Database.Open("StarterSite");
+            var db = Database.Open("StudentenLijst");
             var dbCommand = "SELECT * FROM Student WHERE StudentNummer = @0";
             var row = db.QuerySingle(dbCommand, StudentNummer);
             if (row != null)
@@ -121,7 +121,7 @@
 
         if (Validation.IsValid())
         {
-            var db = Database.Open("StarterSite");
+            var db = Database.Open("StudentenLijst");
             var updateCommand = "UPDATE Student SET Naam = @0, Voorvoegsel = @1, Roepnaam = @2, Geslacht = @3, Geboortedatum = @4, Adres = @5, Land = @6, Telefoon = @7, Mobiel = @8, Email = @9, Emailinstelling = @10, Opleiding = @11, Fase = @12, Groep = @13, Mentor = @14, Vooropleiding = @15, Etiketnaam = @16, Etiketregel1 = @17, Etiketregel2 = @18, Herinschrijving = @19, DatumVan = @20, DatumTot = @21, AankomstBijIsatcode = @22, Aanmeldingdatum = @23, Datumdefinitief = @24 WHERE StudentNummer = @25";
             db.Execute(updateCommand, Naam, Voorvoegsel, Roepnaam, Geslacht, Geboortedatum, Adres, Land, Telefoon, Mobiel, Email, Emailinstelling, Opleiding, Fase, Groep, Mentor, Vooropleiding, Etiketnaam, Etiketregel1, Etiketregel2, Herinschrijving, DatumVan, DatumTot, AankomstBijIsatcode, Aanmeldingdatum, Datumdefinitief, StudentNummer);
             Response.Redirect("~/Default");
@@ -147,17 +147,17 @@
                         <span class="white-text table-header-text left">Student Foto</span>
                     </div>
                     <div class="card-panel">
-					    <div class="meer-header-action col s12">
+					    <div class="meer-header-action row margin">
 						    <a href="~/Default"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
 					        <a href="~/Account/StudentDelete?studentnummer=@StudentNummer"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
                         </div>
-					    <div class="s12 center">
+					    <div class="row center margin">
 						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
 						    <h5 class="center">@Naam</h5>
 					    </div>
-                        <div class="s12">
-                            <p class="left-information">@StudentNummer</p>
-							<p class="right-information right-align">Student nummer</p>
+                        <div class="row margin">
+                            <p class="left-information col s6">@StudentNummer</p>
+							<p class="right-information right-align col s6">Student nummer</p>
                         </div>
                     </div>
                     <div class="col s12">
