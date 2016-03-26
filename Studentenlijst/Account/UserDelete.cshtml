@@ -44,8 +44,13 @@
 
     if(IsPost && !Request["buttonDelete"].IsEmpty()){
         UserId = Request.Form["UserId"];
+        var updateCommentCommand = "UPDATE Comments SET UserId = @0 WHERE UserId = @1";
+        var updatefotosCommand = "UPDATE Photos SET UserId = @0 WHERE UserId = @1";
         var deleteCommand = "DELETE FROM UserProfile WHERE UserId = @0";
         var deleteAdCommand = "DELETE FROM webpages_Membership WHERE UserId = @0";
+
+        db.Execute(updateCommentCommand, 20, UserId);    // Delete from Comments
+        db.Execute(updatefotosCommand, 20, UserId);    // Delete from Fotos
         db.Execute(deleteCommand, UserId);      // Delete from UserProfile
         db.Execute(deleteAdCommand, UserId);    // Delete from MemberShip
         Response.Redirect("~/Account/Admin");
