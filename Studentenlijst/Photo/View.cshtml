@@ -62,7 +62,7 @@
 					<div class="row center margin">
                         <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
 						<h5 class="center">@photo.FileTitle</h5>
-                        <a class="download" href="~/Photo/Full" title="Download: @(photo.FileTitle + photo.FileExtension)">Download full photo!</a> (@(photo.FileSize / 1024) KB)
+                        <a class="download" href="~/Photo/Full/@photoId" title="Download: @(photo.FileTitle + photo.FileExtension)">Download full photo!</a> (@(photo.FileSize / 1024) KB)
 					</div>
                     <div class="row margin">
                         <p class="left-information left-align col s6">@photoId</p>
