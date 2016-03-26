@@ -1,0 +1,126 @@
+﻿@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="~/Scripts/materialize.min.js"></script>
+	<script src="~/Scripts/init.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Student wijzigen";
+
+    WebSecurity.RequireAuthenticatedUser();
+    // Check if user has the right privileges
+    if(!User.IsInRole("admin")){
+        Response.Redirect("~/Default");
+    }
+
+    var db = Database.Open("StudentenLijst");
+    var id = UrlData[0].AsInt();
+
+    var Naam = "";
+    var Email = "";
+    var Bio = "";
+    var RoleId = "";
+    var UserId = "-1";
+
+    if(!IsPost){
+        if(!Request.QueryString["UserId"].IsEmpty() && Request.QueryString["UserId"].IsInt()) {
+            UserId = Convert.ToString(Request.QueryString["UserId"]);
+            var dbCommand = "SELECT * FROM UserProfile WHERE UserId = @0";
+            var row = db.QuerySingle(dbCommand, UserId);
+
+            if(row != null) {
+                Naam = row.Naam;
+                Email = row.Email;
+                Bio = row.Bio;
+                RoleId = row.RoleId.ToString();
+            }
+            else{
+                Validation.AddFormError("No User was selected.");
+            }
+        }
+        else{
+            Validation.AddFormError("No User was selected.");
+        }
+    }
+
+    var photos = db.Query("SELECT Id, FileTitle FROM Photos WHERE UserId = @0 ORDER BY FileTitle", id).ToList();
+
+    if(RoleId == "1"){
+        RoleId = "Admin";
+    }
+    else{
+        RoleId = "User";
+    }
+}
+@Html.ValidationSummary()
+<section id="table" class="section">
+	<div class="container">
+		<div class="row">
+			<form method="post" enctype="multipart/form-data">
+                <div class="meer-header col s4 left">
+                    <div class="col s12 m12 blue darken-2 table-header">
+                        <span class="white-text table-header-text left">Gebruiker informatie</span>
+                    </div>
+                    <div class="card-panel">
+                        <div class="meer-header-action row s12">
+						    <a href="~/Account/Admin"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
+					        <a href="~/Account/UserDelete?userid=@UserId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
+                            <a href="~/Account/UserDelete?userid=@UserId"><i class="small right material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>
+                        </div>
+                        <div class="row s12">
+                            @if (@Bio != "") {
+                                <p class="center">@Bio</p>
+                            } else {
+                                <p class="center">This user has not created a biography.</p>
+                            } 
+                        </div>
+                        <div class="s12 grey lighten-3">
+                            <p class="left-information">@UserId</p>
+							<p class="right-information right-align">Gebruiker nummer</p>
+                        </div>
+						<div class="information">
+							<div class="information-section">
+								<p class="left-information">@Naam</p>
+								<p class="right-information right-align">Naam</p>
+							</div>
+							<div class="information-section grey lighten-3">
+								<p class="left-information">@Email</p>
+								<p class="right-information right-align">Email</p>
+							</div>
+							<div class="information-section">
+								<p class="left-information">@RoleId</p>
+								<p class="right-information right-align">Rechten</p>
+							</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="meer-pers-info col s8 right">
+                    <div class="col s12 m12 blue darken-2 table-header">
+                        @if (photos.Count == 1){
+                            <span class="white-text table-header-text left">This user has uploaded one photo.</span>
+                        }
+                        else{
+                            <span class="white-text table-header-text left">This user has uploaded @photos.Count photos.</span>
+                        }
+                    </div>
+					<div class="card-panel">
+                        <ul class="thumbnails user-photos" data-role="listview">
+                            @foreach (var photo in photos)
+                            {
+                                <li>
+                                    <a href="~/Photo/View/@photo.Id" title="@photo.FileTitle">
+                                        <img alt="thumbnail of @photo.FileTitle" src="~/Photo/Thumbnail/@photo.Id" class="thumbnail-border" />
+                                        <aside class="image-overlay">@photo.FileTitle</aside>
+                                        <span class="image-overlay hide-from-mobile">@photo.FileTitle</span>
+                                        <span class="below-image hide-from-desktop">@photo.FileTitle</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+					</div>
+				</div>
+			</form>
+        </div>
+    </div>
+</section>

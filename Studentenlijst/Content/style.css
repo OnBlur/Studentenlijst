@@ -676,7 +676,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
 	display: table;
     table-layout: fixed;
     width: 100%;
-    padding-top:10px;
 }
 .information-section{
 	display: table-row;
