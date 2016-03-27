@@ -53,7 +53,7 @@
         db.Execute(updatefotosCommand, 20, UserId);    // Delete from Fotos
         db.Execute(deleteCommand, UserId);      // Delete from UserProfile
         db.Execute(deleteAdCommand, UserId);    // Delete from MemberShip
-        Response.Redirect("~/Account/Admin");
+        Response.Redirect("~/Admin");
     }
 }
 <section id="table" class="section">
@@ -62,7 +62,7 @@
 			<div class="intro col s12 m12">
                 @Html.ValidationSummary()
                 <form method="post">
-                    <a href="~/Account/Admin"><i class="small material-icons left">backspace</i></a>
+                    <a href="~/Admin"><i class="small material-icons left">backspace</i></a>
                     <table id="studentsTable" class="tablesorter bordered striped centered responsive-table">
                         <thead>
                             <tr>

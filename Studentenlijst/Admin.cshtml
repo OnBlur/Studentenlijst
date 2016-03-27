@@ -51,7 +51,7 @@
                 // If successful, continue processing the request
                 try {
                     var token = WebSecurity.CreateAccount(email, password);
-                    Response.Redirect("~/Account/Admin");
+                    Response.Redirect("~/Admin");
 
                 } catch (System.Web.Security.MembershipCreateUserException e) {
                     ModelState.AddFormError(e.Message);
@@ -88,9 +88,9 @@
                         grid.Column("Naam"),
                         grid.Column("Email"),
                         grid.Column("RoleId"),
-                        grid.Column(format: @<a href="~/Account/UserMore?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
-                        grid.Column(format: @<a href="~/Account/UserEdit?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
-                        grid.Column(format: @<a href="~/Account/UserDelete?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
+                        grid.Column(format: @<a href="~/User/UserMore/@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
+                        grid.Column(format: @<a href="~/User/UserEdit?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
+                        grid.Column(format: @<a href="~/User/UserDelete?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
                         )
                     )
                 </div>

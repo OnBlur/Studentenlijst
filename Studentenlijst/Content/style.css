@@ -21,6 +21,9 @@ i {
     padding-top: inherit;
     padding-bottom: inherit;
 }
+.photos-panel{
+    padding-top: 30px;
+}
 .small{
 	cursor:pointer;
 	opacity:.55;

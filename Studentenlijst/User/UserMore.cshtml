@@ -15,44 +15,20 @@
     }
 
     var db = Database.Open("StudentenLijst");
+
     var id = UrlData[0].AsInt();
-
-    var Naam = "";
-    var Email = "";
-    var Bio = "";
-    var RoleId = "";
-    var UserId = "-1";
-
-    if(!IsPost){
-        if(!Request.QueryString["UserId"].IsEmpty() && Request.QueryString["UserId"].IsInt()) {
-            UserId = Convert.ToString(Request.QueryString["UserId"]);
-            var dbCommand = "SELECT * FROM UserProfile WHERE UserId = @0";
-            var row = db.QuerySingle(dbCommand, UserId);
-
-            if(row != null) {
-                Naam = row.Naam;
-                Email = row.Email;
-                Bio = row.Bio;
-                RoleId = row.RoleId.ToString();
-            }
-            else{
-                Validation.AddFormError("No User was selected.");
-            }
-        }
-        else{
-            Validation.AddFormError("No User was selected.");
-        }
+    var user = db.QuerySingle("SELECT * FROM UserProfile WHERE UserId = @0", id);
+    if (user == null)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
     }
+
+    Page.Title = "User - " + user.Naam;
 
     var photos = db.Query("SELECT Id, FileTitle FROM Photos WHERE UserId = @0 ORDER BY FileTitle", id).ToList();
-
-    if(RoleId == "1"){
-        RoleId = "Admin";
-    }
-    else{
-        RoleId = "User";
-    }
 }
+
 @Html.ValidationSummary()
 <section id="table" class="section">
 	<div class="container">
@@ -64,32 +40,32 @@
                     </div>
                     <div class="card-panel">
                         <div class="meer-header-action row s12">
-						    <a href="~/Account/Admin"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
-					        <a href="~/Account/UserDelete?userid=@UserId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
-                            <a href="~/Account/UserDelete?userid=@UserId"><i class="small right material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>
+						    <a href="~/Admin"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
+					        <a href="~/User/UserDelete?userid=@user.UserId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
+                            <a href="~/User/UserEdit?userid=@user.UserId"><i class="small right material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>
                         </div>
                         <div class="row s12">
-                            @if (@Bio != "") {
-                                <p class="center">@Bio</p>
+                            @if (@user.Bio != "") {
+                                <p class="center">@user.Bio</p>
                             } else {
                                 <p class="center">This user has not created a biography.</p>
                             } 
                         </div>
                         <div class="s12 grey lighten-3">
-                            <p class="left-information">@UserId</p>
+                            <p class="left-information">@user.UserId</p>
 							<p class="right-information right-align">Gebruiker nummer</p>
                         </div>
 						<div class="information">
 							<div class="information-section">
-								<p class="left-information">@Naam</p>
+								<p class="left-information">@user.Naam</p>
 								<p class="right-information right-align">Naam</p>
 							</div>
 							<div class="information-section grey lighten-3">
-								<p class="left-information">@Email</p>
+								<p class="left-information">@user.Email</p>
 								<p class="right-information right-align">Email</p>
 							</div>
 							<div class="information-section">
-								<p class="left-information">@RoleId</p>
+								<p class="left-information">@user.RoleId</p>
 								<p class="right-information right-align">Rechten</p>
 							</div>
                         </div>
@@ -105,22 +81,19 @@
                         }
                     </div>
 					<div class="card-panel">
-                        <ul class="thumbnails user-photos" data-role="listview">
+                        <div class="information photos-panel row s12">
                             @foreach (var photo in photos)
                             {
-                                <li>
+                                <div class="col s3">
                                     <a href="~/Photo/View/@photo.Id" title="@photo.FileTitle">
                                         <img alt="thumbnail of @photo.FileTitle" src="~/Photo/Thumbnail/@photo.Id" class="thumbnail-border" />
-                                        <aside class="image-overlay">@photo.FileTitle</aside>
-                                        <span class="image-overlay hide-from-mobile">@photo.FileTitle</span>
-                                        <span class="below-image hide-from-desktop">@photo.FileTitle</span>
                                     </a>
-                                </li>
+                                </div>
                             }
-                        </ul>
+                        </div>
 					</div>
 				</div>
-			</form>
+            </form>
         </div>
     </div>
 </section>

@@ -88,7 +88,7 @@
 							<p class="right-information right-align">Description</p>
 						</div>
 						<div class="information-section">
-							<p class="left-information left-align"><a href="~/User/View/@user.UserId" title="@user.Email">@user.Email</a></p>
+							<p class="left-information left-align"><a href="~/User/UserMore/@user.UserId" title="@user.Email">@user.Email</a></p>
 							<p class="right-information right-align">Uploaded by</p>
 						</div>
 						<div class="information-section grey lighten-3">
@@ -123,7 +123,7 @@
                                 <li>
                                     <div class="collapsible-header">
                                         <i class="material-icons">comment</i>
-                                        <a href="~/User/View/@comment.UserId" class="left-align" title="View @(comment.Email)'s profile">@comment.Email</a> commented at @comment.CommentDate</div>
+                                        <a href="~/User/UserMore/@comment.UserId" class="left-align" title="View @(comment.Email)'s profile">@comment.Email</a> commented at @comment.CommentDate</div>
                                     <div class="collapsible-body" style="background-color: #fff"><p>@comment.CommentText</p></div>
                                 </li>
                             }

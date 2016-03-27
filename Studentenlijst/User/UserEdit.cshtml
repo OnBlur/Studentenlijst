@@ -50,7 +50,7 @@
             var db = Database.Open("StudentenLijst");
             var updateCommand = "UPDATE UserProfile SET Naam=@0, Email=@1, RoleId=@2 WHERE UserId=@3";
             db.Execute(updateCommand, Naam, Email, RoleId, UserId);
-            Response.Redirect("~/Account/Admin");
+            Response.Redirect("~/Admin");
         }
     }
     if(RoleId == "1"){
@@ -65,20 +65,15 @@
 		<div class="row">
 			<form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="UserId" value="@Request["UserId"]" />
-
                 <div class="meer-header col s4 left">
                     <div class="col s12 m12 blue darken-2 table-header">
                         <span class="white-text table-header-text left">User Foto</span>
                     </div>
                     <div class="card-panel">
 					    <div class="meer-header-action col s12">
-						    <a href="~/Account/Admin"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
-					        <a href="~/Account/UserDelete?userid=@UserId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
+						    <a href="~/Admin"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
+					        <a href="~/User/UserDelete?userid=@UserId"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
                         </div>
-					    <div class="s12 center">
-						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
-						    <h5 class="center">@Naam</h5>
-					    </div>
                         <div class="s12">
                             <p class="left-information">@UserId</p>
 							<p class="right-information right-align">Gebruiker nummer</p>
@@ -131,8 +126,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="margin col m8">
-                    <button class="btn waves-effect waves-light right" type="submit" name="buttonSubmit">Bevestigen</button>
+                <div class="margin col s4 left">
+                    <button class="btn waves-effect waves-light center" type="submit" name="buttonSubmit">Bevestigen</button>
                 </div>
             </form>
         </div>
