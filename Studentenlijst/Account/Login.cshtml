@@ -20,8 +20,8 @@
     }
 
     // Setup validation
-    Validation.RequireField("email", null);
-    Validation.RequireField("password", null);
+    Validation.RequireField("email", "Vul email in");
+    Validation.RequireField("password", "Vul wachtwoord in");
 
     // If this is a POST request, validate and process data
     if (IsPost) {
@@ -48,7 +48,7 @@
     <form method="post" class="login-form" enctype="multipart/form-data">
         @AntiForgery.GetHtml()
         @* If one or more validation errors exist, show an error *@
-        @Html.ValidationSummary("Log in was unsuccessful. Please correct the errors and try again.", excludeFieldErrors: true, htmlAttributes: null)
+        @Html.ValidationSummary("Log in was unsuccessful.", excludeFieldErrors: true, htmlAttributes: null)
         <!--Logo-->
         <div class="row">
 			<div class="input-field col s12 center">

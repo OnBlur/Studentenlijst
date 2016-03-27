@@ -55,6 +55,13 @@
             Response.Redirect(Href("~/Photo/View", db.GetLastInsertId()));
         }
     }
+    if(IsPost){
+        var galleryName = Request["Name"];
+
+        var updateCommand = "UPDATE Galleries SET Name=@0 WHERE Id = @1";
+        db.Execute(updateCommand, galleryName, galleryId);
+        Response.Redirect("~/View/" + @galleryId);
+    }
 }
 
 <section id="table" class="section">
@@ -69,21 +76,24 @@
                     {
                         <span class="white-text table-header-text left">@gallery.Name - @photos.Count Afbeeldingen</span>
                     }
+                <a href="#edit" class="modal-trigger"><i class="small material-icons tooltipped right" style="padding-top: 5px; color: #fff" data-position="top" data-tooltip="Edit @gallery.Name">edit</i></a>
             </div>
             <div class="intro col s12 m12">
-                @foreach (var photo in photos)
-                {
-                    <div class="col s3">
-                        <a href="~/Photo/View/@photo.Id" title="View @photo.FileTitle">
-                            <img alt="thumbnail of @photo.FileTitle" src="~/Photo/Thumbnail/@photo.Id" class="responsive-img" />
-                        </a>
-                    </div>
-                }
+                <div class="row">
+                    @foreach (var photo in photos)
+                    {
+                        <div class="col s12 m3">
+                            <a href="~/Photo/View/@photo.Id" title="View @photo.FileTitle">
+                                <img alt="thumbnail of @photo.FileTitle" src="~/Photo/Thumbnail/@photo.Id" class="responsive-img" />
+                            </a>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Toevoegen van een leerling foto -->
+<!-- Toevoegen van een foto -->
 <div id="modal-add" class="modal modal-fixed-footer">
     <form method="post" class="col s12" enctype="multipart/form-data">
 	    <div class="modal-content">
@@ -100,6 +110,26 @@
         <div class="modal-footer">
             <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
             <button type="submit" name="buttonSubmit" class="waves-effect waves-green btn-flat modal-action modal-close">Upload</button>
+        </div>
+	</form>
+</div>
+<!-- Edit Gallery name -->
+<div id="edit" class="modal">
+    <form method="post" class="col s12" enctype="multipart/form-data">
+	    <div class="modal-content">
+            <h4 class="center">Galerij @gallery.Name naam wijzigen</h4>
+            <div class="row">
+                <div class="row margin">
+				    <div class="input-field margin col s12">
+					    <input id="Name" name="Name" type="text" value="@gallery.Name"/>
+                        <label for="Name">@gallery.Name</label>
+				    </div>
+                </div>
+			</div>
+	    </div>
+        <div class="modal-footer">
+            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
+            <button type="submit" name="buttonEdit" class="waves-effect waves-green btn-flat modal-action modal-close">Wijzig</button>
         </div>
 	</form>
 </div>
