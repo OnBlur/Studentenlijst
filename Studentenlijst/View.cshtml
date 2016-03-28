@@ -69,6 +69,7 @@
 	<div class="container">
         <div class="row z-depth-1 hoverable">
             <div class="col s12 m12 blue darken-2 table-header">
+                <a href="~/Default"><i class="small material-icons tooltipped left" style="padding-top: 5px; color: #fff" data-position="top" data-tooltip="Terug">backspace</i></a>
                 @if (photos.Count == 1)
                     {
                         <span class="white-text table-header-text left">@gallery.Name - 1 Afbeelding</span>
@@ -80,9 +81,6 @@
                 <a href="#edit" class="modal-trigger"><i class="small material-icons tooltipped right" style="padding-top: 5px; color: #fff" data-position="top" data-tooltip="Edit @gallery.Name">edit</i></a>
             </div>
             <div class="intro col s12 m12">
-
-                <a href="~/Default"><i class="small material-icons left">backspace</i></a>
-
                 <div class="row">
                     @foreach (var photo in photos)
                     {
@@ -103,16 +101,6 @@
 	    <div class="modal-content">
             <h4 class="center">Afbeelding toevoegen aan @gallery.Name</h4>
             <div class="row">
-
-               <p class="col s6">Studentnummer:</p>
-                <div class="row input-field">
-                 <div class="left-align col s6">
-                  <input id="fotostudentnummer" name="fotostudentnummer" type="text" value=""/>
-                                
-                            </div>
-                             </div>
-
-
                 <div class="col s6">
                     @FileUpload.GetHtml(addText: "Meer toevoegen", uploadText: "Upload", includeFormTag: false)
                 </div>

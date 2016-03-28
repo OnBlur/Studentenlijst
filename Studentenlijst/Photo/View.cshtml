@@ -60,7 +60,7 @@
 						<a href="~/Photo/Edit/@photoId"><i class="small right material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>
 					</div>
 					<div class="row center margin">
-                        <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="small" })" />
+                        <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
 						<h5 class="center">@photo.FileTitle</h5>
                         <a class="download" href="~/Photo/Full/@photoId" title="Download: @(photo.FileTitle + photo.FileExtension)">Download full photo!</a> (@(photo.FileSize / 1024) KB)
 					</div>

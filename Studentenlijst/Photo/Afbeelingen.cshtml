@@ -38,25 +38,18 @@
 	<div class="container">
         <div class="row z-depth-1 hoverable">
             <div class="col s12 m12 blue darken-2 table-header">
-               
+                <a href="~/Default"><i class="small material-icons tooltipped left" style="padding-top: 5px; color: #fff" data-position="top" data-tooltip="Terug">backspace</i></a>
+                <span class="white-text table-header-text left">Informatica klassen</span>
             </div>
-
-
 			<div class="intro col s12 m12">
-
-                <a href="~/Default"><i class="small material-icons left">backspace</i></a>
-
                 <div class="row">
-
-
                     @foreach (var gallery in galleries)
                     {
                         <div class="col s12 m3">
                             <a href="~/View/@gallery.Id">
-                                <img alt="Images from @gallery.Name" src="~/Thumbnail/@gallery.Id" class="thumbnail-no-border" />
+                                <img alt="Images from @gallery.Name" src="~/Thumbnail/@gallery.Id" class="responsive-img" />
                                 <div class="col s12">
-                                    <span class="below-image">@gallery.Name</span><br>
-                                    <span class="image-overlay hide-from-mobile">@gallery.PhotoCount Foto('s)</span>
+                                    <span class="below-image">@gallery.Name - @gallery.PhotoCount Foto('s)</span><br>
                                 </div>
                             </a>
                         </div>
