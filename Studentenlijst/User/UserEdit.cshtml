@@ -16,6 +16,7 @@
 
     var Naam = "";
     var Email = "";
+    var Bio = "";
     var RoleId = "";
     var UserId = "-1";
 
@@ -29,6 +30,7 @@
             if(row != null) {
                 Naam = row.Naam;
                 Email = row.Email;
+                Bio = row.Bio;
                 RoleId = row.RoleId.ToString();
             }
             else{
@@ -45,11 +47,12 @@
         Email = Request.Form["Email"];
         RoleId = Request.Form["RoleId"];
         UserId = Request.Form["UserId"];
+        Bio = Request.Form["Bio"];
 
         if(Validation.IsValid()){
             var db = Database.Open("StudentenLijst");
-            var updateCommand = "UPDATE UserProfile SET Naam=@0, Email=@1, RoleId=@2 WHERE UserId=@3";
-            db.Execute(updateCommand, Naam, Email, RoleId, UserId);
+            var updateCommand = "UPDATE UserProfile SET Naam=@0, Email=@1, RoleId=@2, Bio=@3 WHERE UserId=@4";
+            db.Execute(updateCommand, Naam, Email, RoleId, Bio, UserId);
             Response.Redirect("~/Admin");
         }
     }
@@ -123,6 +126,13 @@
                                 <label for="password">Nieuwe wachtwoord</label>
                             </div>
                             <p class="right-align col s6">Wachtwoord</p>
+                        </div>
+                        <div class="row input-field">
+                            <div class="col s6">
+                                <textarea id="bio" class="materialize-textarea margin" name="bio" title="Mijn Biografie"></textarea>
+                                <label for="bio">@Bio</label>
+                            </div>
+                            <p class="right-align col s6">Biografie</p>
                         </div>
                     </div>
                 </div>
