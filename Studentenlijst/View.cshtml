@@ -99,13 +99,15 @@
 	    <div class="modal-content">
             <h4 class="center">Afbeelding toevoegen aan @gallery.Name</h4>
             <div class="row">
-                <div class="col s6">
+                <div class="col s12">
                     @FileUpload.GetHtml(addText: "Meer toevoegen", uploadText: "Upload", includeFormTag: false)
                 </div>
+			</div>
+            <div class="row margin">
                 <div class="col s12">
                     <p class="message info">The default file size is limited to 4MB. To change this you will need to update the 'HttpRuntimeSection/MaxRequestLength' section in web.config. </p>
                 </div>
-			</div>
+            </div>
 	    </div>
         <div class="modal-footer">
             <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
