@@ -15,7 +15,9 @@
     var selectCommand = "SELECT * FROM Student";
     var searchTerm = "";
 
-    // Personelijke gegevens
+    var fotostudentnummer = "";
+
+    // Persoonlijke gegevens
     var Naam = "";
     var Voorvoegsel = "";
     var Roepnaam = "";
@@ -53,7 +55,7 @@
     // Add Geschenk in modal
     if(IsPost){
         if(Validation.IsValid()){
-            // Personelijke gegevens
+            // Persoonlijke gegevens
             Naam = Request.Form["Naam"];
             Voorvoegsel = Request.Form["Voorvoegsel"];
             Roepnaam = Request.Form["Roepnaam"];
@@ -81,6 +83,8 @@
             AankomstBijIsatcode = Request.Form["AankomstBijIsatcode"];
             Aanmeldingdatum = Request.Form["Aanmeldingdatum"];
             Datumdefinitief = Request.Form["Datumdefinitief"];
+            fotostudentnummer = Request.Form["StudentNummer"];
+            
 
             var insertCommand = "INSERT INTO Student (Naam, Voorvoegsel, Roepnaam, Geslacht, Geboortedatum, Adres, Land, Telefoon, Mobiel, Email, Emailinstelling, Opleiding, Fase, Groep, Mentor, StudentNummer, Vooropleiding, Etiketnaam, Etiketregel1, Etiketregel2, Herinschrijving, DatumVan, DatumTot, AankomstBijIsatcode, Aanmeldingdatum, Datumdefinitief) VALUES(@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19, @20, @21, @22, @23, @24, @25)";
             db.Execute(insertCommand, Naam, Voorvoegsel, Roepnaam, Geslacht, Geboortedatum, Adres, Land, Telefoon, Mobiel, Email, Emailinstelling, Opleiding, Fase, Groep, Mentor, StudentNummer, Vooropleiding, Etiketnaam, Etiketregel1, Etiketregel2, Herinschrijving, DatumVan, DatumTot, AankomstBijIsatcode, Aanmeldingdatum, Datumdefinitief);
@@ -110,7 +114,9 @@
                     tableStyle: "bordered striped responsive-table",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
-                        grid.Column(format: @<figure class="card-profile-image"><img src="https://placehold.it/350x350" alt="profile image" class="responsive-img materialboxed" data-caption="Naam1"></figure>),
+                        grid.Column(format: @<figure class="card-profile-image"><img src="@Href("~/Photo/Thumbnail2", fotostudentnummer, new { size="xsmall" })" alt="profile image" class="responsive-img materialboxed" data-caption="@item.Naam"></figure>),
+                        
+
                         grid.Column("Naam"),
                         grid.Column("Mobiel"),
                         grid.Column("Email"),
@@ -133,14 +139,14 @@
     <form method="post" class="col s12" enctype="multipart/form-data">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s6"><a class="active" href="#personelijkeInfo">Personelijke informatie</a></li>
+                <li class="tab col s6"><a class="active" href="#persoonlijkeInfo">Persoonlijke informatie</a></li>
                 <li class="tab col s6"><a href="#studieInfo">Studie informatie</a></li>
             </ul>
         </div>
 	    <div class="modal-content">
             <div class="row">
-                <!-- Personelijke informatie -->
-                <div id="personelijkeInfo" class="col s12">
+                <!-- Persoonlijke informatie -->
+                <div id="persoonlijkeInfo" class="col s12">
 			        <div class="row margin">
 				        <div class="input-field margin col s6">
 					        <input id="naam" name="Naam" type="text" value="@Request.Form["Naam"]">
@@ -300,7 +306,7 @@
             </div>
 	    </div>
         <div class="modal-footer">
-            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
+            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Annuleer</a>
             <button type="submit" name="buttonSubmit" class="waves-effect waves-green btn-flat modal-action modal-close">Voeg toe</button>
         </div>
 	</form>
