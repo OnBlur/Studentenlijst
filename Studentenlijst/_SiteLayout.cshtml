@@ -29,7 +29,7 @@
 								</div>
 								<div class="chip">
 									@if(User.IsInRole("admin")){
-                                        <a>ADMIN</a>
+                                       <a href="~/User/UserMore/2"> ADMIN</a> 
                                     }
                                     else{
                                         <a>USER</a>
@@ -50,6 +50,11 @@
 		            <i class="right material-icons activator">add</i>
 	            </a>
 	            <ul>
+                    <li>
+                       <a class="btn-floating btn-large red modal-trigger" href="#modal-addd" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Informatie">Informatie</i>
+                        </a>
+				    </li>
                     <li>
                         <a class="btn-floating red" href="~/Default" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
                             <i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i>
@@ -82,6 +87,11 @@
                 <form id="logoutForm" action="~/Account/Logout" method="post">
                     @AntiForgery.GetHtml()
                     <ul>
+                        <li>
+                        <a id="demo01" class="btn-floating purple" href="#modal-add" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Informatie">Information</i>
+                        </a>
+				    </li>
                         <li>
                             <a class="btn-floating red" href="~/Default" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
                                 <i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i>

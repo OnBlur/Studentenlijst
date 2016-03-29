@@ -66,7 +66,7 @@
 					</div>
                     <div class="row margin">
                         <p class="left-information left-align col s6">@photoId</p>
-						<p class="right-information right-align col s6">Foto ID</p>
+						<p class="right-information right-align col s6">Fotonummer</p>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                                     <text>@photo.Description</text>
                                 }
                                 else {
-                                    <text>No Description</text>
+                                    <text>Geen commentaar</text>
                                 }
                             </p>
 							<p class="right-information right-align">Omschrijving</p>
@@ -123,7 +123,7 @@
                                 <li>
                                     <div class="collapsible-header">
                                         <i class="material-icons">comment</i>
-                                        <a href="~/User/UserMore/@comment.UserId" class="left-align" title="View @(comment.Email)'s profile">@comment.Email</a> commented at @comment.CommentDate</div>
+                                        <a href="~/User/UserMore/@comment.UserId" class="left-align" title="View @(comment.Email)'s profile">@comment.Email</a> Toegevoegd op: @comment.CommentDate</div>
                                     <div class="collapsible-body" style="background-color: #fff"><p>@comment.CommentText</p></div>
                                 </li>
                             }
