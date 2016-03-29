@@ -84,10 +84,10 @@
                     tableStyle: "bordered striped responsive-table",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
-                        grid.Column("UserId"),
+                        grid.Column("UserId", "Gebruikers ID"),
                         grid.Column("Naam"),
                         grid.Column("Email"),
-                        grid.Column("RoleId"),
+                        grid.Column("RoleId", "Rechten ID"),
                         grid.Column(format: @<a href="~/User/UserMore/@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
                         grid.Column(format: @<a href="~/User/UserEdit?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
                         grid.Column(format: @<a href="~/User/UserDelete?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
@@ -123,20 +123,20 @@
             <div class="row margin">
 				<div class="input-field margin col s12">
                     <input type="text" class="validate" id="email" name="email" value="@email" @Validation.For("email")/>
-                    <label for="email" class="center-align" @if (!ModelState.IsValidField("email")) {<text>class="error-label"</text>}>Email address</label>
+                    <label for="email" class="center-align" @if (!ModelState.IsValidField("email")) {<text>class="error-label"</text>}>Email adres</label>
                     @Html.ValidationMessage("email")
 				</div>
 			</div>
             <div class="row margin">
 				<div class="input-field margin col s12">
 				    <input type="password" class="validate" id="password" name="password" @Validation.For("password")/>
-				    <label for="password" @if (!ModelState.IsValidField("password")) {<text>class="error-label"</text>}>Password</label>
+				    <label for="password" @if (!ModelState.IsValidField("password")) {<text>class="error-label"</text>}>Wachtwoord</label>
                     @Html.ValidationMessage("password")
 				</div>
 			</div>
 	    </div>
         <div class="modal-footer">
-            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Cancel</a>
+            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Annuleren</a>
             <button class="waves-effect waves-green btn-flat" type="submit" name="action">Voeg toe</button>
         </div>
 	</form>

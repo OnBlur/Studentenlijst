@@ -718,6 +718,11 @@ textarea.materialize-textarea:focus:not([readonly]) {
     vertical-align: top;
     white-space: nowrap;
 }
+
+.right-align{
+    color: #666;
+}
+
 .meer-header-action{
     padding-top: 20px !important;
 }
