@@ -61,7 +61,7 @@
 			<div class="input-field col s12">
 				<i class="material-icons prefix">email</i>
                 <input type="text" id="email" name="email" value="@email" @Validation.For("email")/>
-                <label for="email" class="center-align" @if (!ModelState.IsValidField("email")) {<text>class="error-label"</text>}>Email address</label>
+                <label for="email" class="center-align" @if (!ModelState.IsValidField("email")) {<text>class="error-label"</text>}>Email-adres:</label>
                 @Html.ValidationMessage("email")
 			</div>
 		</div>
@@ -70,7 +70,7 @@
 			<div class="input-field col s12">
 				<i class="material-icons prefix">lock</i>
 				<input type="password" id="password" name="password" @Validation.For("password")/>
-				<label for="password" @if (!ModelState.IsValidField("password")) {<text>class="error-label"</text>}>Password</label>
+				<label for="password" @if (!ModelState.IsValidField("password")) {<text>class="error-label"</text>}>Wachtwoord:</label>
                 @Html.ValidationMessage("password")
 			</div>
 		</div>
@@ -78,13 +78,13 @@
         <div class="row">          
 			<div class="input-field col s12 m12 login-text">
                 <input type="checkbox" id="remember-me" name="rememberMe" value="true" checked="@rememberMe" />
-				<label class="checkbox" for="remember-me">Remember me?</label>
+				<label class="checkbox" for="remember-me">Onthoud mij!</label>
 			</div>
 		</div>
         <!--Login button-->
         <div class="row">
 			<div class="input-field col s12">
-                <button class="btn waves-effect waves-light col s12" type="submit" name="action">Login</button>
+                <button class="btn waves-effect waves-light col s12" type="submit" name="action">Inloggen</button>
 			</div>
 		</div>
     </form>

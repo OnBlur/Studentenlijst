@@ -50,11 +50,7 @@
 		            <i class="right material-icons activator">add</i>
 	            </a>
 	            <ul>
-                    <li>
-                       <a class="btn-floating btn-large red modal-trigger" href="#modal-addd" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
-                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Informatie">Informatie</i>
-                        </a>
-				    </li>
+                    
                     <li>
                         <a class="btn-floating red" href="~/Default" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
                             <i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i>
@@ -68,6 +64,11 @@
 				    <li>
                         <a class="btn-floating yellow darken-1" href="~/Admin" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
                             <i class="large material-icons tooltipped" data-position="left" data-tooltip="Admin">settings</i>
+                        </a>
+				    </li>
+                    <li>
+                       <a class="btn-floating purple modal-trigger" href="#modal-addd" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Informatie">info_outline</i>
                         </a>
 				    </li>
 		            <li>
@@ -87,11 +88,7 @@
                 <form id="logoutForm" action="~/Account/Logout" method="post">
                     @AntiForgery.GetHtml()
                     <ul>
-                        <li>
-                        <a id="demo01" class="btn-floating purple" href="#modal-add" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
-                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Informatie">Information</i>
-                        </a>
-				    </li>
+                        
                         <li>
                             <a class="btn-floating red" href="~/Default" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
                                 <i class="large material-icons tooltipped" data-position="left" data-tooltip="Studenten">supervisor_account</i>
@@ -102,6 +99,11 @@
                                 <i class="large material-icons tooltipped" data-position="left" data-tooltip="Foto's">camera</i>
                             </a>
 				        </li>
+                        <li>
+                       <a class="btn-floating purple modal-trigger" href="#modal-addd" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;">
+                            <i class="large material-icons tooltipped" data-position="left" data-tooltip="Informatie">info_outline</i>
+                        </a>
+				    </li>
                         <li>
                             <a class="btn-floating blue" href="javascript:document.getElementById('logoutForm').submit()">
                                 <i class="large material-icons tooltipped" data-position="left" data-tooltip="Uitloggen">exit_to_app</i>
