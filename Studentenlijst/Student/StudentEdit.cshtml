@@ -11,6 +11,8 @@
 
     WebSecurity.RequireAuthenticatedUser();
 
+    var db = Database.Open("StudentenLijst");
+
     // Personelijke gegevens
     var Naam = "";
     var Voorvoegsel = "";
@@ -40,12 +42,13 @@
     var Aanmeldingdatum = "";
     var Datumdefinitief = "";
 
+    var photos = db.Query("SELECT Id, FileTitle FROM Photos").ToList();
+
     if (!IsPost)
     {
         if (!Request.QueryString["StudentNummer"].IsEmpty() && Request.QueryString["StudentNummer"].IsInt())
         {
             StudentNummer = Convert.ToInt32(Request.QueryString["StudentNummer"]);
-            var db = Database.Open("StudentenLijst");
             var dbCommand = "SELECT * FROM Student WHERE StudentNummer = @0";
             var row = db.QuerySingle(dbCommand, StudentNummer);
             if (row != null)
@@ -121,7 +124,6 @@
 
         if (Validation.IsValid())
         {
-            var db = Database.Open("StudentenLijst");
             var updateCommand = "UPDATE Student SET Naam = @0, Voorvoegsel = @1, Roepnaam = @2, Geslacht = @3, Geboortedatum = @4, Adres = @5, Land = @6, Telefoon = @7, Mobiel = @8, Email = @9, Emailinstelling = @10, Opleiding = @11, Fase = @12, Groep = @13, Mentor = @14, Vooropleiding = @15, Etiketnaam = @16, Etiketregel1 = @17, Etiketregel2 = @18, Herinschrijving = @19, DatumVan = @20, DatumTot = @21, AankomstBijIsatcode = @22, Aanmeldingdatum = @23, Datumdefinitief = @24 WHERE StudentNummer = @25";
             db.Execute(updateCommand, Naam, Voorvoegsel, Roepnaam, Geslacht, Geboortedatum, Adres, Land, Telefoon, Mobiel, Email, Emailinstelling, Opleiding, Fase, Groep, Mentor, Vooropleiding, Etiketnaam, Etiketregel1, Etiketregel2, Herinschrijving, DatumVan, DatumTot, AankomstBijIsatcode, Aanmeldingdatum, Datumdefinitief, StudentNummer);
             Response.Redirect("~/Default");
@@ -144,20 +146,20 @@
                 <input type="hidden" name="StudentNummer" value="@Request["StudentNummer"]" />
                 <div class="meer-header col s4 left">
                     <div class="col s12 m12 blue darken-2 table-header">
-                        
                     </div>
                     <div class="card-panel">
-					    <div class="meer-header-action row margin">
+					    <div class="meer-header-action row">
 						    <a href="~/Default"><i class="small material-icons left tooltipped" data-position="top" data-tooltip="Terug">backspace</i></a>
 					        <a href="~/Student/StudentDelete?studentnummer=@StudentNummer"><i class="small material-icons right tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>
                         </div>
-					    <div class="row center margin">
-						    <img src="~/Images/Studenten/lash1500.jpg" style="width:200px;" alt="profile image" class="responsive-img circle">
-						    <h5 class="center">@Naam</h5>
-					    </div>
-                        
+					    @foreach (var photo in photos){
+                            if(photo.FileTitle == Convert.ToString(StudentNummer)){
+                                <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
+                            }
+                        }
+						<h5 class="center">@Naam</h5>
                     </div>
-                    
+                    <button class="btn waves-effect waves-light center" type="submit" name="buttonSubmit">Bevestigen</button>
                 </div>
                 <div class="meer-pers-info col s8 right">
                     <div class="col s12 m12 blue darken-2 table-header">
@@ -365,10 +367,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col s12">
-                        <button class="btn waves-effect waves-light center" type="submit" name="buttonSubmit">Bevestigen</button>
-                    </div>
             </form>
         </div>
     </div>
