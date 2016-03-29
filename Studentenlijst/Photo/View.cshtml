@@ -62,7 +62,7 @@
 					<div class="row center margin">
                         <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
 						<h5 class="center">@photo.FileTitle</h5>
-                        <a class="download" href="~/Photo/Full/@photoId" title="Download: @(photo.FileTitle + photo.FileExtension)">Download full photo!</a> (@(photo.FileSize / 1024) KB)
+                        <a class="download" href="~/Photo/Full/@photoId" title="Download: @(photo.FileTitle + photo.FileExtension)">Download foto!</a> (@(photo.FileSize / 1024) KB)
 					</div>
                     <div class="row margin">
                         <p class="left-information left-align col s6">@photoId</p>
@@ -85,19 +85,19 @@
                                     <text>No Description</text>
                                 }
                             </p>
-							<p class="right-information right-align">Description</p>
+							<p class="right-information right-align">Omschrijving</p>
 						</div>
 						<div class="information-section">
 							<p class="left-information left-align"><a href="~/User/UserMore/@user.UserId" title="@user.Email">@user.Email</a></p>
-							<p class="right-information right-align">Uploaded by</p>
+							<p class="right-information right-align">Toegevoegd door</p>
 						</div>
 						<div class="information-section grey lighten-3">
 							<p class="left-information left-align">@photo.UploadDate</p>
-							<p class="right-information right-align">Upload date</p>
+							<p class="right-information right-align">Toegevoegd op</p>
 						</div>
 						<div class="information-section">
 							<p class="left-information left-align"><a href="~/View/@gallery.Id" title="@gallery.Name">@gallery.Name</a></p>
-							<p class="right-information right-align">Gallery</p>
+							<p class="right-information right-align">Gallerij</p>
 						</div>
 					</div>
 				</div>
@@ -107,13 +107,13 @@
                     @switch ((int)comments.Count)
                         {
                             case 0:
-                                <span class="white-text table-header-text left">Nobody has commented on this photo</span>
+                                <span class="white-text table-header-text left">Niemand heeft hierop gereageerd</span>
                                 break;
                             case 1:
-                                <span class="white-text table-header-text left">This photo has generated one comment.</span>
+                                <span class="white-text table-header-text left">Deze foto heeft 1 reactie</span>
                                 break;
                             default:
-                                <span class="white-text table-header-text left">This photo has generated @comments.Count comments.</span>
+                                <span class="white-text table-header-text left">Deze foto heeft @comments.Count reactie's.</span>
                                 break;
                         }
                 </div>
@@ -131,17 +131,17 @@
                 </div>
                 <div class="meer-pers-info col s8 right">
                     <div class="col s12 m12 blue darken-2 table-header">
-                        <span class="white-text table-header-text left">Add comment</span>
+                        <span class="white-text table-header-text left">Reageren</span>
                     </div>
                     <div class="card-panel">
 					    <div class="information">
                             <form method="post" action="">
                                 <div class="input-field">
                                     <textarea id="newComment" class="materialize-textarea margin" name="newComment" title="Your comment"></textarea>
-                                    <label for="newComment">Textarea</label>
+                                    <label for="newComment"></label>
                                 </div>
                                 <p class="form-actions">
-                                    <input type="submit" class="btn waves-effect waves-light right" title="Add comment" value="Add comment" />
+                                    <input type="submit" class="btn waves-effect waves-light right" title="Add comment" value="Reageren" />
                                 </p>
                             </form>
                         </div>
