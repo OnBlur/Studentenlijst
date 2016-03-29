@@ -15,8 +15,6 @@
     var selectCommand = "SELECT * FROM Student";
     var searchTerm = "";
 
-    var fotostudentnummer = "";
-
     // Persoonlijke gegevens
     var Naam = "";
     var Voorvoegsel = "";
@@ -45,6 +43,8 @@
     var AankomstBijIsatcode = "";
     var Aanmeldingdatum = "";
     var Datumdefinitief = "";
+
+    var photos = db.Query("SELECT Id, FileTitle FROM Photos").ToList();
 
     // Search input
     if(!Request.QueryString["search"].IsEmpty() ) {
@@ -83,8 +83,6 @@
             AankomstBijIsatcode = Request.Form["AankomstBijIsatcode"];
             Aanmeldingdatum = Request.Form["Aanmeldingdatum"];
             Datumdefinitief = Request.Form["Datumdefinitief"];
-            fotostudentnummer = Request.Form["StudentNummer"];
-            
 
             var insertCommand = "INSERT INTO Student (Naam, Voorvoegsel, Roepnaam, Geslacht, Geboortedatum, Adres, Land, Telefoon, Mobiel, Email, Emailinstelling, Opleiding, Fase, Groep, Mentor, StudentNummer, Vooropleiding, Etiketnaam, Etiketregel1, Etiketregel2, Herinschrijving, DatumVan, DatumTot, AankomstBijIsatcode, Aanmeldingdatum, Datumdefinitief) VALUES(@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19, @20, @21, @22, @23, @24, @25)";
             db.Execute(insertCommand, Naam, Voorvoegsel, Roepnaam, Geslacht, Geboortedatum, Adres, Land, Telefoon, Mobiel, Email, Emailinstelling, Opleiding, Fase, Groep, Mentor, StudentNummer, Vooropleiding, Etiketnaam, Etiketregel1, Etiketregel2, Herinschrijving, DatumVan, DatumTot, AankomstBijIsatcode, Aanmeldingdatum, Datumdefinitief);
@@ -114,9 +112,13 @@
                     tableStyle: "bordered striped responsive-table",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
-                        grid.Column(format: @<figure class="card-profile-image"><img src="@Href("~/Photo/Thumbnail2", fotostudentnummer, new { size="xsmall" })" alt="profile image" class="responsive-img materialboxed" data-caption="@item.Naam"></figure>),
-                        
-
+                        grid.Column(format: @<figure class="card-profile-image">
+                            @foreach (var photo in photos){
+                                if(photo.FileTitle == StudentNummer){
+                                    <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
+                                }
+                            }
+                        </figure>),
                         grid.Column("Naam"),
                         grid.Column("Mobiel"),
                         grid.Column("Email"),
@@ -125,8 +127,7 @@
                         grid.Column("StudentNummer"),
                         grid.Column(format: @<a href="~/Student/StudentMore?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
                         grid.Column(format: @<a href="~/Student/StudentEdit?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
-                        grid.Column(format: @<a href="~/Student/StudentDelete?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
-                                
+                        grid.Column(format: @<a href="~/Student/StudentDelete?studentnummer=@item.StudentNummer"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)        
                         )
                     )
                 </div>
