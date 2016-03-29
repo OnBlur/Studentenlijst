@@ -84,10 +84,10 @@
                     tableStyle: "bordered striped responsive-table",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
-                        grid.Column("UserId", "Gebruikers ID"),
+                        grid.Column("UserId", "Gebruikers nummer"),
                         grid.Column("Naam"),
-                        grid.Column("Email"),
-                        grid.Column("RoleId", "Rechten ID"),
+                        grid.Column("Email", "Email-adres"),
+                        grid.Column("RoleId", "Rechten"),
                         grid.Column(format: @<a href="~/User/UserMore/@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Meer">search</i></a>),
                         grid.Column(format: @<a href="~/User/UserEdit?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Aanpassen">edit</i></a>),
                         grid.Column(format: @<a href="~/User/UserDelete?userid=@item.UserId"><i class="small material-icons tooltipped" data-position="top" data-tooltip="Verwijderen">delete</i></a>)
@@ -103,7 +103,7 @@
     <form method="post" class="login-form col s12" enctype="multipart/form-data">
         @AntiForgery.GetHtml()
         @* If at least one validation error exists, notify the user *@
-        @Html.ValidationSummary("Account creation was unsuccessful. Please correct the errors and try again.", excludeFieldErrors: true, htmlAttributes: null)
+        @Html.ValidationSummary("Account aanmaken mislukt.", excludeFieldErrors: true, htmlAttributes: null)
 	    <div class="modal-content">
 		    <h4 class="center">Gebruiker toevoegen</h4>
             <div class="row margin">
@@ -123,7 +123,7 @@
             <div class="row margin">
 				<div class="input-field margin col s12">
                     <input type="text" class="validate" id="email" name="email" value="@email" @Validation.For("email")/>
-                    <label for="email" class="center-align" @if (!ModelState.IsValidField("email")) {<text>class="error-label"</text>}>Email adres</label>
+                    <label for="email" class="center-align" @if (!ModelState.IsValidField("email")) {<text>class="error-label"</text>}>Email-adres</label>
                     @Html.ValidationMessage("email")
 				</div>
 			</div>
