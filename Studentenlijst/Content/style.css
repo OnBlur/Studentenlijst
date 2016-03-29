@@ -19,6 +19,9 @@ i {
     /* Opera */
     animation: cssAnimation 0s ease-in 5s forwards;
 }
+.materialboxed {
+    display: initial !important;
+}
 .waves-button-input{
     background-color: #ff4081 !important;
     border: none;

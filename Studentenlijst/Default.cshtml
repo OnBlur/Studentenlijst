@@ -114,12 +114,12 @@
                     tableStyle: "bordered striped responsive-table",
                     alternatingRowStyle: "alt",
                     columns: grid.Columns(
-                        grid.Column(format: @<figure class="card-profile-image"><img src="@Href("~/Photo/Thumbnail2", fotostudentnummer, new { size="xsmall" })" alt="profile image" class="responsive-img materialboxed" data-caption="@item.Naam"></figure>),
                         
-
+                        
+                        
                         grid.Column("Naam"),
                         grid.Column("Mobiel"),
-                        grid.Column("Email"),
+                        grid.Column("Email", "E-mail"),
                         grid.Column("Opleiding"),
                         grid.Column("Groep"),
                         grid.Column("StudentNummer", "Studentnummer"),

@@ -113,7 +113,7 @@
 					    <div class="row center margin">
                             @foreach (var photo in photos){
                                 if(photo.FileTitle == StudentNummer){
-                                    <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
+                                    <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="LARGE" })" />
                                 }
                             }
 						    <h5 class="center">@Naam</h5>
