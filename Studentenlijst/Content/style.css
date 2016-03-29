@@ -65,14 +65,6 @@ address{
 	margin-left:5px;
 	border-radius: 0px;
 }
-.user{
-	-webkit-border-top-left-radius: 25px;
-	-webkit-border-bottom-left-radius: 25px;
-	-moz-border-radius-topleft: 25px;
-	-moz-border-radius-bottomleft: 25px;
-	border-top-left-radius: 25px;
-	border-bottom-left-radius: 25px;
-}
 @media screen and (max-width: 520px) {
 	.search{
 		width:100%
