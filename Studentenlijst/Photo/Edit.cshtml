@@ -25,8 +25,8 @@
 
     Page.Title = "Edit Photo - " + photo.FileTitle;
 
-    Validation.RequireField("Titel", "De foto moet een titel hebben!");
-    Validation.RequireField("description", "U moet een beschrijving toevoegen");
+    Validation.RequireField("fileTitle", "Naam is verplicht");
+    Validation.RequireField("description", "Omschrijving is verplicht");
 
     if (IsPost && Validation.IsValid()) 
     {
@@ -53,11 +53,11 @@
 					<div class="row center margin">
                         <img class="responsive-img materialboxed" data-caption="@photo.FileTitle" alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
 						<h5 class="center">@photo.FileTitle</h5>
-                        <a class="download" href="~/Photo/Full/@photoId" title="Download: @(photo.FileTitle + photo.FileExtension)">Download foto!</a> (@(photo.FileSize / 1024) KB)
+                        <a class="download" href="~/Photo/Full/@photoId" title="Download: @(photo.FileTitle + photo.FileExtension)">Download full photo!</a> (@(photo.FileSize / 1024) KB)
 					</div>
                     <div class="row margin">
                         <p class="left-information left-align col s6">@photoId</p>
-						<p class="right-information right-align col s6">Fotonummer</p>
+						<p class="right-information right-align col s6">Foto ID</p>
                     </div>
                 </div>
             </div>
@@ -77,11 +77,11 @@
                         </div>
                         <div class="row input-field">
                             <div class="col s6">
-                                <input id="description" name="description" title="Photo description" type="text" placeholder="Foto beschrijving" value="@photo.Description" @Validation.For("description")/>
+                                <input id="description" name="description" title="Photo description" type="text" placeholder="Photo description" value="@photo.Description" @Validation.For("description")/>
                                 <label for="description">@photo.Description</label>
                                 @Html.ValidationMessage("Description")
                             </div>
-                            <p class="right-align col s6">Omschrijving</p>
+                            <p class="right-align col s6">Beschrijving</p>
                         </div>
 				    </div>
                     <button class="btn waves-effect waves-light right" type="submit" name="buttonSubmit">Bevestigen</button>
