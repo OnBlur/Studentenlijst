@@ -9,7 +9,7 @@ Dit is niet echt wenselijk. Een overzichtelijke pagina is zeer wenselijk.
 
 Projectbeschrijving:
 De data over studenten, zoals foto en administratieve gegevens zijn verdeelt over meerdere bestanden/websites. 
-Het is wenselijk dat deze in een Ã©Ã©n overzichtelijke pagina komen. 
+Het is wenselijk dat deze in een één overzichtelijke pagina komen. 
 Het moet mogelijk zijn om te kunnen zoeken op verschillende velden en eventueel wat gegevens aan te passen. 
 
 Gewenste resultaten/eindproducten:
@@ -21,6 +21,8 @@ Studentenoverzicht NHL
 C#, .NET WebPages & Material Design
 
 ### How do I get set up? ###
+
+WebMatrix
 
 Login: admin@gmail.com
 password: 123456
